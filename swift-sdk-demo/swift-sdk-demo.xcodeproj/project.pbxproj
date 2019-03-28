@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,12 @@
 		D30FB5832248D8E900F233EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5812248D8E900F233EF /* Main.storyboard */; };
 		D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5842248D8EA00F233EF /* Assets.xcassets */; };
 		D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */; };
+		D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100771224B56BE00297DC4 /* TabBarController.swift */; };
+		D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100773224B668A00297DC4 /* ConversationListViewController.swift */; };
+		D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100775224B66CD00297DC4 /* MessageListViewController.swift */; };
+		D3100778224B6BDB00297DC4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100777224B6BDB00297DC4 /* Client.swift */; };
+		D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D364739B224CD8E300AC14DB /* SessionStatusView.xib */; };
+		D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364739D224CD96F00AC14DB /* SessionStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		D30FB5842248D8EA00F233EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D30FB5872248D8EA00F233EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D30FB5892248D8EA00F233EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3100771224B56BE00297DC4 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		D3100773224B668A00297DC4 /* ConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
+		D3100775224B66CD00297DC4 /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
+		D3100777224B6BDB00297DC4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
+		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +58,6 @@
 				9B2A84456CE05BE80CCBDD1B /* Pods-Chat.debug.xcconfig */,
 				B1463FB2FCE482D99309F21B /* Pods-Chat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,6 +92,12 @@
 			children = (
 				D30FB57D2248D8E900F233EF /* AppDelegate.swift */,
 				D30FB57F2248D8E900F233EF /* ViewController.swift */,
+				D3100771224B56BE00297DC4 /* TabBarController.swift */,
+				D3100773224B668A00297DC4 /* ConversationListViewController.swift */,
+				D3100775224B66CD00297DC4 /* MessageListViewController.swift */,
+				D3100777224B6BDB00297DC4 /* Client.swift */,
+				D364739D224CD96F00AC14DB /* SessionStatusView.swift */,
+				D364739B224CD8E300AC14DB /* SessionStatusView.xib */,
 				D30FB5812248D8E900F233EF /* Main.storyboard */,
 				D30FB5842248D8EA00F233EF /* Assets.xcassets */,
 				D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */,
@@ -151,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
+				D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
 			);
@@ -205,7 +223,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */,
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
+				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
+				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
+				D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */,
+				D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */,
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

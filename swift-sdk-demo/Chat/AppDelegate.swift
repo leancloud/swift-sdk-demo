@@ -16,7 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        LCApplication.default.set(
+            id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
+            key: "lNSjPPPDohJjYMJcQSxi9qAm"
+        )
+        LCApplication.default.logLevel = .all
+        
         return true
     }
 
