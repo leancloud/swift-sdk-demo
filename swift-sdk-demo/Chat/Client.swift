@@ -18,6 +18,8 @@ class Client {
     
     var imClient: IMClient?
     
+    private var observerMap: [String: (IMClient, IMConversation, IMConversationEvent) -> Void] = [:]
+    
     private init() {}
     
     lazy var sessionStatusView: SessionStatusView = {
@@ -29,6 +31,18 @@ class Client {
         }
         return view
     }()
+    
+    func addObserver(key: String, closure: @escaping (IMClient, IMConversation, IMConversationEvent) -> Void) {
+        self.queue.async {
+            self.observerMap[key] = closure
+        }
+    }
+    
+    func removeObserver(key: String) {
+        self.queue.async {
+            self.observerMap.removeValue(forKey: key)
+        }
+    }
     
 }
 
@@ -53,7 +67,9 @@ extension Client: IMClientDelegate {
     }
     
     func client(_ client: IMClient, conversation: IMConversation, event: IMConversationEvent) {
-        
+        for item in self.observerMap.values {
+            item(client, conversation, event)
+        }
     }
     
 }

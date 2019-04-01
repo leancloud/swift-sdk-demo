@@ -45,13 +45,15 @@ extension UIAlertController {
     }
     
     static func show(error string: String, controller: UIViewController) {
-        let alert = UIAlertController(
-            title: "Error",
-            message: string,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        controller.present(alert, animated: true)
+        mainQueueExecuting {
+            let alert = UIAlertController(
+                title: "Error",
+                message: string,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            controller.present(alert, animated: true)
+        }
     }
     
 }

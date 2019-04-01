@@ -20,6 +20,7 @@ class TabBarController: UITabBarController {
             [UINavigationController(rootViewController: ConversationListViewController())],
             animated: false
         )
+        self.tabBar.items?.first?.title = "Conversation List"
     }
     
 }
