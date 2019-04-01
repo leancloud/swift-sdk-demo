@@ -1,0 +1,40 @@
+PODS:
+  - Alamofire (4.8.2)
+  - LeanCloud (16.0.0-beta.4):
+    - LeanCloud/Foundation (= 16.0.0-beta.4)
+    - LeanCloud/IM (= 16.0.0-beta.4)
+    - LeanCloud/LocalStorage (= 16.0.0-beta.4)
+    - LeanCloud/Storage (= 16.0.0-beta.4)
+  - LeanCloud/Foundation (16.0.0-beta.4)
+  - LeanCloud/IM (16.0.0-beta.4):
+    - LeanCloud/Storage
+    - Starscream (~> 3.1.0)
+    - SwiftProtobuf (~> 1.4.0)
+  - LeanCloud/LocalStorage (16.0.0-beta.4):
+    - LeanCloud/Foundation
+  - LeanCloud/Storage (16.0.0-beta.4):
+    - Alamofire (~> 4.8.0)
+    - LeanCloud/Foundation
+    - LeanCloud/LocalStorage
+  - Starscream (3.1.0)
+  - SwiftProtobuf (1.4.0)
+
+DEPENDENCIES:
+  - LeanCloud (~> 16.0.0-beta.3)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - LeanCloud
+    - Starscream
+    - SwiftProtobuf
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  LeanCloud: e129416a60236f3c8435d2bb57af61fc97a58ea4
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  SwiftProtobuf: b06646ed6cdcfc3fecd074c6000fe0c413140e4f
+
+PODFILE CHECKSUM: f7ad0b63f7dbde39dcc3f1ace3d9d1e1f0f138c8
+
+COCOAPODS: 1.7.0.beta.2
