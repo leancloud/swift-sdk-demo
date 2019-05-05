@@ -17,6 +17,10 @@
 		D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100773224B668A00297DC4 /* ConversationListViewController.swift */; };
 		D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100775224B66CD00297DC4 /* MessageListViewController.swift */; };
 		D3100778224B6BDB00297DC4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100777224B6BDB00297DC4 /* Client.swift */; };
+		D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453836227ED33C00A7A6C2 /* Extension.swift */; };
+		D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */; };
+		D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345383A227EDD5200A7A6C2 /* SettingsView.xib */; };
+		D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345383C227EDD6400A7A6C2 /* SettingsView.swift */; };
 		D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D364739B224CD8E300AC14DB /* SessionStatusView.xib */; };
 		D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364739D224CD96F00AC14DB /* SessionStatusView.swift */; };
 		D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242052250E49200BF8D31 /* MessageListView.xib */; };
@@ -46,6 +50,10 @@
 		D3100773224B668A00297DC4 /* ConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		D3100775224B66CD00297DC4 /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		D3100777224B6BDB00297DC4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		D3453836227ED33C00A7A6C2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D345383A227EDD5200A7A6C2 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		D345383C227EDD6400A7A6C2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
 		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
 		D3D242052250E49200BF8D31 /* MessageListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListView.xib; sourceTree = "<group>"; };
@@ -110,30 +118,50 @@
 		D30FB57C2248D8E900F233EF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				D3100777224B6BDB00297DC4 /* Client.swift */,
+				D3453836227ED33C00A7A6C2 /* Extension.swift */,
 				D30FB57D2248D8E900F233EF /* AppDelegate.swift */,
 				D30FB57F2248D8E900F233EF /* ViewController.swift */,
 				D3100771224B56BE00297DC4 /* TabBarController.swift */,
-				D3100773224B668A00297DC4 /* ConversationListViewController.swift */,
-				D3100775224B66CD00297DC4 /* MessageListViewController.swift */,
-				D3100777224B6BDB00297DC4 /* Client.swift */,
 				D30FB5812248D8E900F233EF /* Main.storyboard */,
 				D364739D224CD96F00AC14DB /* SessionStatusView.swift */,
 				D364739B224CD8E300AC14DB /* SessionStatusView.xib */,
+				D3453842227EE0FD00A7A6C2 /* ConversationView */,
+				D3453843227EE17E00A7A6C2 /* SettingsView */,
+				D30FB5842248D8EA00F233EF /* Assets.xcassets */,
+				D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */,
+				D30FB5892248D8EA00F233EF /* Info.plist */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		D3453842227EE0FD00A7A6C2 /* ConversationView */ = {
+			isa = PBXGroup;
+			children = (
+				D3100773224B668A00297DC4 /* ConversationListViewController.swift */,
 				D3E5CD34224DFEE900F7EF85 /* ConversationListView.swift */,
 				D3E5CD32224DFE3C00F7EF85 /* ConversationListView.xib */,
 				D3E5CD36224E004D00F7EF85 /* ConversationListCell.swift */,
 				D3E5CD38224E01B600F7EF85 /* ConversationListCell.xib */,
+				D3100775224B66CD00297DC4 /* MessageListViewController.swift */,
 				D3D242072250E4A700BF8D31 /* MessageListView.swift */,
 				D3D242052250E49200BF8D31 /* MessageListView.xib */,
 				D3D2420B2250E86D00BF8D31 /* MessageListLeftCell.swift */,
 				D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */,
 				D3D2420D2250E8E900BF8D31 /* MessageListRightCell.swift */,
 				D3D2420F2250E90200BF8D31 /* MessageListRightCell.xib */,
-				D30FB5842248D8EA00F233EF /* Assets.xcassets */,
-				D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */,
-				D30FB5892248D8EA00F233EF /* Info.plist */,
 			);
-			path = Chat;
+			path = ConversationView;
+			sourceTree = "<group>";
+		};
+		D3453843227EE17E00A7A6C2 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */,
+				D345383C227EDD6400A7A6C2 /* SettingsView.swift */,
+				D345383A227EDD5200A7A6C2 /* SettingsView.xib */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
+				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
 				D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
@@ -258,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */,
 				D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */,
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
 				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
@@ -267,6 +297,8 @@
 				D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */,
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
+				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
+				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
 				D3D2420C2250E86D00BF8D31 /* MessageListLeftCell.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */,

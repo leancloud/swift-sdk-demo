@@ -17,13 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        LCApplication.default.set(
-            id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
-            key: "lNSjPPPDohJjYMJcQSxi9qAm"
-        )
-        LCApplication.default.logLevel = .all
-        
-        return true
+        LCApplication.logLevel = .all
+        do {
+            try LCApplication.default.set(
+                id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
+                key: "lNSjPPPDohJjYMJcQSxi9qAm"
+            )
+            return true
+        } catch {
+            print(error)
+            return false
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -48,6 +52,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

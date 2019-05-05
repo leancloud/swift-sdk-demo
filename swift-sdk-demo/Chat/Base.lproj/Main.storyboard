@@ -19,23 +19,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWi-KT-FWs">
-                                <rect key="frame" x="136" y="432.5" width="142" height="41"/>
+                                <rect key="frame" x="32" y="342" width="350" height="41"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Input client ID"/>
+                                <state key="normal" title="Input New Client ID">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="inputClientIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JZd-yE-Mq4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abe-hZ-Sxb">
+                                <rect key="frame" x="32" y="523" width="350" height="41"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Use Previous Client ID">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="usePreviousClientIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sr2-D0-hJe"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dWi-KT-FWs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="0Z7-mK-M9n"/>
+                            <constraint firstItem="dWi-KT-FWs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="4/5" id="0Z7-mK-M9n"/>
+                            <constraint firstItem="abe-hZ-Sxb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2n4-n3-BOl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="abe-hZ-Sxb" secondAttribute="trailing" constant="32" id="6In-zH-NdK"/>
                             <constraint firstItem="dWi-KT-FWs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MUo-3q-254"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dWi-KT-FWs" secondAttribute="trailing" constant="32" id="TZj-BK-XQ1"/>
+                            <constraint firstItem="abe-hZ-Sxb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="6/5" id="aT3-WK-hf7"/>
+                            <constraint firstItem="abe-hZ-Sxb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="jSM-Ci-79w"/>
+                            <constraint firstItem="dWi-KT-FWs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="zHB-b0-Tg5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="inputClientIDButton" destination="dWi-KT-FWs" id="D44-vd-Hlp"/>
+                        <outlet property="usePreviousClientIDButton" destination="abe-hZ-Sxb" id="Z7E-5t-5Lt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

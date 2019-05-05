@@ -5,5 +5,5 @@ target 'Chat' do
   use_frameworks!
   inhibit_all_warnings!
 
-  pod 'LeanCloud', '~> 16.0.0-beta.3'
+  pod 'LeanCloud', '~> 16.0.0-beta.6'
 end
