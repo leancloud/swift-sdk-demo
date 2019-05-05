@@ -33,8 +33,6 @@ class ConversationListViewController: UIViewController {
         )
         
         let tableView = (self.view as! ConversationListView).tableView!
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(
             UINib(nibName: "ConversationListCell", bundle: .main),
             forCellReuseIdentifier: "ConversationListCell"
@@ -44,9 +42,10 @@ class ConversationListViewController: UIViewController {
         self.view.addSubview(self.activityIndicatorView)
         self.activityIndicatorView.center = self.view.center
         
-        self.open()
-        
-        Client.default.addObserver(key: "ConversationListViewController") { (client, conversation, event) in
+        Client.default.addObserver(key: "ConversationListViewController") { [weak self] (client, conversation, event) in
+            guard let self = self else {
+                return
+            }
             switch event {
             case .joined(byClientID: _):
                 if let _ = self.underlyingConversationMap[conversation.ID],
@@ -74,6 +73,8 @@ class ConversationListViewController: UIViewController {
                 break
             }
         }
+        
+        self.open()
     }
     
     func open() {

@@ -16,11 +16,17 @@ class TabBarController: UITabBarController {
         
         self.view.backgroundColor = .white
         
+        let viewControllers: [UIViewController] = [
+            UINavigationController(rootViewController: ConversationListViewController()),
+            UINavigationController(rootViewController: SettingsViewController())
+        ]
+        
         self.setViewControllers(
-            [UINavigationController(rootViewController: ConversationListViewController())],
+            viewControllers,
             animated: false
         )
-        self.tabBar.items?.first?.title = "Conversation List"
+        self.tabBar.items?[0].title = "Conversation List"
+        self.tabBar.items?[1].title = "Settings"
     }
     
 }

@@ -12,22 +12,40 @@ import LeanCloud
 class ViewController: UIViewController {
 
     @IBOutlet weak var inputClientIDButton: UIButton!
+    @IBOutlet weak var usePreviousClientIDButton: UIButton!
+    
+    let storedClientIDDomain: String = "com.leancloud.swift.demo.chat.clientid"
+    
+    var previousClientID: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.previousClientID = UserDefaults.standard.string(forKey: self.storedClientIDDomain)
+        self.updateUsePreviousClientIDButtonEnabled()
+    }
     
     @IBAction func inputClientIDAction(_ sender: UIButton) {
         let alert = UIAlertController(
-            title: "Input your Client-ID",
-            message: "The length of Client-ID should in range [1, 64].",
+            title: "Input a New Client ID",
+            message: "The length of the ID should in range [1, 64], recommend using alphanumeric.",
             preferredStyle: .alert
         )
         alert.addTextField()
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
+                let ID = alert.textFields?.first?.text ?? ""
                 Client.default.imClient = try IMClient(
-                    ID: alert.textFields?.first?.text ?? "",
+                    ID: ID,
                     delegate: Client.default,
                     eventQueue: Client.default.queue
                 )
+                
+                self.previousClientID = ID
+                self.updateUsePreviousClientIDButtonEnabled()
+                UserDefaults.standard.set(ID, forKey: self.storedClientIDDomain)
+                
                 UIApplication.shared.keyWindow?.rootViewController = TabBarController()
             } catch {
                 UIAlertController.show(error: error, controller: self)
@@ -36,34 +54,39 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-}
-
-extension UIAlertController {
-    
-    static func show(error aError: Error, controller: UIViewController) {
-        self.show(error: "\(aError)", controller: controller)
-    }
-    
-    static func show(error string: String, controller: UIViewController) {
-        mainQueueExecuting {
-            let alert = UIAlertController(
-                title: "Error",
-                message: string,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            controller.present(alert, animated: true)
+    @IBAction func usePreviousClientIDAction(_ sender: UIButton) {
+        guard let previousClientID = self.previousClientID else {
+            return
         }
+        let alert = UIAlertController(
+            title: "Use the Previous Client ID",
+            message: "The previous client ID is \"\(previousClientID)\"",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
+            do {
+                Client.default.imClient = try IMClient(
+                    ID: previousClientID,
+                    delegate: Client.default,
+                    eventQueue: Client.default.queue
+                )
+                
+                UIApplication.shared.keyWindow?.rootViewController = TabBarController()
+            } catch {
+                UIAlertController.show(error: error, controller: self)
+            }
+        }))
+        self.present(alert, animated: true)
     }
     
-}
-
-func mainQueueExecuting(_ closure: @escaping () -> Void) {
-    if Thread.isMainThread {
-        closure()
-    } else {
-        DispatchQueue.main.async {
-            closure()
+    func updateUsePreviousClientIDButtonEnabled() {
+        if let _ = self.previousClientID {
+            self.usePreviousClientIDButton.isEnabled = true
+            self.usePreviousClientIDButton.backgroundColor = .blue
+        } else {
+            self.usePreviousClientIDButton.isEnabled = false
+            self.usePreviousClientIDButton.backgroundColor = .gray
         }
     }
 }
