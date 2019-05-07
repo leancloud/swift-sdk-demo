@@ -11,18 +11,35 @@ import LeanCloud
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var useLocalStorageSwitch: UISwitch!
+    @IBOutlet weak var useLocalStorageLabel: UILabel!
     @IBOutlet weak var inputClientIDButton: UIButton!
     @IBOutlet weak var usePreviousClientIDButton: UIButton!
     
-    let storedClientIDDomain: String = "com.leancloud.swift.demo.chat.clientid"
+    enum Configuration: String {
+        case storedClientIDDomain = "com.leancloud.swift.demo.chat.clientid"
+        case storedUseLocalStorageOption = "com.leancloud.swift.demo.chat.uselocalstorage"
+    }
     
     var previousClientID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.previousClientID = UserDefaults.standard.string(forKey: self.storedClientIDDomain)
+        self.previousClientID = UserDefaults.standard.string(forKey: Configuration.storedClientIDDomain.rawValue)
         self.updateUsePreviousClientIDButtonEnabled()
+        
+        self.useLocalStorageSwitch.isOn = UserDefaults.standard.bool(forKey: Configuration.storedUseLocalStorageOption.rawValue)
+        self.useLocalStorageAction(self.useLocalStorageSwitch)
+    }
+    
+    @IBAction func useLocalStorageAction(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: Configuration.storedUseLocalStorageOption.rawValue)
+        if sender.isOn {
+            self.useLocalStorageLabel.text = "Use Local Storage"
+        } else {
+            self.useLocalStorageLabel.text = "Not Use Local Storage"
+        }
     }
     
     @IBAction func inputClientIDAction(_ sender: UIButton) {
@@ -35,16 +52,22 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
-                let ID = alert.textFields?.first?.text ?? ""
+                let ID: String = alert.textFields?.first?.text ?? ""
+                let options: IMClient.Options =
+                    self.useLocalStorageSwitch.isOn
+                        ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
+                        : [.receiveUnreadMessageCountAfterSessionDidOpen]
+                
                 Client.default.imClient = try IMClient(
                     ID: ID,
+                    options: options,
                     delegate: Client.default,
                     eventQueue: Client.default.queue
                 )
                 
                 self.previousClientID = ID
                 self.updateUsePreviousClientIDButtonEnabled()
-                UserDefaults.standard.set(ID, forKey: self.storedClientIDDomain)
+                UserDefaults.standard.set(ID, forKey: Configuration.storedClientIDDomain.rawValue)
                 
                 UIApplication.shared.keyWindow?.rootViewController = TabBarController()
             } catch {
@@ -66,8 +89,14 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
+                let options: IMClient.Options =
+                    self.useLocalStorageSwitch.isOn
+                        ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
+                        : [.receiveUnreadMessageCountAfterSessionDidOpen]
+                
                 Client.default.imClient = try IMClient(
                     ID: previousClientID,
+                    options: options,
                     delegate: Client.default,
                     eventQueue: Client.default.queue
                 )

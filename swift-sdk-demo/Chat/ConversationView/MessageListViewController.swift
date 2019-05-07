@@ -87,10 +87,6 @@ class MessageListViewController: UIViewController {
         self.pullToRefresh()
     }
     
-    deinit {
-        Client.default.removeObserver(key: "MessageListViewController\(self.conversation.ID)")
-    }
-    
     func activityToggle() {
         mainQueueExecuting {
             if self.view.isUserInteractionEnabled {

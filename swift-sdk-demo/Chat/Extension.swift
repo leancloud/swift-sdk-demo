@@ -19,6 +19,13 @@ func mainQueueExecuting(_ closure: @escaping () -> Void) {
     }
 }
 
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"
+    formatter.timeZone = .current
+    return formatter
+}()
+
 extension UIAlertController {
     
     static func show(error aError: Error, controller: UIViewController) {

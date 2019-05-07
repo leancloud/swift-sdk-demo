@@ -21,9 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YfO-Mh-R10">
                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="99.5"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dd7-F6-buJ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-default" translatesAutoresizingMaskIntoConstraints="NO" id="dd7-F6-buJ">
                                 <rect key="frame" x="10" y="10" width="79.5" height="79.5"/>
-                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,11 +103,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImageView" destination="dd7-F6-buJ" id="wYD-HA-8iY"/>
-                <outlet property="contentLabel" destination="wCh-Gh-VFZ" id="ZkE-AL-2AN"/>
-                <outlet property="dateLabel" destination="0Og-MF-8Rl" id="YWL-sA-yZa"/>
-                <outlet property="nameLabel" destination="vUJ-zE-X0w" id="Egb-Ox-tOG"/>
+                <outlet property="convLastMessageContentLabel" destination="wCh-Gh-VFZ" id="4TA-fS-pk3"/>
+                <outlet property="convLastMessageDateLabel" destination="0Og-MF-8Rl" id="vIR-t2-mu7"/>
+                <outlet property="convNameLabel" destination="vUJ-zE-X0w" id="M9Y-ZU-z8R"/>
             </connections>
             <point key="canvasLocation" x="156.80000000000001" y="-47.676161919040482"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="avatar-default" width="512" height="512"/>
+    </resources>
 </document>

@@ -23,6 +23,8 @@
 		D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345383C227EDD6400A7A6C2 /* SettingsView.swift */; };
 		D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D364739B224CD8E300AC14DB /* SessionStatusView.xib */; };
 		D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364739D224CD96F00AC14DB /* SessionStatusView.swift */; };
+		D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */; };
+		D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */; };
 		D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242052250E49200BF8D31 /* MessageListView.xib */; };
 		D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D242072250E4A700BF8D31 /* MessageListView.swift */; };
 		D3D2420A2250E85D00BF8D31 /* MessageListLeftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */; };
@@ -56,6 +58,8 @@
 		D345383C227EDD6400A7A6C2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
 		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
+		D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListDetailsCell.swift; sourceTree = "<group>"; };
+		D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListDetailsCell.xib; sourceTree = "<group>"; };
 		D3D242052250E49200BF8D31 /* MessageListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListView.xib; sourceTree = "<group>"; };
 		D3D242072250E4A700BF8D31 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
 		D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListLeftCell.xib; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				D3E5CD32224DFE3C00F7EF85 /* ConversationListView.xib */,
 				D3E5CD36224E004D00F7EF85 /* ConversationListCell.swift */,
 				D3E5CD38224E01B600F7EF85 /* ConversationListCell.xib */,
+				D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */,
+				D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */,
 				D3100775224B66CD00297DC4 /* MessageListViewController.swift */,
 				D3D242072250E4A700BF8D31 /* MessageListView.swift */,
 				D3D242052250E49200BF8D31 /* MessageListView.xib */,
@@ -227,6 +233,7 @@
 			files = (
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
 				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
+				D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */,
 				D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
@@ -298,6 +305,7 @@
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
+				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
 				D3D2420C2250E86D00BF8D31 /* MessageListLeftCell.swift in Sources */,

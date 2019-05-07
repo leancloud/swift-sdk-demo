@@ -12,6 +12,8 @@ import LeanCloud
 
 class ConversationListViewController: UIViewController {
     
+    let clientEventObserverKey = UUID().uuidString
+    
     lazy var activityIndicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .whiteLarge)
         view.hidesWhenStopped = true
@@ -22,6 +24,15 @@ class ConversationListViewController: UIViewController {
     var underlyingConversationMap: [String: IMConversation] = [:]
     var underlyingConversations: [IMConversation] = []
     var conversations: [IMConversation] = []
+    
+    var showDetailsCell: Bool = false
+    var tableViewRowHeight: CGFloat {
+        if self.showDetailsCell {
+            return ConversationListDetailsCell.height
+        } else {
+            return self.view.frame.height / 10
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,82 +45,127 @@ class ConversationListViewController: UIViewController {
         
         let tableView = (self.view as! ConversationListView).tableView!
         tableView.register(
-            UINib(nibName: "ConversationListCell", bundle: .main),
-            forCellReuseIdentifier: "ConversationListCell"
+            UINib(nibName: "\(ConversationListCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(ConversationListCell.self)"
         )
-        tableView.rowHeight = (self.view.frame.height / 10)
+        tableView.register(
+            UINib(nibName: "\(ConversationListDetailsCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(ConversationListDetailsCell.self)"
+        )
         
         self.view.addSubview(self.activityIndicatorView)
         self.activityIndicatorView.center = self.view.center
         
-        Client.default.addObserver(key: "ConversationListViewController") { [weak self] (client, conversation, event) in
-            guard let self = self else {
-                return
-            }
-            switch event {
-            case .joined(byClientID: _):
-                if let _ = self.underlyingConversationMap[conversation.ID],
-                    let index = self.underlyingConversations.firstIndex(where: { return $0.ID == conversation.ID }) {
-                    self.underlyingConversations.remove(at: index)
-                }
-                self.underlyingConversations.insert(conversation, at: 0)
-                self.underlyingConversationMap[conversation.ID] = conversation
-                let newSortedConversations = self.underlyingConversations
-                mainQueueExecuting {
-                    self.conversations = newSortedConversations
-                    self.tableViewReloadData()
-                }
-            case .left(byClientID: _):
-                if let index = self.underlyingConversations.firstIndex(where: { return $0.ID == conversation.ID }) {
-                    self.underlyingConversations.remove(at: index)
-                }
-                self.underlyingConversationMap.removeValue(forKey: conversation.ID)
-                let newSortedConversations = self.underlyingConversations
-                mainQueueExecuting {
-                    self.conversations = newSortedConversations
-                    self.tableViewReloadData()
-                }
-            default:
-                break
-            }
-        }
+        self.addEventObserverForClient()
         
         self.open()
     }
     
+    deinit {
+        Client.default.removeObserver(key: self.clientEventObserverKey)
+    }
+    
+    func addEventObserverForClient() {
+        Client.default.addObserver(key: self.clientEventObserverKey) { [weak self] (client, conversation, event) in
+            switch event {
+            case .joined(byClientID: _, at: _):
+                self?.handleConversationEventJoined(conversation: conversation)
+            case .left(byClientID: _, at: _):
+                self?.handleConversationEventLeft(conversation: conversation, client: client)
+            case .lastMessageUpdated:
+                self?.handleConversationLastMessageUpdated(conversation: conversation)
+            case .unreadMessageCountUpdated:
+                self?.handleConversationUnreadMessageCountUpdated(conversation: conversation)
+            default:
+                break
+            }
+        }
+    }
+    
     func open() {
-        self.activityToggle()
-        Client.default.imClient?.open(completion: { (result) in
+        if Client.default.imClient.options.contains(.usingLocalStorage) {
             self.activityToggle()
-            
-            guard let client = Client.default.imClient else {
-                return
-            }
-            
-            var event: IMClientEvent
-            if let error = result.error {
-                event = .sessionDidClose(error: error)
-                mainQueueExecuting {
-                    let alert = UIAlertController(
-                        title: "Open failed",
-                        message: "Rollback or Reopen ?",
-                        preferredStyle: .alert
-                    )
-                    alert.addAction(UIAlertAction(title: "Rollback", style: .destructive, handler: { (_) in
-                        Client.default.imClient = nil
-                        UIApplication.shared.keyWindow?.rootViewController = UIStoryboard(name: "Main", bundle: .main)
-                            .instantiateViewController(withIdentifier: "ViewController")
-                    }))
-                    alert.addAction(UIAlertAction(title: "Reopen", style: .default, handler: { (_) in
-                        self.open()
-                    }))
-                    self.present(alert, animated: true)
+            self.loadLocalStorage { (result) in
+                self.activityToggle()
+                switch result {
+                case .success:
+                    self.clientOpen()
+                case .failure(let error):
+                    UIAlertController.show(error: error, controller: self)
                 }
-            } else {
-                event = .sessionDidOpen
             }
-            Client.default.client(client, event: event)
+        } else {
+            self.clientOpen()
+        }
+    }
+    
+    func clientOpen() {
+        self.activityToggle()
+        Client.default.imClient.open(completion: { (result) in
+            self.activityToggle()
+            var event: IMClientEvent
+            switch result {
+            case .success:
+                event = .sessionDidOpen
+            case .failure(error: let error):
+                event = .sessionDidClose(error: error)
+                self.showClientOpenFailedAlert()
+            }
+            Client.default.client(Client.default.imClient, event: event)
         })
+    }
+    
+    func showClientOpenFailedAlert() {
+        mainQueueExecuting {
+            let alert = UIAlertController(
+                title: "Open failed",
+                message: "Rollback or Reopen ?",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "Rollback", style: .destructive, handler: { (_) in
+                Client.default.imClient = nil
+                UIApplication.shared.keyWindow?.rootViewController = UIStoryboard(name: "Main", bundle: .main)
+                    .instantiateViewController(withIdentifier: "ViewController")
+            }))
+            alert.addAction(UIAlertAction(title: "Reopen", style: .default, handler: { (_) in
+                self.clientOpen()
+            }))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func loadLocalStorage(completion: @escaping (Result<Bool, Error>) -> Void) {
+        do {
+            try Client.default.imClient.prepareLocalStorage { (result) in
+                switch result {
+                case .success:
+                    do {
+                        try Client.default.imClient.getAndLoadStoredConversations(completion: { (result) in
+                            switch result {
+                            case .success(value: let conversations):
+                                self.underlyingConversations = conversations
+                                for conv in conversations {
+                                    self.underlyingConversationMap[conv.ID] = conv
+                                }
+                                mainQueueExecuting {
+                                    self.conversations = conversations
+                                    self.tableViewReloadData()
+                                }
+                                completion(.success(true))
+                            case .failure(error: let error):
+                                completion(.failure(error))
+                            }
+                        })
+                    } catch {
+                        completion(.failure(error))
+                    }
+                case .failure(error: let error):
+                    completion(.failure(error))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
     }
     
     func activityToggle() {
@@ -130,7 +186,67 @@ class ConversationListViewController: UIViewController {
     
 }
 
-// MARK: - Action Sheet
+// MARK: Conversation Event
+
+extension ConversationListViewController {
+    
+    func handleConversationEventJoined(conversation: IMConversation) {
+        self.updateConversationList(conversation: conversation)
+    }
+    
+    func handleConversationEventLeft(conversation: IMConversation, client: IMClient) {
+        if let index = self.underlyingConversations.firstIndex(where: { return $0.ID == conversation.ID }) {
+            self.underlyingConversations.remove(at: index)
+        }
+        self.underlyingConversationMap.removeValue(forKey: conversation.ID)
+        let newSortedConversations = self.underlyingConversations
+        client.removeCachedConversation(IDs: [conversation.ID]) { (result) in
+            if let error = result.error {
+                UIAlertController.show(error: error, controller: self)
+            }
+        }
+        if client.options.contains(.usingLocalStorage) {
+            do {
+                try client.deleteStoredConversationAndMessages(IDs: [conversation.ID]) { (result) in
+                    if let error = result.error {
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                }
+            } catch {
+                UIAlertController.show(error: error, controller: self)
+            }
+        }
+        mainQueueExecuting {
+            self.conversations = newSortedConversations
+            self.tableViewReloadData()
+        }
+    }
+    
+    func handleConversationLastMessageUpdated(conversation: IMConversation) {
+        self.updateConversationList(conversation: conversation)
+    }
+    
+    func handleConversationUnreadMessageCountUpdated(conversation: IMConversation) {
+        self.updateConversationList(conversation: conversation)
+    }
+    
+    func updateConversationList(conversation: IMConversation) {
+        if let _ = self.underlyingConversationMap[conversation.ID],
+            let index = self.underlyingConversations.firstIndex(where: { return $0.ID == conversation.ID }) {
+            self.underlyingConversations.remove(at: index)
+        }
+        self.underlyingConversations.insert(conversation, at: 0)
+        self.underlyingConversationMap[conversation.ID] = conversation
+        let newSortedConversations = self.underlyingConversations
+        mainQueueExecuting {
+            self.conversations = newSortedConversations
+            self.tableViewReloadData()
+        }
+    }
+    
+}
+
+// MARK: Action Sheet
 
 extension ConversationListViewController {
     
@@ -138,6 +254,10 @@ extension ConversationListViewController {
         let alert = UIAlertController(title: "Actions", message: "-", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Session Status", style: .default, handler: { (_) in
             Client.default.sessionStatusView.isHidden.toggle()
+        }))
+        alert.addAction(UIAlertAction(title: "Show \(self.showDetailsCell ? "Info" : "Details")", style: .default, handler: { (_) in
+            self.showDetailsCell.toggle()
+            self.tableViewReloadData()
         }))
         alert.addAction(UIAlertAction(title: "Get Recent Conversations", style: .default, handler: { (_) in
             self.getRecentConversations()
@@ -150,9 +270,7 @@ extension ConversationListViewController {
     }
     
     func getRecentConversations() {
-        guard let query = Client.default.imClient?.conversationQuery else {
-            return
-        }
+        let query = Client.default.imClient.conversationQuery
         do {
             self.activityToggle()
             query.options = [.containLastMessage]
@@ -300,64 +418,29 @@ extension ConversationListViewController {
 
 extension ConversationListViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableViewRowHeight
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationListCell") as! ConversationListCell
         let conversation = self.conversations[indexPath.row]
-        cell.nameLabel.text = {
-            var title: String = ""
-            if conversation is IMChatRoom {
-                title += "Transient: \(conversation.name ?? "Chat Room")"
-            } else if conversation is IMServiceConversation {
-                title += "System: \(conversation.name ?? "Service Conversation")"
-            } else {
-                if conversation is IMTemporaryConversation {
-                    title += "Temporary: "
-                } else if conversation.isUnique {
-                    title += "Unique: "
-                } else {
-                    title += "Normal: "
-                }
-                if let members = conversation.members, !members.isEmpty {
-                    if let clientID = Client.default.imClient?.ID, members.contains(clientID) {
-                        if members.count == 2 {
-                            for member in members {
-                                if clientID != member {
-                                    title += member
-                                }
-                            }
-                            return title
-                        } else if members.count > 2 {
-                            title += (conversation.name ?? "Group")
-                            return title
-                        }
-                    }
-                }
-                title += (conversation.name ?? "Conversation")
-            }
-            return title
-        }()
-        let lastMessage = conversation.lastMessage
-        cell.dateLabel.text = {
-            if let date = lastMessage?.sentDate {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                return dateFormatter.string(from: date)
-            } else {
-                return ""
-            }
-        }()
-        cell.contentLabel.text = {
-            if lastMessage is IMCategorizedMessage {
-                return (lastMessage as? IMCategorizedMessage)?.text ?? ""
-            } else {
-                return lastMessage?.content?.string ?? ""
-            }
-        }()
-        return cell
+        if self.showDetailsCell {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "\(ConversationListDetailsCell.self)")
+                as! ConversationListDetailsCell
+            cell.update(with: conversation)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "\(ConversationListCell.self)")
+                as! ConversationListCell
+            cell.update(with: conversation)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
