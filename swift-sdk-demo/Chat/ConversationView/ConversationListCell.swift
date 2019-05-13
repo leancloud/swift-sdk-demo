@@ -16,6 +16,7 @@ class ConversationListCell: UITableViewCell {
     @IBOutlet weak var convNameLabel: UILabel!
     @IBOutlet weak var convLastMessageDateLabel: UILabel!
     @IBOutlet weak var convLastMessageContentLabel: UILabel!
+    @IBOutlet weak var convUnreadCountLabel: UILabel!
     
     func update(with conversation: IMConversation) {
         self.convNameLabel.text = conversation.name ?? "-"
@@ -49,6 +50,10 @@ class ConversationListCell: UITableViewCell {
             convLastMessageContentText = lastMessage?.content?.string
         }
         self.convLastMessageContentLabel.text = convLastMessageContentText ?? "-"
+        
+        let count = conversation.unreadMessageCount
+        self.convUnreadCountLabel.text = "\(count)"
+        self.convUnreadCountLabel.isHidden = (count == 0) ? true : false
     }
     
 }

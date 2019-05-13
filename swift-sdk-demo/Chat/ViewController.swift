@@ -53,10 +53,9 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
                 let ID: String = alert.textFields?.first?.text ?? ""
-                let options: IMClient.Options =
-                    self.useLocalStorageSwitch.isOn
-                        ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
-                        : [.receiveUnreadMessageCountAfterSessionDidOpen]
+                let options: IMClient.Options = self.useLocalStorageSwitch.isOn
+                    ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
+                    : [.receiveUnreadMessageCountAfterSessionDidOpen]
                 
                 Client.default.imClient = try IMClient(
                     ID: ID,
@@ -89,10 +88,9 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
-                let options: IMClient.Options =
-                    self.useLocalStorageSwitch.isOn
-                        ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
-                        : [.receiveUnreadMessageCountAfterSessionDidOpen]
+                let options: IMClient.Options = self.useLocalStorageSwitch.isOn
+                    ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
+                    : [.receiveUnreadMessageCountAfterSessionDidOpen]
                 
                 Client.default.imClient = try IMClient(
                     ID: previousClientID,

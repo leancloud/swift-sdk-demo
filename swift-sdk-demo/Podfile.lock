@@ -3,37 +3,40 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - LeanCloud (16.0.0-beta.7):
-    - LeanCloud/IM (= 16.0.0-beta.7)
-    - LeanCloud/Storage (= 16.0.0-beta.7)
-  - LeanCloud/IM (16.0.0-beta.7):
+  - LeanCloud (16.0.0-beta.8):
+    - LeanCloud/IM (= 16.0.0-beta.8)
+    - LeanCloud/Storage (= 16.0.0-beta.8)
+  - LeanCloud/IM (16.0.0-beta.8):
     - FMDB (~> 2.7.0)
     - LeanCloud/Storage
     - Starscream (~> 3.1.0)
     - SwiftProtobuf (~> 1.5.0)
-  - LeanCloud/Storage (16.0.0-beta.7):
+  - LeanCloud/Storage (16.0.0-beta.8):
     - Alamofire (~> 4.8.0)
   - Starscream (3.1.0)
   - SwiftProtobuf (1.5.0)
 
 DEPENDENCIES:
-  - LeanCloud (~> 16.0.0-beta.7)
+  - LeanCloud (from `../../swift-sdk`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - FMDB
-    - LeanCloud
     - Starscream
     - SwiftProtobuf
+
+EXTERNAL SOURCES:
+  LeanCloud:
+    :path: "../../swift-sdk"
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  LeanCloud: 4e0d67b48466e290a02140e457e27e9d3844561f
+  LeanCloud: a486afc43f2a00d831af6a84cd2357c77450e31a
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
 
-PODFILE CHECKSUM: 937c6dd29807fd36d9caa29f03b10ce930b1d724
+PODFILE CHECKSUM: 7740dd05199d138d8ab023ca21783dfbcc5aaaf7
 
 COCOAPODS: 1.7.0.rc.1

@@ -12,5 +12,6 @@ import UIKit
 class ConversationListView: UIView {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
 }

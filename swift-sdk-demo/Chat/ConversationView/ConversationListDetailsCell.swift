@@ -42,7 +42,7 @@ class ConversationListDetailsCell: UITableViewCell {
             self.convUpdatedAtLabel.text = "Updated At: -"
         }
         if let date: Date = conversation.createdAt {
-            self.convCreatedAtLabel.text = "Updated At: \(dateFormatter.string(from: date))"
+            self.convCreatedAtLabel.text = "Created At: \(dateFormatter.string(from: date))"
         } else {
             self.convCreatedAtLabel.text = "Created At: -"
         }
