@@ -76,6 +76,27 @@
                         <constraint firstItem="9ct-hi-tJV" firstAttribute="leading" secondItem="Kkr-S4-Ycj" secondAttribute="leading" constant="8" id="t7H-XJ-EiG"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3X-yB-HNq">
+                    <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Media Playing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHy-C8-BMN">
+                            <rect key="frame" x="146" y="8" width="122" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="BUx-6W-jif"/>
+                        <constraint firstItem="cHy-C8-BMN" firstAttribute="centerX" secondItem="k3X-yB-HNq" secondAttribute="centerX" id="DX6-ZY-0Qc"/>
+                        <constraint firstItem="cHy-C8-BMN" firstAttribute="centerY" secondItem="k3X-yB-HNq" secondAttribute="centerY" id="o2n-EG-MwB"/>
+                    </constraints>
+                </view>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="upT-9b-toB">
+                    <rect key="frame" x="188.5" y="283.5" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -85,10 +106,17 @@
                 <constraint firstItem="0d4-aQ-hrO" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="L7d-qs-ndS"/>
                 <constraint firstItem="0d4-aQ-hrO" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="T6W-et-p93"/>
                 <constraint firstItem="Kkr-S4-Ycj" firstAttribute="width" secondItem="0d4-aQ-hrO" secondAttribute="width" id="X0H-cb-MWP"/>
+                <constraint firstItem="upT-9b-toB" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="e2l-dq-ZnS"/>
                 <constraint firstItem="Kkr-S4-Ycj" firstAttribute="bottom" secondItem="0d4-aQ-hrO" secondAttribute="bottom" id="gaR-7U-cDY"/>
+                <constraint firstItem="k3X-yB-HNq" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="hvi-ET-iIb"/>
+                <constraint firstItem="k3X-yB-HNq" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="lbQ-Je-4kx"/>
+                <constraint firstItem="upT-9b-toB" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="2/3" id="mCz-dv-lfN"/>
+                <constraint firstItem="k3X-yB-HNq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="x5S-cM-S3o"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="upT-9b-toB" id="UpI-Az-xoo"/>
+                <outlet property="mediaPlayingStatusView" destination="k3X-yB-HNq" id="c9Q-7Z-E3T"/>
                 <outlet property="messageInputView" destination="Kkr-S4-Ycj" id="Asp-da-UsH"/>
                 <outlet property="messageInputViewAttachButton" destination="9ct-hi-tJV" id="oOF-Am-QTx"/>
                 <outlet property="messageInputViewBottomConstraint" destination="gaR-7U-cDY" id="Yrs-kr-uQ5"/>

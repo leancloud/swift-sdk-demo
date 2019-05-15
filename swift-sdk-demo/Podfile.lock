@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -17,11 +19,13 @@ PODS:
   - SwiftProtobuf (1.5.0)
 
 DEPENDENCIES:
+  - AlamofireImage (~> 3.5.0)
   - LeanCloud (from `../../swift-sdk`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - AlamofireImage
     - FMDB
     - Starscream
     - SwiftProtobuf
@@ -32,11 +36,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   LeanCloud: a486afc43f2a00d831af6a84cd2357c77450e31a
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
 
-PODFILE CHECKSUM: 7740dd05199d138d8ab023ca21783dfbcc5aaaf7
+PODFILE CHECKSUM: 8f3ae5854a1b42fc6b4fbc0b180e7d80720a5850
 
 COCOAPODS: 1.7.0.rc.1

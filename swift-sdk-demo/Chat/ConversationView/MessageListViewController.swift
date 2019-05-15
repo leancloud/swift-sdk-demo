@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 import LeanCloud
 
 class MessageListViewController: UIViewController {
     
     let clientEventObserverKey = UUID().uuidString
+    var playerItemDidPlayToEndObserver: NSObjectProtocol!
     var keyboardDidShowObserver: NSObjectProtocol!
     var keyboardWillHideObserver: NSObjectProtocol!
     
@@ -24,6 +26,28 @@ class MessageListViewController: UIViewController {
     var conversation: IMConversation!
     var messages: [IMMessage] = []
     var firstRead: Bool = false
+    
+    var sendingMessage: IMMessage? {
+        didSet {
+            if let value = self.sendingMessage {
+                switch value {
+                case is IMImageMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Image]")
+                case is IMAudioMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Audio]")
+                case is IMVideoMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Video]")
+                default:
+                    self.messageInputTextField(enabled: true)
+                }
+            } else {
+                self.messageInputTextField(enabled: true)
+            }
+        }
+    }
+    
+    var player: AVPlayer?
+    var playerItem: AVPlayerItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +62,16 @@ class MessageListViewController: UIViewController {
             UINib(nibName: "\(TextMessageCell.self)", bundle: .main),
             forCellReuseIdentifier: "\(TextMessageCell.self)"
         )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(ImageMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(ImageMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(AudioMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(AudioMessageCell.self)"
+        )
         self.contentView.tableView.rowHeight = UITableView.automaticDimension
-        self.contentView.tableView.estimatedRowHeight = 60.0
+        self.contentView.tableView.estimatedRowHeight = 100.0
         self.contentView.tableView.refreshControl = self.refreshControl
         let insets = UIEdgeInsets(top: 0, left: 0, bottom: self.contentView.messageInputViewHeightConstraint.constant, right: 0)
         self.contentView.tableView.contentInset = insets
@@ -57,8 +89,20 @@ class MessageListViewController: UIViewController {
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.player?.pause()
+        self.playerItem = nil
+        self.player = nil
+        self.contentView.mediaPlayingStatusView.isHidden = true
+    }
+    
     deinit {
         Client.default.removeObserver(key: self.clientEventObserverKey)
+        if let observer = self.playerItemDidPlayToEndObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     func addEventObserverForClient() {
@@ -86,6 +130,12 @@ class MessageListViewController: UIViewController {
                 break
             }
         }
+        
+        self.playerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: .main, using: { [weak self] (_) in
+            self?.playerItem = nil
+            self?.player = nil
+            self?.contentView.mediaPlayingStatusView.isHidden = true
+        })
     }
     
     func addObserverForKeyboard() {
@@ -133,6 +183,26 @@ class MessageListViewController: UIViewController {
             self.contentView.tableView.scrollIndicatorInsets = insets
             self.contentView.messageInputViewBottomConstraint.constant = 0
             self.contentView.layoutIfNeeded()
+        }
+    }
+    
+    func activityToggle() {
+        mainQueueExecuting {
+            if self.view.isUserInteractionEnabled {
+                self.contentView.activityIndicatorView.startAnimating()
+                self.view.isUserInteractionEnabled = false
+            } else {
+                self.contentView.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+    func messageInputTextField(enabled: Bool, placeholder: String? = nil) {
+        mainQueueExecuting {
+            self.contentView.messageInputViewTextField.isEnabled = enabled
+            self.contentView.messageInputViewTextField.text = nil
+            self.contentView.messageInputViewTextField.placeholder = placeholder
         }
     }
     
@@ -218,38 +288,75 @@ class MessageListViewController: UIViewController {
     }
     
     @IBAction func messageAttachingAction(_ sender: UIButton) {
-        
+        if self.contentView.messageInputViewTextField.isFirstResponder {
+           self.contentView.messageInputViewTextField.resignFirstResponder()
+        }
+        let alert = UIAlertController(title: "Attachment", message: "-", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (_) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Photo or Video", style: .default, handler: { (_) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary) ?? []
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Audio", style: .default, handler: { (_) in
+            let audioRecordingViewController = AudioRecordingViewController()
+            audioRecordingViewController.handlerForAudioFileURL = { fileURL in
+                self.sendingMessage = IMAudioMessage(filePath: fileURL.path)
+            }
+            self.present(audioRecordingViewController, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (_) in
+            self.sendingMessage = nil
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alert, animated: true)
     }
     
     @IBAction func messageSendingAction(_ sender: UIButton) {
-        guard let text = self.contentView.messageInputViewTextField.text, !text.isEmpty else {
-            return
+        let message: IMMessage
+        if let sendingMessage = self.sendingMessage {
+            message = sendingMessage
+        } else {
+            guard let text = self.contentView.messageInputViewTextField.text, !text.isEmpty else {
+                return
+            }
+            message = IMTextMessage(text: text)
         }
-        let message = IMTextMessage(text: text)
-        self.contentView.messageInputViewTextField.text = nil
         do {
+            self.activityToggle()
             try self.conversation.send(message: message, completion: { [weak self] (result) in
                 Client.default.specificAssertion
                 guard let self = self else { return }
+                self.activityToggle()
                 switch result {
                 case .success:
                     mainQueueExecuting {
-                        mainQueueExecuting {
-                            self.messages.append(message)
-                            let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                            self.tableViewReloadData()
-                            self.tableViewScrollTo(
-                                indexPath: indexPath,
-                                scrollPosition: .bottom,
-                                animated: true
-                            )
-                        }
+                        self.sendingMessage = nil
+                        self.messages.append(message)
+                        let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                        self.tableViewReloadData()
+                        self.tableViewScrollTo(
+                            indexPath: indexPath,
+                            scrollPosition: .bottom,
+                            animated: true
+                        )
                     }
                 case .failure(error: let error):
                     UIAlertController.show(error: error, controller: self)
                 }
             })
         } catch {
+            self.activityToggle()
             UIAlertController.show(error: error, controller: self)
         }
     }
@@ -270,6 +377,25 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
             let textCell = tableView.dequeueReusableCell(withIdentifier: "\(TextMessageCell.self)") as! TextMessageCell
             textCell.update(with: message as! IMTextMessage)
             cell = textCell
+        case is IMImageMessage:
+            let imageCell = tableView.dequeueReusableCell(withIdentifier: "\(ImageMessageCell.self)") as! ImageMessageCell
+            imageCell.update(with: message as! IMImageMessage)
+            cell = imageCell
+        case is IMAudioMessage:
+            let audioMessage = tableView.dequeueReusableCell(withIdentifier: "\(AudioMessageCell.self)") as! AudioMessageCell
+            audioMessage.update(with: message as! IMAudioMessage)
+            audioMessage.handlerForPlayer = { [weak self] url in
+                guard let self = self else {
+                    return
+                }
+                self.player?.pause()
+                let playerItem = AVPlayerItem(url: url)
+                self.player = AVPlayer(playerItem: playerItem)
+                self.playerItem = playerItem
+                self.player?.play()
+                self.contentView.mediaPlayingStatusView.isHidden = false
+            }
+            cell = audioMessage
         default:
             fatalError()
         }
@@ -294,6 +420,28 @@ extension MessageListViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+}
+
+extension MessageListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var message: IMCategorizedMessage?
+        if let image = info[.editedImage] as? UIImage {
+            if let jpgData = image.jpeg() {
+                message = IMImageMessage(data: jpgData, format: "jpg")
+            }
+        } else if let videoURL = info[.mediaURL] as? URL {
+            message = IMVideoMessage(filePath: videoURL.path)
+        }
+        picker.dismiss(animated: true) {
+            self.sendingMessage = message
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
 }

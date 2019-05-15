@@ -23,8 +23,14 @@
 		D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345383C227EDD6400A7A6C2 /* SettingsView.swift */; };
 		D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345D0C922828AFF00A86D94 /* TextMessageCell.swift */; };
 		D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */; };
+		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
+		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
+		D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */; };
+		D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B7228AB10D0030821C /* AudioRecordingView.xib */; };
 		D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D364739B224CD8E300AC14DB /* SessionStatusView.xib */; };
 		D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364739D224CD96F00AC14DB /* SessionStatusView.swift */; };
+		D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39EF22022894CEA00CA340A /* ImageMessageCell.swift */; };
+		D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39EF22222894D5400CA340A /* ImageMessageCell.xib */; };
 		D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */; };
 		D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */; };
 		D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242052250E49200BF8D31 /* MessageListView.xib */; };
@@ -56,8 +62,14 @@
 		D345383C227EDD6400A7A6C2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D345D0C922828AFF00A86D94 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
+		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
+		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
+		D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingViewController.swift; sourceTree = "<group>"; };
+		D35F84B7228AB10D0030821C /* AudioRecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioRecordingView.xib; sourceTree = "<group>"; };
 		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
 		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
+		D39EF22022894CEA00CA340A /* ImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessageCell.swift; sourceTree = "<group>"; };
+		D39EF22222894D5400CA340A /* ImageMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageMessageCell.xib; sourceTree = "<group>"; };
 		D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListDetailsCell.swift; sourceTree = "<group>"; };
 		D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListDetailsCell.xib; sourceTree = "<group>"; };
 		D3D242052250E49200BF8D31 /* MessageListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListView.xib; sourceTree = "<group>"; };
@@ -128,6 +140,7 @@
 				D364739B224CD8E300AC14DB /* SessionStatusView.xib */,
 				D3453842227EE0FD00A7A6C2 /* ConversationView */,
 				D3453843227EE17E00A7A6C2 /* SettingsView */,
+				D35F84B4228AB0870030821C /* OtherView */,
 				D30FB5842248D8EA00F233EF /* Assets.xcassets */,
 				D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */,
 				D30FB5892248D8EA00F233EF /* Info.plist */,
@@ -150,6 +163,10 @@
 				D3D242052250E49200BF8D31 /* MessageListView.xib */,
 				D345D0C922828AFF00A86D94 /* TextMessageCell.swift */,
 				D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */,
+				D39EF22022894CEA00CA340A /* ImageMessageCell.swift */,
+				D39EF22222894D5400CA340A /* ImageMessageCell.xib */,
+				D35F84B0228A99860030821C /* AudioMessageCell.swift */,
+				D35F84B2228A9BA80030821C /* AudioMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -162,6 +179,15 @@
 				D345383A227EDD5200A7A6C2 /* SettingsView.xib */,
 			);
 			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		D35F84B4228AB0870030821C /* OtherView */ = {
+			isa = PBXGroup;
+			children = (
+				D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */,
+				D35F84B7228AB10D0030821C /* AudioRecordingView.xib */,
+			);
+			path = OtherView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,10 +254,13 @@
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
 				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
 				D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */,
+				D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */,
 				D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
+				D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
+				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
 				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
@@ -290,15 +319,18 @@
 				D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */,
 				D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */,
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
+				D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */,
 				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
 				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
 				D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */,
 				D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */,
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
 				D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */,
+				D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
 				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,
+				D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */,
@@ -451,6 +483,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -470,6 +503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

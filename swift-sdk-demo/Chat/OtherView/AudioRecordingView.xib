@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AudioRecordingViewController" customModule="Chat" customModuleProvider="target">
+            <connections>
+                <outlet property="audioClearButton" destination="2ZT-mq-qOi" id="asT-WN-3VO"/>
+                <outlet property="audioDurationLabel" destination="KNU-th-edw" id="YRE-5D-grt"/>
+                <outlet property="audioPlayingButton" destination="3rU-Xa-Xf5" id="NP0-Z3-bGC"/>
+                <outlet property="audioRecordClearButton" destination="2ZT-mq-qOi" id="kj5-zK-fcY"/>
+                <outlet property="audioRecordingButton" destination="mB1-m3-use" id="Ik7-pU-cYZ"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Qzq-M5-gbC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJ3-WB-Vp0">
+                    <rect key="frame" x="32" y="76" width="61" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="9mP-Sx-vxX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLN-Su-uuY">
+                    <rect key="frame" x="335" y="76" width="47" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Done"/>
+                    <connections>
+                        <action selector="doneAction:" destination="-1" eventType="touchUpInside" id="Goc-lK-fA0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNU-th-edw">
+                    <rect key="frame" x="170" y="214.5" width="74.5" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mB1-m3-use">
+                    <rect key="frame" x="139.5" y="359.5" width="135" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Start Recording"/>
+                    <connections>
+                        <action selector="recordingAction:" destination="-1" eventType="touchUpInside" id="3oI-dn-pWi"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rU-Xa-Xf5">
+                    <rect key="frame" x="155" y="510.5" width="104" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Play Record"/>
+                    <connections>
+                        <action selector="playingAction:" destination="-1" eventType="touchUpInside" id="SyH-6K-SJj"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ZT-mq-qOi">
+                    <rect key="frame" x="183.5" y="661.5" width="47" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Clear"/>
+                    <connections>
+                        <action selector="clearRecordAction:" destination="-1" eventType="touchUpInside" id="Zba-z7-ZrX"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3rU-Xa-Xf5" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="7/6" id="5cF-Je-6zL"/>
+                <constraint firstItem="nJ3-WB-Vp0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="5qh-56-CKy"/>
+                <constraint firstItem="3rU-Xa-Xf5" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="9H3-k8-24l"/>
+                <constraint firstItem="2ZT-mq-qOi" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="3/2" id="FCq-rB-kyc"/>
+                <constraint firstItem="hLN-Su-uuY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="Nym-LE-2ub"/>
+                <constraint firstItem="2ZT-mq-qOi" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Q0y-1V-nfS"/>
+                <constraint firstItem="nJ3-WB-Vp0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="UQz-pT-yvZ"/>
+                <constraint firstItem="mB1-m3-use" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="5/6" id="kEP-h7-oBV"/>
+                <constraint firstItem="KNU-th-edw" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="nXt-eb-jy0"/>
+                <constraint firstItem="mB1-m3-use" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="qFM-AV-yoT"/>
+                <constraint firstItem="KNU-th-edw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="1/2" id="y8i-tm-AzD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hLN-Su-uuY" secondAttribute="trailing" constant="32" id="zLO-uK-EbP"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

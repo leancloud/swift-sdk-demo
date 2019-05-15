@@ -45,3 +45,31 @@ extension UIAlertController {
     }
     
 }
+
+extension UIImage {
+    
+    static func whiteImage(size: CGSize) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
+        UIColor.white.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+    
+    func jpeg(quality: JPEGQuality = .medium) -> Data? {
+        return jpegData(compressionQuality: quality.rawValue)
+    }
+    
+}

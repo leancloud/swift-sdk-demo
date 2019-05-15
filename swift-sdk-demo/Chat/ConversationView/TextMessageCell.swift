@@ -12,13 +12,13 @@ import LeanCloud
 
 class TextMessageCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var messageAvatarImageView: UIImageView!
+    @IBOutlet weak var messageFromLabel: UILabel!
     @IBOutlet weak var messageTextLabel: UILabel!
     @IBOutlet weak var messageDateLabel: UILabel!
     
     func update(with message: IMTextMessage) {
-        self.nameLabel.text = message.fromClientID ?? "-"
+        self.messageFromLabel.text = message.fromClientID ?? "-"
         self.messageTextLabel.text = message.text ?? "-"
         if let date = message.sentDate {
             self.messageDateLabel.text = dateFormatter.string(from: date)

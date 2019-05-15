@@ -18,5 +18,7 @@ class MessageListView: UIView {
     @IBOutlet weak var messageInputViewSendButton: UIButton!
     @IBOutlet weak var messageInputViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mediaPlayingStatusView: UIView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
 }
