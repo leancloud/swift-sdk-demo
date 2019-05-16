@@ -43,20 +43,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Da8-iw-Ldo">
-                        <rect key="frame" x="48" y="30.5" width="60" height="40"/>
+                        <rect key="frame" x="48" y="30.5" width="100" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="Bli-lu-T81"/>
+                            <constraint firstAttribute="width" constant="100" id="Bli-lu-T81"/>
                             <constraint firstAttribute="height" constant="40" id="KIi-Fr-qkp"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <state key="normal" title="Play"/>
+                        <state key="normal" title="Audio Play"/>
                         <connections>
                             <action selector="audioPlayingAction:" destination="hII-ba-nIo" eventType="touchUpInside" id="Wnn-mh-cIl"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcm-BQ-uZf">
-                        <rect key="frame" x="116" y="41" width="290" height="19.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <rect key="frame" x="156" y="43.5" width="250" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

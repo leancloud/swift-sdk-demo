@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 import AVFoundation
+import AVKit
 import LeanCloud
 
 class MessageListViewController: UIViewController {
     
     let clientEventObserverKey = UUID().uuidString
-    var playerItemDidPlayToEndObserver: NSObjectProtocol!
+    var audioPlayerItemDidPlayToEndObserver: NSObjectProtocol!
     var keyboardDidShowObserver: NSObjectProtocol!
     var keyboardWillHideObserver: NSObjectProtocol!
     
@@ -46,8 +47,7 @@ class MessageListViewController: UIViewController {
         }
     }
     
-    var player: AVPlayer?
-    var playerItem: AVPlayerItem?
+    var audioPlayer: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,10 @@ class MessageListViewController: UIViewController {
         self.contentView.tableView.register(
             UINib(nibName: "\(AudioMessageCell.self)", bundle: .main),
             forCellReuseIdentifier: "\(AudioMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(VideoMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(VideoMessageCell.self)"
         )
         self.contentView.tableView.rowHeight = UITableView.automaticDimension
         self.contentView.tableView.estimatedRowHeight = 100.0
@@ -92,15 +96,14 @@ class MessageListViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.player?.pause()
-        self.playerItem = nil
-        self.player = nil
+        self.audioPlayer?.pause()
+        self.audioPlayer = nil
         self.contentView.mediaPlayingStatusView.isHidden = true
     }
     
     deinit {
         Client.default.removeObserver(key: self.clientEventObserverKey)
-        if let observer = self.playerItemDidPlayToEndObserver {
+        if let observer = self.audioPlayerItemDidPlayToEndObserver {
             NotificationCenter.default.removeObserver(observer)
         }
     }
@@ -131,9 +134,8 @@ class MessageListViewController: UIViewController {
             }
         }
         
-        self.playerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: .main, using: { [weak self] (_) in
-            self?.playerItem = nil
-            self?.player = nil
+        self.audioPlayerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: .main, using: { [weak self] (_) in
+            self?.audioPlayer = nil
             self?.contentView.mediaPlayingStatusView.isHidden = true
         })
     }
@@ -382,20 +384,33 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
             imageCell.update(with: message as! IMImageMessage)
             cell = imageCell
         case is IMAudioMessage:
-            let audioMessage = tableView.dequeueReusableCell(withIdentifier: "\(AudioMessageCell.self)") as! AudioMessageCell
-            audioMessage.update(with: message as! IMAudioMessage)
-            audioMessage.handlerForPlayer = { [weak self] url in
+            let audioCell = tableView.dequeueReusableCell(withIdentifier: "\(AudioMessageCell.self)") as! AudioMessageCell
+            audioCell.update(with: message as! IMAudioMessage)
+            audioCell.handlerForPlayer = { [weak self] url in
                 guard let self = self else {
                     return
                 }
-                self.player?.pause()
-                let playerItem = AVPlayerItem(url: url)
-                self.player = AVPlayer(playerItem: playerItem)
-                self.playerItem = playerItem
-                self.player?.play()
+                self.audioPlayer?.pause()
+                self.audioPlayer = AVPlayer(url: url)
+                self.audioPlayer?.play()
                 self.contentView.mediaPlayingStatusView.isHidden = false
             }
-            cell = audioMessage
+            cell = audioCell
+        case is IMVideoMessage:
+            let videoCell = tableView.dequeueReusableCell(withIdentifier: "\(VideoMessageCell.self)") as! VideoMessageCell
+            videoCell.update(with: message as! IMVideoMessage)
+            videoCell.handlerForPlayer = { [weak self] url in
+                guard let self = self else {
+                    return
+                }
+                let player = AVPlayer(url: url)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    player.play()
+                }
+            }
+            cell = videoCell
         default:
             fatalError()
         }

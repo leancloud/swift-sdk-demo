@@ -23,6 +23,8 @@
 		D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345383C227EDD6400A7A6C2 /* SettingsView.swift */; };
 		D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345D0C922828AFF00A86D94 /* TextMessageCell.swift */; };
 		D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */; };
+		D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */; };
+		D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */; };
 		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
 		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
 		D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */; };
@@ -62,6 +64,8 @@
 		D345383C227EDD6400A7A6C2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D345D0C922828AFF00A86D94 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoMessageCell.xib; sourceTree = "<group>"; };
+		D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
 		D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				D39EF22222894D5400CA340A /* ImageMessageCell.xib */,
 				D35F84B0228A99860030821C /* AudioMessageCell.swift */,
 				D35F84B2228A9BA80030821C /* AudioMessageCell.xib */,
+				D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */,
+				D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
 				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
+				D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +336,7 @@
 				D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
+				D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */,
 				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,
 				D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
