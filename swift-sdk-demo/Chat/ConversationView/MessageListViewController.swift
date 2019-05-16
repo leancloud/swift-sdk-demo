@@ -8,72 +8,156 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import AVKit
+import CoreLocation
 import LeanCloud
 
 class MessageListViewController: UIViewController {
     
-    lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .whiteLarge)
-        view.hidesWhenStopped = true
-        view.color = .black
-        return view
-    }()
+    let clientEventObserverKey = UUID().uuidString
+    var audioPlayerItemDidPlayToEndObserver: NSObjectProtocol!
+    var keyboardDidShowObserver: NSObjectProtocol!
+    var keyboardWillHideObserver: NSObjectProtocol!
+    
     let refreshControl = UIRefreshControl()
-    var tableView: UITableView {
-        return (self.view as! MessageListView).tableView
+    var contentView: MessageListView {
+        return self.view as! MessageListView
     }
     
     var conversation: IMConversation!
-    
-    var underlyingMessages: [IMMessage] = []
     var messages: [IMMessage] = []
+    var firstRead: Bool = false
+    
+    var sendingMessage: IMMessage? {
+        didSet {
+            if let value = self.sendingMessage {
+                switch value {
+                case is IMImageMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Image]")
+                case is IMAudioMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Audio]")
+                case is IMVideoMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Video]")
+                case is IMLocationMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Location]")
+                case is IMFileMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[File]")
+                case is IMRecalledMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Recalled]")
+                default:
+                    self.messageInputTextField(enabled: true)
+                }
+            } else {
+                self.messageInputTextField(enabled: true)
+            }
+        }
+    }
+    
+    var audioPlayer: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .action,
-            target: self,
-            action: #selector(type(of: self).navigationRightButtonAction(_:))
-        )
-        
-        let tableView = (self.view as! MessageListView).tableView!
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(
-            UINib(nibName: "MessageListLeftCell", bundle: .main),
-            forCellReuseIdentifier: "MessageListLeftCell"
-        )
-        tableView.register(
-            UINib(nibName: "MessageListRightCell", bundle: .main),
-            forCellReuseIdentifier: "MessageListRightCell"
-        )
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60.0
         
         self.refreshControl.addTarget(
             self,
             action: #selector(type(of: self).pullToRefresh),
             for: .valueChanged
         )
-        tableView.refreshControl = self.refreshControl
         
-        self.view.addSubview(self.activityIndicatorView)
-        self.activityIndicatorView.center = self.view.center
+        self.contentView.tableView.register(
+            UINib(nibName: "\(TextMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(TextMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(ImageMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(ImageMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(AudioMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(AudioMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(VideoMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(VideoMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(LocationMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(LocationMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(FileMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(FileMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(RecalledMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(RecalledMessageCell.self)"
+        )
+        self.contentView.tableView.rowHeight = UITableView.automaticDimension
+        self.contentView.tableView.estimatedRowHeight = 100.0
+        self.contentView.tableView.refreshControl = self.refreshControl
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: self.contentView.messageInputViewHeightConstraint.constant, right: 0)
+        self.contentView.tableView.contentInset = insets
+        self.contentView.tableView.scrollIndicatorInsets = insets
         
-        Client.default.addObserver(key: "MessageListViewController\(self.conversation.ID)") { [weak self] (client, conv, event) in
-            guard let self = self, conv.ID == self.conversation.ID else {
-                return
-            }
+        self.refreshControl.beginRefreshing()
+        self.pullToRefresh()
+        
+        self.addEventObserverForClient()
+        self.addObserverForKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.audioPlayer?.pause()
+        self.audioPlayer = nil
+        self.contentView.mediaPlayingStatusView.isHidden = true
+    }
+    
+    deinit {
+        Client.default.removeObserver(key: self.clientEventObserverKey)
+        if let observer = self.audioPlayerItemDidPlayToEndObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    func addEventObserverForClient() {
+        Client.default.addObserver(key: self.clientEventObserverKey) { [weak self] (client, conversation, event) in
+            Client.default.specificAssertion
+            guard
+                let self = self,
+                self.conversation.ID == conversation.ID
+                else
+            { return }
             switch event {
-            case .message(event: let messageEvent):
+            case let .message(event: messageEvent):
                 switch messageEvent {
-                case .received(message: let message):
-                    self.underlyingMessages.append(message)
-                    let newMessages = self.underlyingMessages
+                case let .received(message: message):
+                    self.conversation.read(message: message)
                     mainQueueExecuting {
-                        self.messages = newMessages
-                        self.tableView.reloadData()
+                        self.messages.append(message)
+                        let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                        self.tableViewReloadData(indexPaths: [indexPath])
+                    }
+                case let .updated(updatedMessage: updatedMessage, reason: _):
+                    mainQueueExecuting {
+                        var indexPath: IndexPath?
+                        for (index, item) in self.messages.enumerated() {
+                            if item.ID == updatedMessage.ID, item.sentTimestamp == updatedMessage.sentTimestamp {
+                                indexPath = IndexPath(row: index, section: 0)
+                                self.messages[index] = updatedMessage
+                                break
+                            }
+                        }
+                        if let indexPath = indexPath {
+                            self.tableViewReloadData(indexPaths: [indexPath])
+                        }
                     }
                 default:
                     break
@@ -83,95 +167,255 @@ class MessageListViewController: UIViewController {
             }
         }
         
-        self.refreshControl.beginRefreshing()
-        self.pullToRefresh()
+        self.audioPlayerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: .main, using: { [weak self] (_) in
+            self?.audioPlayer = nil
+            self?.contentView.mediaPlayingStatusView.isHidden = true
+        })
     }
     
-    deinit {
-        Client.default.removeObserver(key: "MessageListViewController\(self.conversation.ID)")
+    func addObserverForKeyboard() {
+        self.keyboardDidShowObserver = NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardDidShowNotification,
+            object: nil,
+            queue: .main)
+        { [weak self] (notification) in
+            guard
+                let self = self,
+                let info = notification.userInfo,
+                let kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                else
+            {
+                return
+            }
+            let kbSize = kbFrame.size
+            let insets = UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: kbSize.height + self.contentView.messageInputViewHeightConstraint.constant,
+                right: 0
+            )
+            
+            self.contentView.tableView.contentInset = insets
+            self.contentView.tableView.scrollIndicatorInsets = insets
+            self.contentView.messageInputViewBottomConstraint.constant = -kbSize.height
+            self.contentView.messageInputView.layoutIfNeeded()
+        }
+        self.keyboardWillHideObserver = NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillHideNotification,
+            object: nil,
+            queue: .main)
+        { [weak self] (notification) in
+            guard let self = self else { return }
+            
+            let insets = UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: self.contentView.messageInputViewHeightConstraint.constant,
+                right: 0
+            )
+            
+            self.contentView.tableView.contentInset = insets
+            self.contentView.tableView.scrollIndicatorInsets = insets
+            self.contentView.messageInputViewBottomConstraint.constant = 0
+            self.contentView.layoutIfNeeded()
+        }
     }
     
     func activityToggle() {
         mainQueueExecuting {
             if self.view.isUserInteractionEnabled {
-                self.activityIndicatorView.startAnimating()
+                self.contentView.activityIndicatorView.startAnimating()
                 self.view.isUserInteractionEnabled = false
             } else {
-                self.activityIndicatorView.stopAnimating()
+                self.contentView.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
             }
         }
     }
     
+    func messageInputTextField(enabled: Bool, placeholder: String? = nil) {
+        mainQueueExecuting {
+            self.contentView.messageInputViewTextField.isEnabled = enabled
+            self.contentView.messageInputViewTextField.text = nil
+            self.contentView.messageInputViewTextField.placeholder = placeholder
+        }
+    }
+    
+    func tableViewReloadData(indexPaths: [IndexPath]? = nil) {
+        assert(Thread.isMainThread)
+        if let indexPaths = indexPaths {
+            self.contentView.tableView.reloadRows(at: indexPaths, with: .automatic)
+        } else {
+            self.contentView.tableView.reloadData()
+        }
+    }
+    
+    func tableViewScrollTo(
+        indexPath: IndexPath,
+        scrollPosition: UITableView.ScrollPosition,
+        animated: Bool)
+    {
+        assert(Thread.isMainThread)
+        if !self.messages.isEmpty {
+            self.contentView.tableView.scrollToRow(
+                at: indexPath,
+                at: scrollPosition,
+                animated: animated
+            )
+        }
+    }
+    
     @objc func pullToRefresh() {
+        var start: IMConversation.MessageQueryEndpoint? = nil
+        if let oldMessage = self.messages.first {
+            start = IMConversation.MessageQueryEndpoint(
+                messageID: oldMessage.ID,
+                sentTimestamp: oldMessage.sentTimestamp,
+                isClosed: true
+            )
+        }
         do {
-            var start: IMConversation.MessageQueryEndpoint?
-            if let oldMessage = self.messages.first {
-                start = IMConversation.MessageQueryEndpoint(
-                    messageID: oldMessage.ID,
-                    sentTimestamp: oldMessage.sentTimestamp,
-                    isClosed: false
-                )
-            }
-            try conversation.queryMessage(start: start, direction: .newToOld, limit: 10, completion: { (result) in
+            try conversation.queryMessage(
+                start: start,
+                direction: .newToOld,
+                policy: .cacheThenNetwork)
+            { [weak self] (result) in
+                Client.default.specificAssertion
+                guard let self = self else { return }
                 switch result {
-                case .success(value: let msgs):
-                    self.underlyingMessages = msgs + self.underlyingMessages
-                    let newMessages = self.underlyingMessages
+                case .success(value: let messageResults):
+                    if !self.firstRead {
+                        self.firstRead = true
+                        self.conversation.read()
+                    }
                     mainQueueExecuting {
+                        let isOriginMessageEmpty = self.messages.isEmpty
                         self.refreshControl.endRefreshing()
-                        self.messages = newMessages
-                        self.tableView.reloadData()
+                        if
+                            let first = self.messages.first,
+                            let last = messageResults.last,
+                            let firstTimestamp = first.sentTimestamp,
+                            let lastTimestamp = last.sentTimestamp,
+                            firstTimestamp == lastTimestamp,
+                            let firstMessageID = first.ID,
+                            let lastMessageID = last.ID,
+                            firstMessageID == lastMessageID
+                        {
+                            self.messages.removeFirst()
+                        }
+                        self.messages.insert(contentsOf: messageResults, at: 0)
+                        self.tableViewReloadData()
+                        self.tableViewScrollTo(
+                            indexPath: IndexPath(row: messageResults.count - 1, section: 0),
+                            scrollPosition: isOriginMessageEmpty ? .bottom : .top,
+                            animated: false
+                        )
                     }
                 case .failure(error: let error):
                     self.refreshControl.endRefreshing()
                     UIAlertController.show(error: error, controller: self)
                 }
-            })
+            }
         } catch {
             self.refreshControl.endRefreshing()
             UIAlertController.show(error: error, controller: self)
         }
     }
     
-    @objc func navigationRightButtonAction(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Send Text Message", message: "-", preferredStyle: .alert)
-        alert.addTextField()
+    @IBAction func messageAttachingAction(_ sender: UIButton) {
+        if self.contentView.messageInputViewTextField.isFirstResponder {
+           self.contentView.messageInputViewTextField.resignFirstResponder()
+        }
+        let alert = UIAlertController(title: "Attachment", message: "-", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (_) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Photo or Video", style: .default, handler: { (_) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary) ?? []
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Audio", style: .default, handler: { (_) in
+            let audioRecordingViewController = AudioRecordingViewController()
+            audioRecordingViewController.handlerForAudioFileURL = { fileURL in
+                self.sendingMessage = IMAudioMessage(filePath: fileURL.path)
+            }
+            self.present(audioRecordingViewController, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Location", style: .default, handler: { (_) in
+            self.activityToggle()
+            LocationManager.shared.requestLocation(completion: { (result) in
+                self.activityToggle()
+                switch result {
+                case .success(let location):
+                    self.sendingMessage = IMLocationMessage(
+                        latitude: location.coordinate.latitude,
+                        longitude: location.coordinate.longitude
+                    )
+                case .failure(let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "File", style: .default, handler: { (_) in
+            let fileSampleViewController = FileSampleViewController()
+            fileSampleViewController.handlerForData = { [weak self] data in
+                self?.sendingMessage = IMFileMessage(data: data, format: "txt")
+            }
+            self.present(fileSampleViewController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (_) in
+            self.sendingMessage = nil
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Send", style: .default, handler: { (_) in
-            guard let text = alert.textFields?.first?.text, !text.isEmpty else {
+        self.present(alert, animated: true)
+    }
+    
+    @IBAction func messageSendingAction(_ sender: UIButton) {
+        let message: IMMessage
+        if let sendingMessage = self.sendingMessage {
+            message = sendingMessage
+        } else {
+            guard let text = self.contentView.messageInputViewTextField.text, !text.isEmpty else {
                 return
             }
-            do {
-                let message = IMTextMessage()
-                message.text = text
+            message = IMTextMessage(text: text)
+        }
+        do {
+            self.activityToggle()
+            try self.conversation.send(message: message, completion: { [weak self] (result) in
+                Client.default.specificAssertion
+                guard let self = self else { return }
                 self.activityToggle()
-                try self.conversation.send(message: message, completion: { (result) in
-                    switch result {
-                    case .success:
-                        self.underlyingMessages.append(message)
-                        let newMessages = self.underlyingMessages
-                        mainQueueExecuting {
-                            self.activityToggle()
-                            self.messages = newMessages
-                            self.tableView.reloadData()
-                            self.tableView.scrollToRow(
-                                at: IndexPath(row: newMessages.count - 1, section: 0),
-                                at: .bottom,
-                                animated: true
-                            )
-                        }
-                    case .failure(error: let error):
-                        self.activityToggle()
-                        UIAlertController.show(error: error, controller: self)
+                switch result {
+                case .success:
+                    mainQueueExecuting {
+                        self.sendingMessage = nil
+                        self.messages.append(message)
+                        let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                        self.tableViewReloadData()
+                        self.tableViewScrollTo(
+                            indexPath: indexPath,
+                            scrollPosition: .bottom,
+                            animated: true
+                        )
                     }
-                })
-            } catch {
-                self.activityToggle()
-                UIAlertController.show(error: error, controller: self)
-            }
-        }))
-        self.present(alert, animated: true)
+                case .failure(error: let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            })
+        } catch {
+            self.activityToggle()
+            UIAlertController.show(error: error, controller: self)
+        }
     }
     
 }
@@ -183,16 +427,145 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
         let message = self.messages[indexPath.row]
-        if message.ioType == .in {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageListLeftCell") as! MessageListLeftCell
-            cell.contentLabel.text = (message as? IMCategorizedMessage)?.text
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageListRightCell") as! MessageListRightCell
-            cell.contentLabel.text = (message as? IMCategorizedMessage)?.text
-            return cell
+        switch message {
+        case is IMTextMessage:
+            let textCell = tableView.dequeueReusableCell(withIdentifier: "\(TextMessageCell.self)") as! TextMessageCell
+            textCell.update(with: message as! IMTextMessage)
+            cell = textCell
+        case is IMImageMessage:
+            let imageCell = tableView.dequeueReusableCell(withIdentifier: "\(ImageMessageCell.self)") as! ImageMessageCell
+            imageCell.update(with: message as! IMImageMessage)
+            cell = imageCell
+        case is IMAudioMessage:
+            let audioCell = tableView.dequeueReusableCell(withIdentifier: "\(AudioMessageCell.self)") as! AudioMessageCell
+            audioCell.update(with: message as! IMAudioMessage)
+            audioCell.handlerForPlayer = { [weak self] url in
+                guard let self = self else {
+                    return
+                }
+                self.audioPlayer?.pause()
+                self.audioPlayer = AVPlayer(url: url)
+                self.audioPlayer?.play()
+                self.contentView.mediaPlayingStatusView.isHidden = false
+            }
+            cell = audioCell
+        case is IMVideoMessage:
+            let videoCell = tableView.dequeueReusableCell(withIdentifier: "\(VideoMessageCell.self)") as! VideoMessageCell
+            videoCell.update(with: message as! IMVideoMessage)
+            videoCell.handlerForPlayer = { [weak self] url in
+                guard let self = self else {
+                    return
+                }
+                let player = AVPlayer(url: url)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    player.play()
+                }
+            }
+            cell = videoCell
+        case is IMLocationMessage:
+            let locationCell = tableView.dequeueReusableCell(withIdentifier: "\(LocationMessageCell.self)") as! LocationMessageCell
+            locationCell.update(with: message as! IMLocationMessage)
+            cell = locationCell
+        case is IMFileMessage:
+            let fileCell = tableView.dequeueReusableCell(withIdentifier: "\(FileMessageCell.self)") as! FileMessageCell
+            fileCell.update(with: message as! IMFileMessage)
+            fileCell.handlerForButton = { [weak self] url in
+                let fileSampleViewController = FileSampleViewController()
+                fileSampleViewController.url = url
+                self?.present(fileSampleViewController, animated: true, completion: nil)
+            }
+            cell = fileCell
+        case is IMRecalledMessage:
+            let recalledCell = tableView.dequeueReusableCell(withIdentifier: "\(RecalledMessageCell.self)") as! RecalledMessageCell
+            recalledCell.update(with: message as! IMRecalledMessage)
+            cell = recalledCell
+        default:
+            fatalError()
         }
+        cell.contentView.backgroundColor = (message.ioType == .out)
+            ? UIColor(red: 194.0 / 255.0, green: 224.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0)
+            : UIColor.white
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let recall = UITableViewRowAction(style: .destructive, title: "Recall") { (action, indexPath) in
+            let recallingMessage = self.messages[indexPath.row]
+            do {
+                self.activityToggle()
+                try self.conversation.recall(message: recallingMessage, completion: { [weak self] (result) in
+                    Client.default.specificAssertion
+                    guard let self = self else {
+                        return
+                    }
+                    self.activityToggle()
+                    switch result {
+                    case .success(value: let recalledMessage):
+                        mainQueueExecuting {
+                            let oldMessage = self.messages[indexPath.row]
+                            if oldMessage.ID == recalledMessage.ID, oldMessage.sentTimestamp == recalledMessage.sentTimestamp {
+                                self.messages[indexPath.row] = recalledMessage
+                                self.tableViewReloadData(indexPaths: [indexPath])
+                            } else {
+                                fatalError()
+                            }
+                        }
+                    case .failure(error: let error):
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                })
+            } catch {
+                UIAlertController.show(error: error, controller: self)
+            }
+        }
+        return [recall]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return (self.messages[indexPath.row].ioType == .out)
+    }
+    
+}
+
+extension MessageListViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+}
+
+extension MessageListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var message: IMCategorizedMessage?
+        if let image = info[.editedImage] as? UIImage {
+            if let jpgData = image.jpeg() {
+                message = IMImageMessage(data: jpgData, format: "jpg")
+            }
+        } else if let videoURL = info[.mediaURL] as? URL {
+            message = IMVideoMessage(filePath: videoURL.path)
+        }
+        picker.dismiss(animated: true) {
+            self.sendingMessage = message
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
 }

@@ -15,12 +15,25 @@ class Client {
     static let `default` = Client()
     
     let queue = DispatchQueue(label: "Client.queue")
+    #if DEBUG
+    let specificKey = DispatchSpecificKey<Int>()
+    let specificValue: Int = Int.random(in: 1...999)
+    #endif
+    var specificAssertion: Void {
+        #if DEBUG
+        assert(self.specificValue == DispatchQueue.getSpecific(key: self.specificKey))
+        #endif
+    }
     
-    var imClient: IMClient?
+    var imClient: IMClient!
     
     private var observerMap: [String: (IMClient, IMConversation, IMConversationEvent) -> Void] = [:]
     
-    private init() {}
+    private init() {
+        #if DEBUG
+        self.queue.setSpecific(key: self.specificKey, value: self.specificValue)
+        #endif
+    }
     
     lazy var sessionStatusView: SessionStatusView = {
         let view = UINib(nibName: "SessionStatusView", bundle: .main)
@@ -49,6 +62,7 @@ class Client {
 extension Client: IMClientDelegate {
     
     func client(_ client: IMClient, event: IMClientEvent) {
+        self.specificAssertion
         var text: String = ""
         switch event {
         case .sessionDidOpen:
@@ -67,6 +81,7 @@ extension Client: IMClientDelegate {
     }
     
     func client(_ client: IMClient, conversation: IMConversation, event: IMConversationEvent) {
+        self.specificAssertion
         for item in self.observerMap.values {
             item(client, conversation, event)
         }

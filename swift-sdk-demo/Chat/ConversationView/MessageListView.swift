@@ -12,5 +12,13 @@ import UIKit
 class MessageListView: UIView {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var messageInputView: UIView!
+    @IBOutlet weak var messageInputViewAttachButton: UIButton!
+    @IBOutlet weak var messageInputViewTextField: UITextField!
+    @IBOutlet weak var messageInputViewSendButton: UIButton!
+    @IBOutlet weak var messageInputViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mediaPlayingStatusView: UIView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
 }

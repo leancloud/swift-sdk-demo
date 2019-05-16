@@ -21,14 +21,31 @@
 		D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */; };
 		D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345383A227EDD5200A7A6C2 /* SettingsView.xib */; };
 		D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345383C227EDD6400A7A6C2 /* SettingsView.swift */; };
+		D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345D0C922828AFF00A86D94 /* TextMessageCell.swift */; };
+		D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */; };
+		D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */; };
+		D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCC228DAE9C006746BF /* LocationManager.swift */; };
+		D34A1FCF228DB849006746BF /* LocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCE228DB849006746BF /* LocationMessageCell.swift */; };
+		D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */; };
+		D34A1FD3228DBF64006746BF /* FileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FD2228DBF64006746BF /* FileMessageCell.swift */; };
+		D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD4228DC06B006746BF /* FileMessageCell.xib */; };
+		D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */; };
+		D34A1FD9228DC2DA006746BF /* FileSampleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD8228DC2DA006746BF /* FileSampleView.xib */; };
+		D34A1FDB228DCB1C006746BF /* RecalledMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */; };
+		D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */; };
+		D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */; };
+		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
+		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
+		D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */; };
+		D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B7228AB10D0030821C /* AudioRecordingView.xib */; };
 		D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D364739B224CD8E300AC14DB /* SessionStatusView.xib */; };
 		D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364739D224CD96F00AC14DB /* SessionStatusView.swift */; };
+		D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39EF22022894CEA00CA340A /* ImageMessageCell.swift */; };
+		D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39EF22222894D5400CA340A /* ImageMessageCell.xib */; };
+		D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */; };
+		D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */; };
 		D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242052250E49200BF8D31 /* MessageListView.xib */; };
 		D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D242072250E4A700BF8D31 /* MessageListView.swift */; };
-		D3D2420A2250E85D00BF8D31 /* MessageListLeftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */; };
-		D3D2420C2250E86D00BF8D31 /* MessageListLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D2420B2250E86D00BF8D31 /* MessageListLeftCell.swift */; };
-		D3D2420E2250E8E900BF8D31 /* MessageListRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D2420D2250E8E900BF8D31 /* MessageListRightCell.swift */; };
-		D3D242102250E90200BF8D31 /* MessageListRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D2420F2250E90200BF8D31 /* MessageListRightCell.xib */; };
 		D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5CD32224DFE3C00F7EF85 /* ConversationListView.xib */; };
 		D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E5CD34224DFEE900F7EF85 /* ConversationListView.swift */; };
 		D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E5CD36224E004D00F7EF85 /* ConversationListCell.swift */; };
@@ -54,14 +71,31 @@
 		D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D345383A227EDD5200A7A6C2 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		D345383C227EDD6400A7A6C2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D345D0C922828AFF00A86D94 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
+		D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FCC228DAE9C006746BF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		D34A1FCE228DB849006746BF /* LocationMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FD2228DBF64006746BF /* FileMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FD4228DC06B006746BF /* FileMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSampleViewController.swift; sourceTree = "<group>"; };
+		D34A1FD8228DC2DA006746BF /* FileSampleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileSampleView.xib; sourceTree = "<group>"; };
+		D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecalledMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecalledMessageCell.xib; sourceTree = "<group>"; };
+		D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
+		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
+		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
+		D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingViewController.swift; sourceTree = "<group>"; };
+		D35F84B7228AB10D0030821C /* AudioRecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioRecordingView.xib; sourceTree = "<group>"; };
 		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
 		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
+		D39EF22022894CEA00CA340A /* ImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessageCell.swift; sourceTree = "<group>"; };
+		D39EF22222894D5400CA340A /* ImageMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageMessageCell.xib; sourceTree = "<group>"; };
+		D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListDetailsCell.swift; sourceTree = "<group>"; };
+		D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListDetailsCell.xib; sourceTree = "<group>"; };
 		D3D242052250E49200BF8D31 /* MessageListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListView.xib; sourceTree = "<group>"; };
 		D3D242072250E4A700BF8D31 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
-		D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListLeftCell.xib; sourceTree = "<group>"; };
-		D3D2420B2250E86D00BF8D31 /* MessageListLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListLeftCell.swift; sourceTree = "<group>"; };
-		D3D2420D2250E8E900BF8D31 /* MessageListRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListRightCell.swift; sourceTree = "<group>"; };
-		D3D2420F2250E90200BF8D31 /* MessageListRightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListRightCell.xib; sourceTree = "<group>"; };
 		D3E5CD32224DFE3C00F7EF85 /* ConversationListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListView.xib; sourceTree = "<group>"; };
 		D3E5CD34224DFEE900F7EF85 /* ConversationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListView.swift; sourceTree = "<group>"; };
 		D3E5CD36224E004D00F7EF85 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
@@ -119,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				D3100777224B6BDB00297DC4 /* Client.swift */,
+				D34A1FCC228DAE9C006746BF /* LocationManager.swift */,
 				D3453836227ED33C00A7A6C2 /* Extension.swift */,
 				D30FB57D2248D8E900F233EF /* AppDelegate.swift */,
 				D30FB57F2248D8E900F233EF /* ViewController.swift */,
@@ -128,6 +163,7 @@
 				D364739B224CD8E300AC14DB /* SessionStatusView.xib */,
 				D3453842227EE0FD00A7A6C2 /* ConversationView */,
 				D3453843227EE17E00A7A6C2 /* SettingsView */,
+				D35F84B4228AB0870030821C /* OtherView */,
 				D30FB5842248D8EA00F233EF /* Assets.xcassets */,
 				D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */,
 				D30FB5892248D8EA00F233EF /* Info.plist */,
@@ -143,13 +179,25 @@
 				D3E5CD32224DFE3C00F7EF85 /* ConversationListView.xib */,
 				D3E5CD36224E004D00F7EF85 /* ConversationListCell.swift */,
 				D3E5CD38224E01B600F7EF85 /* ConversationListCell.xib */,
+				D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */,
+				D3B6009B22818CC400F2E556 /* ConversationListDetailsCell.xib */,
 				D3100775224B66CD00297DC4 /* MessageListViewController.swift */,
 				D3D242072250E4A700BF8D31 /* MessageListView.swift */,
 				D3D242052250E49200BF8D31 /* MessageListView.xib */,
-				D3D2420B2250E86D00BF8D31 /* MessageListLeftCell.swift */,
-				D3D242092250E85D00BF8D31 /* MessageListLeftCell.xib */,
-				D3D2420D2250E8E900BF8D31 /* MessageListRightCell.swift */,
-				D3D2420F2250E90200BF8D31 /* MessageListRightCell.xib */,
+				D345D0C922828AFF00A86D94 /* TextMessageCell.swift */,
+				D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */,
+				D39EF22022894CEA00CA340A /* ImageMessageCell.swift */,
+				D39EF22222894D5400CA340A /* ImageMessageCell.xib */,
+				D35F84B0228A99860030821C /* AudioMessageCell.swift */,
+				D35F84B2228A9BA80030821C /* AudioMessageCell.xib */,
+				D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */,
+				D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */,
+				D34A1FCE228DB849006746BF /* LocationMessageCell.swift */,
+				D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */,
+				D34A1FD2228DBF64006746BF /* FileMessageCell.swift */,
+				D34A1FD4228DC06B006746BF /* FileMessageCell.xib */,
+				D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */,
+				D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -162,6 +210,17 @@
 				D345383A227EDD5200A7A6C2 /* SettingsView.xib */,
 			);
 			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		D35F84B4228AB0870030821C /* OtherView */ = {
+			isa = PBXGroup;
+			children = (
+				D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */,
+				D35F84B7228AB10D0030821C /* AudioRecordingView.xib */,
+				D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */,
+				D34A1FD8228DC2DA006746BF /* FileSampleView.xib */,
+			);
+			path = OtherView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,14 +286,22 @@
 			files = (
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
 				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
+				D3B6009C22818CC400F2E556 /* ConversationListDetailsCell.xib in Resources */,
+				D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */,
 				D364739C224CD8E300AC14DB /* SessionStatusView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
+				D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
-				D3D2420A2250E85D00BF8D31 /* MessageListLeftCell.xib in Resources */,
-				D3D242102250E90200BF8D31 /* MessageListRightCell.xib in Resources */,
+				D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */,
+				D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */,
+				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
+				D34A1FD9228DC2DA006746BF /* FileSampleView.xib in Resources */,
+				D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */,
+				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
+				D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,18 +357,27 @@
 				D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */,
 				D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */,
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
+				D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */,
+				D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */,
+				D34A1FDB228DCB1C006746BF /* RecalledMessageCell.swift in Sources */,
 				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
 				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
-				D3D2420E2250E8E900BF8D31 /* MessageListRightCell.swift in Sources */,
 				D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */,
 				D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */,
+				D34A1FCF228DB849006746BF /* LocationMessageCell.swift in Sources */,
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
+				D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */,
+				D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
+				D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
+				D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */,
+				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,
+				D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
-				D3D2420C2250E86D00BF8D31 /* MessageListLeftCell.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */,
+				D34A1FD3228DBF64006746BF /* FileMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +527,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -470,6 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

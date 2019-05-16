@@ -65,11 +65,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             self.activityToggle()
-            Client.default.imClient?.close(completion: { (result) in
+            Client.default.imClient.close(completion: { (result) in
                 self.activityToggle()
                 switch result {
                 case .success:
                     mainQueueExecuting {
+                        Client.default.imClient = nil
                         UIApplication.shared.keyWindow?.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "ViewController")
                     }
                 case .failure(error: let error):
