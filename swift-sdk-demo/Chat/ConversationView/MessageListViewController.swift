@@ -43,6 +43,8 @@ class MessageListViewController: UIViewController {
                     self.messageInputTextField(enabled: false, placeholder: "[Location]")
                 case is IMFileMessage:
                     self.messageInputTextField(enabled: false, placeholder: "[File]")
+                case is IMRecalledMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Recalled]")
                 default:
                     self.messageInputTextField(enabled: true)
                 }
@@ -86,6 +88,10 @@ class MessageListViewController: UIViewController {
         self.contentView.tableView.register(
             UINib(nibName: "\(FileMessageCell.self)", bundle: .main),
             forCellReuseIdentifier: "\(FileMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(RecalledMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(RecalledMessageCell.self)"
         )
         self.contentView.tableView.rowHeight = UITableView.automaticDimension
         self.contentView.tableView.estimatedRowHeight = 100.0
@@ -138,6 +144,20 @@ class MessageListViewController: UIViewController {
                         self.messages.append(message)
                         let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
                         self.tableViewReloadData(indexPaths: [indexPath])
+                    }
+                case let .updated(updatedMessage: updatedMessage, reason: _):
+                    mainQueueExecuting {
+                        var indexPath: IndexPath?
+                        for (index, item) in self.messages.enumerated() {
+                            if item.ID == updatedMessage.ID, item.sentTimestamp == updatedMessage.sentTimestamp {
+                                indexPath = IndexPath(row: index, section: 0)
+                                self.messages[index] = updatedMessage
+                                break
+                            }
+                        }
+                        if let indexPath = indexPath {
+                            self.tableViewReloadData(indexPaths: [indexPath])
+                        }
                     }
                 default:
                     break
@@ -459,6 +479,10 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
                 self?.present(fileSampleViewController, animated: true, completion: nil)
             }
             cell = fileCell
+        case is IMRecalledMessage:
+            let recalledCell = tableView.dequeueReusableCell(withIdentifier: "\(RecalledMessageCell.self)") as! RecalledMessageCell
+            recalledCell.update(with: message as! IMRecalledMessage)
+            cell = recalledCell
         default:
             fatalError()
         }
@@ -466,6 +490,43 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
             ? UIColor(red: 194.0 / 255.0, green: 224.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0)
             : UIColor.white
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let recall = UITableViewRowAction(style: .destructive, title: "Recall") { (action, indexPath) in
+            let recallingMessage = self.messages[indexPath.row]
+            do {
+                self.activityToggle()
+                try self.conversation.recall(message: recallingMessage, completion: { [weak self] (result) in
+                    Client.default.specificAssertion
+                    guard let self = self else {
+                        return
+                    }
+                    self.activityToggle()
+                    switch result {
+                    case .success(value: let recalledMessage):
+                        mainQueueExecuting {
+                            let oldMessage = self.messages[indexPath.row]
+                            if oldMessage.ID == recalledMessage.ID, oldMessage.sentTimestamp == recalledMessage.sentTimestamp {
+                                self.messages[indexPath.row] = recalledMessage
+                                self.tableViewReloadData(indexPaths: [indexPath])
+                            } else {
+                                fatalError()
+                            }
+                        }
+                    case .failure(error: let error):
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                })
+            } catch {
+                UIAlertController.show(error: error, controller: self)
+            }
+        }
+        return [recall]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return (self.messages[indexPath.row].ioType == .out)
     }
     
 }

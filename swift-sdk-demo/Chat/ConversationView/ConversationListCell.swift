@@ -43,6 +43,8 @@ class ConversationListCell: UITableViewCell {
                 convLastMessageContentText = categorizedMessage.text ?? "[Location]"
             case is IMFileMessage:
                 convLastMessageContentText = categorizedMessage.text ?? "[File]"
+            case is IMRecalledMessage:
+                convLastMessageContentText = categorizedMessage.text ?? "[Recalled]"
             default:
                 break
             }

@@ -31,6 +31,8 @@
 		D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD4228DC06B006746BF /* FileMessageCell.xib */; };
 		D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */; };
 		D34A1FD9228DC2DA006746BF /* FileSampleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD8228DC2DA006746BF /* FileSampleView.xib */; };
+		D34A1FDB228DCB1C006746BF /* RecalledMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */; };
+		D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */; };
 		D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */; };
 		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
 		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
@@ -79,6 +81,8 @@
 		D34A1FD4228DC06B006746BF /* FileMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileMessageCell.xib; sourceTree = "<group>"; };
 		D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSampleViewController.swift; sourceTree = "<group>"; };
 		D34A1FD8228DC2DA006746BF /* FileSampleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileSampleView.xib; sourceTree = "<group>"; };
+		D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecalledMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecalledMessageCell.xib; sourceTree = "<group>"; };
 		D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */,
 				D34A1FD2228DBF64006746BF /* FileMessageCell.swift */,
 				D34A1FD4228DC06B006746BF /* FileMessageCell.xib */,
+				D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */,
+				D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
+				D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */,
 				D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */,
 				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
@@ -352,6 +359,7 @@
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
 				D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */,
 				D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */,
+				D34A1FDB228DCB1C006746BF /* RecalledMessageCell.swift in Sources */,
 				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
 				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
 				D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */,
