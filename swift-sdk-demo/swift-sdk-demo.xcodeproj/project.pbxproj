@@ -27,6 +27,10 @@
 		D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCC228DAE9C006746BF /* LocationManager.swift */; };
 		D34A1FCF228DB849006746BF /* LocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCE228DB849006746BF /* LocationMessageCell.swift */; };
 		D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */; };
+		D34A1FD3228DBF64006746BF /* FileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FD2228DBF64006746BF /* FileMessageCell.swift */; };
+		D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD4228DC06B006746BF /* FileMessageCell.xib */; };
+		D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */; };
+		D34A1FD9228DC2DA006746BF /* FileSampleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD8228DC2DA006746BF /* FileSampleView.xib */; };
 		D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */; };
 		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
 		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
@@ -71,6 +75,10 @@
 		D34A1FCC228DAE9C006746BF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D34A1FCE228DB849006746BF /* LocationMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMessageCell.swift; sourceTree = "<group>"; };
 		D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FD2228DBF64006746BF /* FileMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FD4228DC06B006746BF /* FileMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSampleViewController.swift; sourceTree = "<group>"; };
+		D34A1FD8228DC2DA006746BF /* FileSampleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileSampleView.xib; sourceTree = "<group>"; };
 		D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
@@ -182,6 +190,8 @@
 				D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */,
 				D34A1FCE228DB849006746BF /* LocationMessageCell.swift */,
 				D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */,
+				D34A1FD2228DBF64006746BF /* FileMessageCell.swift */,
+				D34A1FD4228DC06B006746BF /* FileMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -201,6 +211,8 @@
 			children = (
 				D35F84B5228AB0DA0030821C /* AudioRecordingViewController.swift */,
 				D35F84B7228AB10D0030821C /* AudioRecordingView.xib */,
+				D34A1FD6228DC2B9006746BF /* FileSampleViewController.swift */,
+				D34A1FD8228DC2DA006746BF /* FileSampleView.xib */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -275,8 +287,10 @@
 				D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
+				D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */,
 				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
+				D34A1FD9228DC2DA006746BF /* FileSampleView.xib in Resources */,
 				D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */,
 				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
@@ -336,6 +350,7 @@
 				D345383D227EDD6400A7A6C2 /* SettingsView.swift in Sources */,
 				D364739E224CD96F00AC14DB /* SessionStatusView.swift in Sources */,
 				D30FB5802248D8E900F233EF /* ViewController.swift in Sources */,
+				D34A1FD7228DC2B9006746BF /* FileSampleViewController.swift in Sources */,
 				D35F84B6228AB0DA0030821C /* AudioRecordingViewController.swift in Sources */,
 				D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */,
 				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
@@ -354,6 +369,7 @@
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */,
+				D34A1FD3228DBF64006746BF /* FileMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

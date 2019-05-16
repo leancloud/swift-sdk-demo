@@ -29,7 +29,7 @@ class AudioMessageCell: UITableViewCell {
         if let date = message.sentDate {
             self.messageDateLabel.text = dateFormatter.string(from: date)
         } else {
-            self.messageDateLabel.text = ""
+            self.messageDateLabel.text = "-"
         }
     }
     

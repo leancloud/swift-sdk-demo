@@ -41,6 +41,8 @@ class MessageListViewController: UIViewController {
                     self.messageInputTextField(enabled: false, placeholder: "[Video]")
                 case is IMLocationMessage:
                     self.messageInputTextField(enabled: false, placeholder: "[Location]")
+                case is IMFileMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[File]")
                 default:
                     self.messageInputTextField(enabled: true)
                 }
@@ -80,6 +82,10 @@ class MessageListViewController: UIViewController {
         self.contentView.tableView.register(
             UINib(nibName: "\(LocationMessageCell.self)", bundle: .main),
             forCellReuseIdentifier: "\(LocationMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(FileMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(FileMessageCell.self)"
         )
         self.contentView.tableView.rowHeight = UITableView.automaticDimension
         self.contentView.tableView.estimatedRowHeight = 100.0
@@ -339,6 +345,13 @@ class MessageListViewController: UIViewController {
                 }
             })
         }))
+        alert.addAction(UIAlertAction(title: "File", style: .default, handler: { (_) in
+            let fileSampleViewController = FileSampleViewController()
+            fileSampleViewController.handlerForData = { [weak self] data in
+                self?.sendingMessage = IMFileMessage(data: data, format: "txt")
+            }
+            self.present(fileSampleViewController, animated: true, completion: nil)
+        }))
         alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (_) in
             self.sendingMessage = nil
         }))
@@ -437,6 +450,15 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
             let locationCell = tableView.dequeueReusableCell(withIdentifier: "\(LocationMessageCell.self)") as! LocationMessageCell
             locationCell.update(with: message as! IMLocationMessage)
             cell = locationCell
+        case is IMFileMessage:
+            let fileCell = tableView.dequeueReusableCell(withIdentifier: "\(FileMessageCell.self)") as! FileMessageCell
+            fileCell.update(with: message as! IMFileMessage)
+            fileCell.handlerForButton = { [weak self] url in
+                let fileSampleViewController = FileSampleViewController()
+                fileSampleViewController.url = url
+                self?.present(fileSampleViewController, animated: true, completion: nil)
+            }
+            cell = fileCell
         default:
             fatalError()
         }
