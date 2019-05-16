@@ -24,6 +24,9 @@
 		D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345D0C922828AFF00A86D94 /* TextMessageCell.swift */; };
 		D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */; };
 		D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */; };
+		D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCC228DAE9C006746BF /* LocationManager.swift */; };
+		D34A1FCF228DB849006746BF /* LocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FCE228DB849006746BF /* LocationMessageCell.swift */; };
+		D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */; };
 		D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */; };
 		D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* AudioMessageCell.swift */; };
 		D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* AudioMessageCell.xib */; };
@@ -65,6 +68,9 @@
 		D345D0C922828AFF00A86D94 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		D345D0CB22828B0D00A86D94 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
 		D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoMessageCell.xib; sourceTree = "<group>"; };
+		D34A1FCC228DAE9C006746BF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		D34A1FCE228DB849006746BF /* LocationMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMessageCell.swift; sourceTree = "<group>"; };
+		D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationMessageCell.xib; sourceTree = "<group>"; };
 		D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B0228A99860030821C /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B2228A9BA80030821C /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				D3100777224B6BDB00297DC4 /* Client.swift */,
+				D34A1FCC228DAE9C006746BF /* LocationManager.swift */,
 				D3453836227ED33C00A7A6C2 /* Extension.swift */,
 				D30FB57D2248D8E900F233EF /* AppDelegate.swift */,
 				D30FB57F2248D8E900F233EF /* ViewController.swift */,
@@ -173,6 +180,8 @@
 				D35F84B2228A9BA80030821C /* AudioMessageCell.xib */,
 				D35D35F8228D6FEE006C41CE /* VideoMessageCell.swift */,
 				D34A1FCA228DA8B7006746BF /* VideoMessageCell.xib */,
+				D34A1FCE228DB849006746BF /* LocationMessageCell.swift */,
+				D34A1FD0228DB8FA006746BF /* LocationMessageCell.xib */,
 			);
 			path = ConversationView;
 			sourceTree = "<group>";
@@ -268,6 +277,7 @@
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
 				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
 				D3D242062250E49200BF8D31 /* MessageListView.xib in Resources */,
+				D34A1FD1228DB8FA006746BF /* LocationMessageCell.xib in Resources */,
 				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D30FB5832248D8E900F233EF /* Main.storyboard in Resources */,
 				D34A1FCB228DA8B7006746BF /* VideoMessageCell.xib in Resources */,
@@ -331,10 +341,12 @@
 				D3100778224B6BDB00297DC4 /* Client.swift in Sources */,
 				D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */,
 				D3100772224B56BE00297DC4 /* TabBarController.swift in Sources */,
+				D34A1FCF228DB849006746BF /* LocationMessageCell.swift in Sources */,
 				D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */,
 				D345D0CA22828AFF00A86D94 /* TextMessageCell.swift in Sources */,
 				D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */,
 				D3E5CD35224DFEE900F7EF85 /* ConversationListView.swift in Sources */,
+				D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
 				D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */,
 				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,

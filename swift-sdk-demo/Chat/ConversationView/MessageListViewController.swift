@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import AVKit
+import CoreLocation
 import LeanCloud
 
 class MessageListViewController: UIViewController {
@@ -38,6 +39,8 @@ class MessageListViewController: UIViewController {
                     self.messageInputTextField(enabled: false, placeholder: "[Audio]")
                 case is IMVideoMessage:
                     self.messageInputTextField(enabled: false, placeholder: "[Video]")
+                case is IMLocationMessage:
+                    self.messageInputTextField(enabled: false, placeholder: "[Location]")
                 default:
                     self.messageInputTextField(enabled: true)
                 }
@@ -73,6 +76,10 @@ class MessageListViewController: UIViewController {
         self.contentView.tableView.register(
             UINib(nibName: "\(VideoMessageCell.self)", bundle: .main),
             forCellReuseIdentifier: "\(VideoMessageCell.self)"
+        )
+        self.contentView.tableView.register(
+            UINib(nibName: "\(LocationMessageCell.self)", bundle: .main),
+            forCellReuseIdentifier: "\(LocationMessageCell.self)"
         )
         self.contentView.tableView.rowHeight = UITableView.automaticDimension
         self.contentView.tableView.estimatedRowHeight = 100.0
@@ -317,6 +324,21 @@ class MessageListViewController: UIViewController {
             }
             self.present(audioRecordingViewController, animated: true)
         }))
+        alert.addAction(UIAlertAction(title: "Location", style: .default, handler: { (_) in
+            self.activityToggle()
+            LocationManager.shared.requestLocation(completion: { (result) in
+                self.activityToggle()
+                switch result {
+                case .success(let location):
+                    self.sendingMessage = IMLocationMessage(
+                        latitude: location.coordinate.latitude,
+                        longitude: location.coordinate.longitude
+                    )
+                case .failure(let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            })
+        }))
         alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (_) in
             self.sendingMessage = nil
         }))
@@ -411,6 +433,10 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
                 }
             }
             cell = videoCell
+        case is IMLocationMessage:
+            let locationCell = tableView.dequeueReusableCell(withIdentifier: "\(LocationMessageCell.self)") as! LocationMessageCell
+            locationCell.update(with: message as! IMLocationMessage)
+            cell = locationCell
         default:
             fatalError()
         }

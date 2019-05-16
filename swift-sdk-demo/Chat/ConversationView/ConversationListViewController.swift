@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import LeanCloud
+import CoreLocation
 
 class ConversationListViewController: UIViewController {
     
@@ -57,6 +58,8 @@ class ConversationListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.tabBarController?.tabBar.isHidden = false
+        
+        LocationManager.shared.manager.requestWhenInUseAuthorization()
     }
     
     deinit {
