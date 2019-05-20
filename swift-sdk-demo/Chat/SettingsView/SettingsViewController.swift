@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import LeanCloud
 
 class SettingsViewController: UIViewController {
     
@@ -64,17 +65,32 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
+            let clientID: String = Client.default.imClient.ID
             self.activityToggle()
-            Client.default.imClient.close(completion: { (result) in
-                self.activityToggle()
+            Client.default.imClient.close(completion: { [weak self] (result) in
+                self?.activityToggle()
                 switch result {
                 case .success:
                     mainQueueExecuting {
                         Client.default.imClient = nil
                         UIApplication.shared.keyWindow?.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "ViewController")
                     }
+                    Client.default.installationSavingQueue.async {
+                        do {
+                            try LCApplication.default.currentInstallation.remove("channels", element: clientID)
+                            if let self = self, let error = LCApplication.default.currentInstallation.save().error {
+                                UIAlertController.show(error: error, controller: self)
+                            }
+                        } catch {
+                            if let self = self {
+                                UIAlertController.show(error: error, controller: self)
+                            }
+                        }
+                    }
                 case .failure(error: let error):
-                    UIAlertController.show(error: error, controller: self)
+                    if let self = self {                    
+                        UIAlertController.show(error: error, controller: self)
+                    }
                 }
             })
         default:
