@@ -123,17 +123,32 @@ class ConversationListViewController: UIViewController {
     }
     
     func clientOpen() {
+        let clientID: String = Client.default.imClient.ID
         self.activityToggle()
-        Client.default.imClient.open(completion: { (result) in
+        Client.default.imClient.open(completion: { [weak self] (result) in
             Client.default.specificAssertion
-            self.activityToggle()
+            self?.activityToggle()
             var event: IMClientEvent
             switch result {
             case .success:
                 event = .sessionDidOpen
+                Client.default.installationSavingQueue.async {
+                    do {
+                        try LCApplication.default.currentInstallation.append("channels", element: clientID, unique: true)
+                        if let _ = LCApplication.default.currentInstallation.deviceToken {
+                            if let self = self, let error = LCApplication.default.currentInstallation.save().error {
+                                UIAlertController.show(error: error, controller: self)
+                            }
+                        }
+                    } catch {
+                        if let self = self {
+                            UIAlertController.show(error: error, controller: self)
+                        }
+                    }
+                }
             case .failure(error: let error):
                 event = .sessionDidClose(error: error)
-                self.showClientOpenFailedAlert()
+                self?.showClientOpenFailedAlert()
             }
             Client.default.client(Client.default.imClient, event: event)
         })

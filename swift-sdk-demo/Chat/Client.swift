@@ -14,7 +14,9 @@ class Client {
     
     static let `default` = Client()
     
-    let queue = DispatchQueue(label: "Client.queue")
+    let queue = DispatchQueue(label: "\(Client.self).queue")
+    let installationSavingQueue = DispatchQueue(label: "\(Client.self).installationSavingQueue", qos: .background)
+    
     #if DEBUG
     let specificKey = DispatchSpecificKey<Int>()
     let specificValue: Int = Int.random(in: 1...999)

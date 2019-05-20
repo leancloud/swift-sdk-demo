@@ -90,6 +90,7 @@
 		D35F84B7228AB10D0030821C /* AudioRecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioRecordingView.xib; sourceTree = "<group>"; };
 		D364739B224CD8E300AC14DB /* SessionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionStatusView.xib; sourceTree = "<group>"; };
 		D364739D224CD96F00AC14DB /* SessionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusView.swift; sourceTree = "<group>"; };
+		D38B3D2E22924DE6003E716D /* Chat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chat.entitlements; sourceTree = "<group>"; };
 		D39EF22022894CEA00CA340A /* ImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessageCell.swift; sourceTree = "<group>"; };
 		D39EF22222894D5400CA340A /* ImageMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageMessageCell.xib; sourceTree = "<group>"; };
 		D3B6009922818C4900F2E556 /* ConversationListDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListDetailsCell.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		D30FB57C2248D8E900F233EF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				D38B3D2E22924DE6003E716D /* Chat.entitlements */,
 				D3100777224B6BDB00297DC4 /* Client.swift */,
 				D34A1FCC228DAE9C006746BF /* LocationManager.swift */,
 				D3453836227ED33C00A7A6C2 /* Extension.swift */,
@@ -258,6 +260,11 @@
 					D30FB5792248D8E900F233EF = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -524,6 +531,7 @@
 			baseConfigurationReference = 9B2A84456CE05BE80CCBDD1B /* Pods-Chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chat/Chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
@@ -532,7 +540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LeanCloud.swift-sdk-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -544,6 +552,7 @@
 			baseConfigurationReference = B1463FB2FCE482D99309F21B /* Pods-Chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chat/Chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7J5XFNL99Q;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
@@ -552,7 +561,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LeanCloud.swift-sdk-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

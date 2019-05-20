@@ -8,6 +8,7 @@
 
 import UIKit
 import LeanCloud
+import UserNotifications
 
 class ViewController: UIViewController {
 
@@ -31,6 +32,31 @@ class ViewController: UIViewController {
         
         self.useLocalStorageSwitch.isOn = UserDefaults.standard.bool(forKey: Configuration.storedUseLocalStorageOption.rawValue)
         self.useLocalStorageAction(self.useLocalStorageSwitch)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            switch settings.authorizationStatus {
+            case .authorized:
+                mainQueueExecuting {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            case .notDetermined:
+                UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+                    if granted {
+                        mainQueueExecuting {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
+                    } else if let error = error {
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func useLocalStorageAction(_ sender: UISwitch) {
