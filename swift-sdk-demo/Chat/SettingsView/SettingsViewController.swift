@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +51,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             cell = UITableViewCell()
-            cell.textLabel?.text = "IM Client Close"
+            cell.textLabel?.text = "Current IM Client ID: \(Client.default.imClient.ID)"
+        case (0, 1):
+            cell = UITableViewCell()
+            cell.textLabel?.text = "Current IM Client Close"
             cell.accessoryType = .disclosureIndicator
         default:
             fatalError()
@@ -65,6 +68,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
+            break
+        case (0, 1):
             let clientID: String = Client.default.imClient.ID
             self.activityToggle()
             Client.default.imClient.close(completion: { [weak self] (result) in
