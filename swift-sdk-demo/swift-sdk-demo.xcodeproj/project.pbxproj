@@ -17,6 +17,8 @@
 		D3100774224B668A00297DC4 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100773224B668A00297DC4 /* ConversationListViewController.swift */; };
 		D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100775224B66CD00297DC4 /* MessageListViewController.swift */; };
 		D3100778224B6BDB00297DC4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100777224B6BDB00297DC4 /* Client.swift */; };
+		D3318DDA229548C2007DE5F8 /* ConversationMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3318DD9229548C2007DE5F8 /* ConversationMembersViewController.swift */; };
+		D3318DDC229549F3007DE5F8 /* ConversationMembersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3318DDB229549F3007DE5F8 /* ConversationMembersView.xib */; };
 		D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453836227ED33C00A7A6C2 /* Extension.swift */; };
 		D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */; };
 		D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345383A227EDD5200A7A6C2 /* SettingsView.xib */; };
@@ -67,6 +69,8 @@
 		D3100773224B668A00297DC4 /* ConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		D3100775224B66CD00297DC4 /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		D3100777224B6BDB00297DC4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		D3318DD9229548C2007DE5F8 /* ConversationMembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMembersViewController.swift; sourceTree = "<group>"; };
+		D3318DDB229549F3007DE5F8 /* ConversationMembersView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationMembersView.xib; sourceTree = "<group>"; };
 		D3453836227ED33C00A7A6C2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D345383A227EDD5200A7A6C2 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */,
 				D345383C227EDD6400A7A6C2 /* SettingsView.swift */,
 				D345383A227EDD5200A7A6C2 /* SettingsView.xib */,
+				D3318DD9229548C2007DE5F8 /* ConversationMembersViewController.swift */,
+				D3318DDB229549F3007DE5F8 /* ConversationMembersView.xib */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 				D35F84B8228AB10D0030821C /* AudioRecordingView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* ConversationListView.xib in Resources */,
 				D3E5CD39224E01B600F7EF85 /* ConversationListCell.xib in Resources */,
+				D3318DDC229549F3007DE5F8 /* ConversationMembersView.xib in Resources */,
 				D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */,
 				D34A1FD5228DC06B006746BF /* FileMessageCell.xib in Resources */,
 				D35F84B3228A9BA80030821C /* AudioMessageCell.xib in Resources */,
@@ -381,6 +388,7 @@
 				D35D35F9228D6FEE006C41CE /* VideoMessageCell.swift in Sources */,
 				D3B6009A22818C4900F2E556 /* ConversationListDetailsCell.swift in Sources */,
 				D35F84B1228A99860030821C /* AudioMessageCell.swift in Sources */,
+				D3318DDA229548C2007DE5F8 /* ConversationMembersViewController.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D3D242082250E4A700BF8D31 /* MessageListView.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* ConversationListCell.swift in Sources */,

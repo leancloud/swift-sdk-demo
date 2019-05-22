@@ -381,24 +381,15 @@ extension ConversationListViewController {
     }
     
     func createConversation() {
-        let inputName: (@escaping ([String]) -> Void) -> Void = { closure in
-            let alert = UIAlertController(title: "Input other members", message: "use , to split multi-members.", preferredStyle: .alert)
-            alert.addTextField()
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (_) in
-                guard let text = alert.textFields?.first?.text, !text.isEmpty else {
-                    return
-                }
-                let members: [String] = text.components(separatedBy: ",").map({ (item) -> String in
-                    return item.trimmingCharacters(in: .whitespaces)
-                })
-                closure(members)
-            }))
-            self.present(alert, animated: true)
+        let presentMembersViewController: (@escaping ([String]) -> Void) -> Void = { closure in
+            let vc = ConversationMembersViewController()
+            vc.reservedMemberID = Client.default.imClient.ID
+            vc.completion = closure
+            self.present(vc, animated: true)
         }
         let alert = UIAlertController(title: "Create Conversation", message: "select type", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Normal Unique", style: .default, handler: { (_) in
-            inputName() { members in
+            presentMembersViewController() { members in
                 do {
                     self.activityToggle()
                     try Client.default.imClient.createConversation(clientIDs: Set(members), completion: { (result) in
@@ -415,7 +406,7 @@ extension ConversationListViewController {
             }
         }))
         alert.addAction(UIAlertAction(title: "Normal", style: .default, handler: { (_) in
-            inputName() { members in
+            presentMembersViewController() { members in
                 do {
                     self.activityToggle()
                     try Client.default.imClient.createConversation(clientIDs: Set(members), isUnique: false, completion: { (result) in
@@ -447,7 +438,7 @@ extension ConversationListViewController {
             }
         }))
         alert.addAction(UIAlertAction(title: "Temporary", style: .default, handler: { (_) in
-            inputName() { members in
+            presentMembersViewController() { members in
                 do {
                     self.activityToggle()
                     try Client.default.imClient.createTemporaryConversation(clientIDs: Set(members), timeToLive: 3600, completion: { (result) in

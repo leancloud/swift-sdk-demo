@@ -40,15 +40,27 @@
                                     <action selector="usePreviousClientIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sr2-D0-hJe"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-Fc-SBy">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-Fc-SBy">
                                 <rect key="frame" x="32" y="76" width="51" height="31"/>
                                 <connections>
                                     <action selector="useLocalStorageAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="C5s-pR-fZD"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Local Storage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lF-O6-DdK">
-                                <rect key="frame" x="89" y="77" width="188.5" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Local Storage" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lF-O6-DdK">
+                                <rect key="frame" x="89" y="81.5" width="317" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g0X-7b-TOh">
+                                <rect key="frame" x="32" y="115" width="51" height="31"/>
+                                <connections>
+                                    <action selector="autoOpenAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="9a3-9r-wPc"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Open after Launching" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fB1-F7-qB8">
+                                <rect key="frame" x="89" y="120.5" width="317" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -56,21 +68,29 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dWi-KT-FWs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="4/5" id="0Z7-mK-M9n"/>
+                            <constraint firstItem="g0X-7b-TOh" firstAttribute="top" secondItem="uF6-Fc-SBy" secondAttribute="bottom" constant="8" id="1u9-jX-dzB"/>
                             <constraint firstItem="abe-hZ-Sxb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2n4-n3-BOl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="abe-hZ-Sxb" secondAttribute="trailing" constant="32" id="6In-zH-NdK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fB1-F7-qB8" secondAttribute="trailing" constant="8" id="7pp-Sc-Lbc"/>
                             <constraint firstItem="uF6-Fc-SBy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="HCa-j3-cqQ"/>
+                            <constraint firstItem="fB1-F7-qB8" firstAttribute="leading" secondItem="g0X-7b-TOh" secondAttribute="trailing" constant="8" id="HMa-xB-p25"/>
                             <constraint firstItem="dWi-KT-FWs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MUo-3q-254"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2lF-O6-DdK" secondAttribute="trailing" constant="8" id="P3U-js-BJc"/>
+                            <constraint firstItem="g0X-7b-TOh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="RlB-TQ-i03"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dWi-KT-FWs" secondAttribute="trailing" constant="32" id="TZj-BK-XQ1"/>
                             <constraint firstItem="2lF-O6-DdK" firstAttribute="leading" secondItem="uF6-Fc-SBy" secondAttribute="trailing" constant="8" id="XsG-Fy-PLv"/>
                             <constraint firstItem="abe-hZ-Sxb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="6/5" id="aT3-WK-hf7"/>
                             <constraint firstItem="2lF-O6-DdK" firstAttribute="centerY" secondItem="uF6-Fc-SBy" secondAttribute="centerY" id="avc-mu-We1"/>
                             <constraint firstItem="uF6-Fc-SBy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="c6H-Ex-1kv"/>
+                            <constraint firstItem="fB1-F7-qB8" firstAttribute="centerY" secondItem="g0X-7b-TOh" secondAttribute="centerY" id="fdE-at-XaE"/>
                             <constraint firstItem="abe-hZ-Sxb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="jSM-Ci-79w"/>
                             <constraint firstItem="dWi-KT-FWs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="zHB-b0-Tg5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="autoOpenLabel" destination="fB1-F7-qB8" id="T2D-FB-DcE"/>
+                        <outlet property="autoOpenSwitch" destination="g0X-7b-TOh" id="V3n-gz-z2M"/>
                         <outlet property="inputClientIDButton" destination="dWi-KT-FWs" id="D44-vd-Hlp"/>
                         <outlet property="useLocalStorageLabel" destination="2lF-O6-DdK" id="ewF-W0-zDN"/>
                         <outlet property="useLocalStorageSwitch" destination="uF6-Fc-SBy" id="Ak2-2j-0FD"/>
