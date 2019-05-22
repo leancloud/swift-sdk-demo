@@ -10,16 +10,21 @@ import UIKit
 import LeanCloud
 import UserNotifications
 
-class ViewController: UIViewController {
+var firstDidAppear: Bool = true
 
+class ViewController: UIViewController {
+    
     @IBOutlet weak var useLocalStorageSwitch: UISwitch!
     @IBOutlet weak var useLocalStorageLabel: UILabel!
+    @IBOutlet weak var autoOpenSwitch: UISwitch!
+    @IBOutlet weak var autoOpenLabel: UILabel!
     @IBOutlet weak var inputClientIDButton: UIButton!
     @IBOutlet weak var usePreviousClientIDButton: UIButton!
     
     enum Configuration: String {
         case storedClientIDDomain = "com.leancloud.swift.demo.chat.clientid"
         case storedUseLocalStorageOption = "com.leancloud.swift.demo.chat.uselocalstorage"
+        case storedAutoOpenOption = "com.leancloud.swift.demo.chat.autoopen"
     }
     
     var previousClientID: String?
@@ -28,10 +33,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.previousClientID = UserDefaults.standard.string(forKey: Configuration.storedClientIDDomain.rawValue)
-        self.updateUsePreviousClientIDButtonEnabled()
+        if let _ = self.previousClientID {
+            self.usePreviousClientIDButton.isEnabled = true
+            self.usePreviousClientIDButton.backgroundColor = .blue
+        } else {
+            self.usePreviousClientIDButton.isEnabled = false
+            self.usePreviousClientIDButton.backgroundColor = .gray
+        }
         
         self.useLocalStorageSwitch.isOn = UserDefaults.standard.bool(forKey: Configuration.storedUseLocalStorageOption.rawValue)
         self.useLocalStorageAction(self.useLocalStorageSwitch)
+        
+        self.autoOpenSwitch.isOn = (self.previousClientID != nil)
+            ? UserDefaults.standard.bool(forKey: Configuration.storedAutoOpenOption.rawValue)
+            : false
+        self.autoOpenAction(self.autoOpenSwitch)
+        
+        self.view.isUserInteractionEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,14 +75,38 @@ class ViewController: UIViewController {
                 break
             }
         }
+        
+        if firstDidAppear {
+            firstDidAppear = false
+            if let ID = self.previousClientID, self.autoOpenSwitch.isOn {
+                do {
+                    try self.changeRootViewControllerToTabBarController(ID: ID)
+                } catch {
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+        }
+        
+        self.view.isUserInteractionEnabled = true
     }
     
     @IBAction func useLocalStorageAction(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: Configuration.storedUseLocalStorageOption.rawValue)
+        UserDefaults.standard.synchronize()
         if sender.isOn {
             self.useLocalStorageLabel.text = "Use Local Storage"
         } else {
             self.useLocalStorageLabel.text = "Not Use Local Storage"
+        }
+    }
+    
+    @IBAction func autoOpenAction(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: Configuration.storedAutoOpenOption.rawValue)
+        UserDefaults.standard.synchronize()
+        if sender.isOn {
+            self.autoOpenLabel.text = "Auto Open after Launching"
+        } else {
+            self.autoOpenLabel.text = "Not Auto Open after Launching"
         }
     }
     
@@ -79,22 +121,9 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
                 let ID: String = alert.textFields?.first?.text ?? ""
-                let options: IMClient.Options = self.useLocalStorageSwitch.isOn
-                    ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
-                    : [.receiveUnreadMessageCountAfterSessionDidOpen]
-                
-                Client.default.imClient = try IMClient(
-                    ID: ID,
-                    options: options,
-                    delegate: Client.default,
-                    eventQueue: Client.default.queue
-                )
-                
-                self.previousClientID = ID
-                self.updateUsePreviousClientIDButtonEnabled()
+                try self.changeRootViewControllerToTabBarController(ID: ID)
                 UserDefaults.standard.set(ID, forKey: Configuration.storedClientIDDomain.rawValue)
-                
-                UIApplication.shared.keyWindow?.rootViewController = TabBarController()
+                UserDefaults.standard.synchronize()
             } catch {
                 UIAlertController.show(error: error, controller: self)
             }
@@ -114,18 +143,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             do {
-                let options: IMClient.Options = self.useLocalStorageSwitch.isOn
-                    ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
-                    : [.receiveUnreadMessageCountAfterSessionDidOpen]
-                
-                Client.default.imClient = try IMClient(
-                    ID: previousClientID,
-                    options: options,
-                    delegate: Client.default,
-                    eventQueue: Client.default.queue
-                )
-                
-                UIApplication.shared.keyWindow?.rootViewController = TabBarController()
+                try self.changeRootViewControllerToTabBarController(ID: previousClientID)
             } catch {
                 UIAlertController.show(error: error, controller: self)
             }
@@ -133,13 +151,19 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    func updateUsePreviousClientIDButtonEnabled() {
-        if let _ = self.previousClientID {
-            self.usePreviousClientIDButton.isEnabled = true
-            self.usePreviousClientIDButton.backgroundColor = .blue
-        } else {
-            self.usePreviousClientIDButton.isEnabled = false
-            self.usePreviousClientIDButton.backgroundColor = .gray
-        }
+    func changeRootViewControllerToTabBarController(ID: String) throws {
+        let options: IMClient.Options = self.useLocalStorageSwitch.isOn
+            ? [.receiveUnreadMessageCountAfterSessionDidOpen, .usingLocalStorage]
+            : [.receiveUnreadMessageCountAfterSessionDidOpen]
+        
+        Client.default.imClient = try IMClient(
+            ID: ID,
+            options: options,
+            delegate: Client.default,
+            eventQueue: Client.default.queue
+        )
+        
+        UIApplication.shared.keyWindow?.rootViewController = TabBarController()
     }
+    
 }
