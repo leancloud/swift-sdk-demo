@@ -142,8 +142,7 @@ class MessageListViewController: UIViewController {
                     self.conversation.read(message: message)
                     mainQueueExecuting {
                         self.messages.append(message)
-                        let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                        self.tableViewReloadData(indexPaths: [indexPath])
+                        self.tableViewReloadData()
                     }
                 case let .updated(updatedMessage: updatedMessage, reason: _):
                     mainQueueExecuting {
