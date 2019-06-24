@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationDetailsViewController" customModule="Chat" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicatorView" destination="xIO-x9-own" id="tKL-zw-cSh"/>
+                <outlet property="tableView" destination="VBr-Q0-ZLV" id="YbE-gw-Ebo"/>
+                <outlet property="view" destination="iN0-l3-epB" id="noA-8A-Gsp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="VBr-Q0-ZLV">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="nqV-If-Fgt"/>
+                        <outlet property="delegate" destination="-1" id="ugY-PO-a0d"/>
+                    </connections>
+                </tableView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xIO-x9-own">
+                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VBr-Q0-ZLV" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="3yA-Md-Cnn"/>
+                <constraint firstItem="xIO-x9-own" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="7X5-A9-q9v"/>
+                <constraint firstItem="VBr-Q0-ZLV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bhJ-vD-Mc5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VBr-Q0-ZLV" secondAttribute="trailing" id="cIk-05-O6K"/>
+                <constraint firstItem="xIO-x9-own" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="ppe-oZ-1Wq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="VBr-Q0-ZLV" secondAttribute="bottom" id="u9B-Po-TO6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

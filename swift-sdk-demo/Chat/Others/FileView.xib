@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FileViewController" customModule="Chat" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicatorView" destination="8OQ-jh-Sio" id="1gp-xT-8kn"/>
+                <outlet property="textView" destination="v77-8K-PzC" id="Dit-12-bNA"/>
+                <outlet property="view" destination="iN0-l3-epB" id="z7X-BD-pNu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="v77-8K-PzC">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <string key="text">Annabel Lee
+BY EDGAR ALLAN POE
+
+It was many and many a year ago, 
+   In a kingdom by the sea, 
+That a maiden there lived whom you may know 
+   By the name of Annabel Lee; 
+And this maiden she lived with no other thought 
+   Than to love and be loved by me. 
+
+I was a child and she was a child, 
+   In this kingdom by the sea, 
+But we loved with a love that was more than love— 
+   I and my Annabel Lee— 
+With a love that the wingèd seraphs of Heaven 
+   Coveted her and me. 
+
+And this was the reason that, long ago, 
+   In this kingdom by the sea, 
+A wind blew out of a cloud, chilling 
+   My beautiful Annabel Lee; 
+So that her highborn kinsmen came 
+   And bore her away from me, 
+To shut her up in a sepulchre 
+   In this kingdom by the sea. 
+
+The angels, not half so happy in Heaven, 
+   Went envying her and me— 
+Yes!—that was the reason (as all men know, 
+   In this kingdom by the sea) 
+That the wind came out of the cloud by night, 
+   Chilling and killing my Annabel Lee. 
+
+But our love it was stronger by far than the love 
+   Of those who were older than we— 
+   Of many far wiser than we— 
+And neither the angels in Heaven above 
+   Nor the demons down under the sea 
+Can ever dissever my soul from the soul 
+   Of the beautiful Annabel Lee; 
+
+For the moon never beams, without bringing me dreams 
+   Of the beautiful Annabel Lee; 
+And the stars never rise, but I feel the bright eyes 
+   Of the beautiful Annabel Lee; 
+And so, all the night-tide, I lie down by the side 
+   Of my darling—my darling—my life and my bride, 
+   In her sepulchre there by the sea— 
+   In her tomb by the sounding sea.
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8OQ-jh-Sio">
+                    <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="v77-8K-PzC" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="1I5-7v-qk3"/>
+                <constraint firstItem="v77-8K-PzC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1bc-r1-sQW"/>
+                <constraint firstItem="8OQ-jh-Sio" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="J8p-cA-LIO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v77-8K-PzC" secondAttribute="trailing" id="NDU-CD-gW6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="v77-8K-PzC" secondAttribute="top" id="fDr-bb-vne"/>
+                <constraint firstItem="8OQ-jh-Sio" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="qv1-zg-pho"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="141.96428571428569"/>
+        </view>
+    </objects>
+</document>

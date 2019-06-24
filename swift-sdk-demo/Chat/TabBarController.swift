@@ -17,7 +17,7 @@ class TabBarController: UITabBarController {
         self.view.backgroundColor = .white
         
         let viewControllers: [UIViewController] = [
-            UINavigationController(rootViewController: ConversationListViewController()),
+            UINavigationController(rootViewController: NormalConversationListViewController()),
             UINavigationController(rootViewController: SettingsViewController())
         ]
         
