@@ -11,33 +11,33 @@ import LeanCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    do {
-        LCApplication.logLevel = .all
-        try LCApplication.default.set(
-            id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
-            key: "lNSjPPPDohJjYMJcQSxi9qAm"
-        )
-    } catch {
-        fatalError("\(error)")
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        do {
+            LCApplication.logLevel = .all
+            try LCApplication.default.set(
+                id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
+                key: "lNSjPPPDohJjYMJcQSxi9qAm"
+            )
+        } catch {
+            fatalError("\(error)")
+        }
+        
+        _ = Client.delegator
+        _ = LocationManager.delegator
+        
+        LCObject.register()
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = UINavigationController(rootViewController: LaunchViewController())
+        self.window?.makeKeyAndVisible()
+        
+        return true
     }
     
-    _ = Client.delegator
-    _ = LocationManager.delegator
-    
-    LCObject.register()
-    
-    self.window = UIWindow(frame: UIScreen.main.bounds)
-    self.window?.rootViewController = UINavigationController(rootViewController: LaunchViewController())
-    self.window?.makeKeyAndVisible()
-    
-    return true
-}
-
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Client.installationOperatingQueue.async {
             let installation = LCApplication.default.currentInstallation
@@ -51,5 +51,5 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
     }
-
+    
 }
