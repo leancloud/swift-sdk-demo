@@ -28,10 +28,6 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Launch View"
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         if Configuration.UserOption.isAutoOpenEnabled.boolValue {
             self.clientOpen()

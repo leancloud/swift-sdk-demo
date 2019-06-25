@@ -28,6 +28,8 @@ class Client {
     
     static var current: IMClient!
     
+    static var sessionObserver: ((IMClient, IMClientEvent) -> Void)?
+    
     static var observerMap: [String: (IMClient, IMConversation, IMConversationEvent) -> Void] = [:]
     
     static func addObserver(key: String, closure: @escaping (IMClient, IMConversation, IMConversationEvent) -> Void) {
@@ -56,6 +58,43 @@ extension Client: IMClientDelegate {
     
     func client(_ client: IMClient, event: IMClientEvent) {
         Client.specificAssertion
+        switch event {
+        case .sessionDidClose(error: let error):
+            let showSessionClose: (String) -> Void = { message in
+                mainQueueExecuting {
+                    let alert = UIAlertController(title: "Session Closed", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                        Client.current = nil
+                        Configuration.UserOption.isAutoOpenEnabled.set(value: false)
+                        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: LaunchViewController())
+                    }))
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+                Client.installationOperatingQueue.async {
+                    do {
+                        let installation = LCApplication.default.currentInstallation
+                        try installation.remove("channels", element: client.ID)
+                        if let _ = installation.deviceToken {
+                            if let error = installation.save().error {
+                                print(error)
+                            }
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+            switch error.code {
+            case 4111:
+                showSessionClose("Session Conflict")
+            case 4115:
+                showSessionClose("Session Kicked By API")
+            default:
+                showSessionClose("code: \(error.code), reason: \(error.reason ?? "")")
+            }
+        default:
+            Client.sessionObserver?(client, event)
+        }
     }
     
     func client(_ client: IMClient, conversation: IMConversation, event: IMConversationEvent) {

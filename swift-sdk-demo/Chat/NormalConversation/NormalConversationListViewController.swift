@@ -122,7 +122,13 @@ extension NormalConversationListViewController {
     
     func clientOpen() {
         self.activityToggle()
-        Client.current.open(completion: { [weak self] (result) in
+        let options: IMClient.SessionOpenOptions
+        if let _ = Client.current.tag {
+            options = Configuration.UserOption.isAutoOpenEnabled.boolValue ? [] : [.forced]
+        } else {
+            options = .default
+        }
+        Client.current.open(options: options, completion: { [weak self] (result) in
             Client.specificAssertion
             guard let self = self else {
                 return
@@ -144,7 +150,9 @@ extension NormalConversationListViewController {
                 }
             case .failure(error: let error):
                 event = .sessionDidClose(error: error)
-                self.showClientOpenFailedAlert(error: error)
+                if error.code != 4111 {
+                    self.showClientOpenFailedAlert(error: error)
+                }
             }
             if let client = Client.current {
                 Client.delegator.client(client, event: event)
@@ -160,11 +168,11 @@ extension NormalConversationListViewController {
                 try installation.append("channels", element: clientID, unique: true)
                 if let _ = installation.deviceToken {
                     if let error = installation.save().error {
-                        UIAlertController.show(error: error, controller: self)
+                        print(error)
                     }
                 }
             } catch {
-                UIAlertController.show(error: error, controller: self)
+                print(error)
             }
         }
     }

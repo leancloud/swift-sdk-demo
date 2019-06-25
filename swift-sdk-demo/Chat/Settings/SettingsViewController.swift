@@ -17,12 +17,27 @@ class SettingsViewController: UIViewController {
     
     let titleForHeaderInSection: [String] = [
         "current client",
+        "session status",
         "client operation"
     ]
     
+    deinit {
+        Client.queue.async {
+            Client.sessionObserver = nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Setting"
+        self.navigationItem.title = "Settings"
+        
+        Client.queue.async {
+            Client.sessionObserver = { [weak self] client, event in
+                mainQueueExecuting {
+                    self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                }
+            }
+        }
     }
     
     func activityToggle() {
@@ -37,12 +52,43 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    func clientClose() {
+        let clientID: String = Client.current.ID
+        self.activityToggle()
+        Client.current.close(completion: { [weak self] (result) in
+            self?.activityToggle()
+            switch result {
+            case .success:
+                mainQueueExecuting {
+                    Client.current = nil
+                    Configuration.UserOption.isAutoOpenEnabled.set(value: false)
+                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: LaunchViewController())
+                }
+                Client.installationOperatingQueue.async {
+                    do {
+                        let installation = LCApplication.default.currentInstallation
+                        try installation.remove("channels", element: clientID)
+                        if let _ = installation.deviceToken {
+                            if let error = installation.save().error {
+                                print(error)
+                            }
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
+            case .failure(error: let error):
+                UIAlertController.show(error: error, controller: self)
+            }
+        })
+    }
+    
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +100,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 return 3
             }
         case 1:
+            return 1
+        case 2:
             return 1
         default:
             fatalError()
@@ -86,6 +134,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = "Tag: \(Client.current.tag ?? "")"
             cell.accessoryType = .none
         case (1, 0):
+            cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+            cell.textLabel?.text = "Session Status"
+            cell.detailTextLabel?.text = "\(Client.current.sessionState)"
+            cell.accessoryType = .none
+        case (2, 0):
             cell = UITableViewCell()
             cell.textLabel?.text = "Close"
             cell.accessoryType = .disclosureIndicator
@@ -100,34 +153,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: true)
         }
         switch (indexPath.section, indexPath.row) {
-        case (1, 0):
-            let clientID: String = Client.current.ID
-            self.activityToggle()
-            Client.current.close(completion: { [weak self] (result) in
-                self?.activityToggle()
-                switch result {
-                case .success:
-                    mainQueueExecuting {
-                        Client.current = nil
-                        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: LaunchViewController())
-                    }
-                    Client.installationOperatingQueue.async {
-                        do {
-                            let installation = LCApplication.default.currentInstallation
-                            try installation.remove("channels", element: clientID)
-                            if let _ = installation.deviceToken {
-                                if let error = installation.save().error {
-                                    UIAlertController.show(error: error, controller: self)
-                                }
-                            }
-                        } catch {
-                            UIAlertController.show(error: error, controller: self)
-                        }
-                    }
-                case .failure(error: let error):
-                    UIAlertController.show(error: error, controller: self)
-                }
-            })
+        case (2, 0):
+            self.clientClose()
         default:
             break
         }
