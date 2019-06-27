@@ -24,29 +24,45 @@ class MessageListViewController: UIViewController {
     
     let refreshControl = UIRefreshControl()
     
-    let clientEventObserverKey = UUID().uuidString
+    let uuid = UUID().uuidString
     var keyboardDidShowObserver: NSObjectProtocol!
     var keyboardWillHideObserver: NSObjectProtocol!
     var isKeyboardObserverActive: Bool = false
     
     var conversation: IMConversation!
+    var isChatRoom: Bool {
+        return type(of: self.conversation!) == IMChatRoom.self
+    }
+    var timerForGetOnlineMembersCount: Timer?
     var messages: [IMMessage] = []
     
     deinit {
-        Client.removeObserver(key: self.clientEventObserverKey)
+        Client.removeEventObserver(key: self.uuid)
+        Client.removeSessionObserver(key: self.uuid)
         NotificationCenter.default.removeObserver(self.keyboardDidShowObserver!)
         NotificationCenter.default.removeObserver(self.keyboardWillHideObserver!)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = self.conversation.name
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "∙∙∙",
-            style: .plain,
-            target: self,
-            action: #selector(type(of: self).moreInfo)
-        )
+        if self.isChatRoom {
+            self.navigationItem.title = "\(self.conversation.name ?? "")(0)"
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "Leaving",
+                style: .plain,
+                target: self,
+                action: #selector(type(of: self).leave)
+            )
+            self.setupTimerForGetOnlineMembersCount()
+        } else {
+            self.navigationItem.title = self.conversation.name
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "∙∙∙",
+                style: .plain,
+                target: self,
+                action: #selector(type(of: self).moreInfo)
+            )
+        }
         
         self.setupTableView()
         
@@ -104,8 +120,8 @@ class MessageListViewController: UIViewController {
         self.tableView.refreshControl = self.refreshControl
     }
     
-    @objc func pullToRefresh(_ shouldRead: NSNumber?) {
-        self.queryMessageHistory(shouldRead: (shouldRead != nil)) { (_) in
+    @objc func pullToRefresh(_ isFirst: NSNumber?) {
+        self.queryMessageHistory(isFirst: (isFirst != nil)) { (_) in
             mainQueueExecuting {
                 self.refreshControl.endRefreshing()
             }
@@ -122,10 +138,50 @@ class MessageListViewController: UIViewController {
         }
     }
     
+    @objc func leave() {
+        do {
+            self.activityToggle()
+            try self.conversation.leave(completion: { [weak self] (result) in
+                Client.specificAssertion
+                guard let self = self else {
+                    return
+                }
+                self.activityToggle()
+                switch result {
+                case .success:
+                    mainQueueExecuting {
+                        self.timerForGetOnlineMembersCount?.invalidate()
+                        self.timerForGetOnlineMembersCount = nil
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure(error: let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            })
+        } catch {
+            self.activityToggle()
+            UIAlertController.show(error: error, controller: self)
+        }
+    }
+    
     @objc func moreInfo() {
         let vc = ConversationDetailsViewController()
         vc.conversation = self.conversation
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setupTimerForGetOnlineMembersCount() {
+        self.timerForGetOnlineMembersCount = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { [weak self] (_) in
+            (self?.conversation as? IMChatRoom)?.getOnlineMembersCount(completion: { (result) in
+                guard let self = self, result.error == nil else {
+                    return
+                }
+                mainQueueExecuting {
+                    self.navigationItem.title = "\(self.conversation.name ?? "")(\(result.intValue))"
+                }
+            })
+        })
+        self.timerForGetOnlineMembersCount?.fire()
     }
     
 }
@@ -135,20 +191,38 @@ class MessageListViewController: UIViewController {
 extension MessageListViewController {
     
     func addObserverForClient() {
-        Client.addObserver(key: self.clientEventObserverKey) { [weak self] (client, conversation, event) in
+        Client.addEventObserver(key: self.uuid) { [weak self] (client, conversation, event) in
             Client.specificAssertion
-            guard
-                case let .message(event: messageEvent) = event,
-                let self = self,
-                self.conversation.ID == conversation.ID else
-            {
+            guard let self = self, self.conversation.ID == conversation.ID else {
                 return
             }
-            switch messageEvent {
-            case let .received(message: message):
-                self.handleMessageReceived(message: message)
-            case let .updated(updatedMessage: updatedMessage, reason: _):
-                self.handleMessageUpdated(updatedMessage: updatedMessage)
+            switch event {
+            case .message(event: let messageEvent):
+                switch messageEvent {
+                case let .received(message: message):
+                    self.handleMessageReceived(message: message)
+                case let .updated(updatedMessage: updatedMessage, reason: _):
+                    self.handleMessageUpdated(updatedMessage: updatedMessage)
+                default:
+                    break
+                }
+            default:
+                break
+            }
+        }
+        
+        Client.addSessionObserver(key: self.uuid) { [weak self] (client, event) in
+            Client.specificAssertion
+            guard let self = self else {
+                return
+            }
+            switch event {
+            case .sessionDidOpen:
+                if self.isChatRoom {
+                    self.joiningChatRoom()
+                } else {
+                    self.refreshMessageList()
+                }
             default:
                 break
             }
@@ -188,6 +262,28 @@ extension MessageListViewController {
             if let indexPath = indexPath {
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
+        }
+    }
+    
+    func joiningChatRoom() {
+        do {
+            self.activityToggle()
+            try self.conversation.join(completion: { [weak self] (result) in
+                Client.specificAssertion
+                guard let self = self else {
+                    return
+                }
+                self.activityToggle()
+                switch result {
+                case .success:
+                    self.refreshMessageList()
+                case .failure(error: let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            })
+        } catch {
+            self.activityToggle()
+            UIAlertController.show(error: error, controller: self)
         }
     }
     
@@ -367,7 +463,7 @@ extension MessageListViewController {
 
 extension MessageListViewController {
     
-    func queryMessageHistory(shouldRead: Bool?, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func queryMessageHistory(isFirst: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         var start: IMConversation.MessageQueryEndpoint? = nil
         if let oldMessage = self.messages.first {
             start = IMConversation.MessageQueryEndpoint(
@@ -376,14 +472,10 @@ extension MessageListViewController {
                 isClosed: true
             )
         }
-        let policy: IMConversation.MessageQueryPolicy = Client.current.options.contains(.usingLocalStorage)
-            ? .cacheThenNetwork
-            : .onlyNetwork
         do {
             try conversation.queryMessage(
                 start: start,
-                direction: .newToOld,
-                policy: policy)
+                policy: isFirst ? .onlyNetwork : .default)
             { [weak self] (result) in
                 Client.specificAssertion
                 guard let self = self else {
@@ -391,7 +483,7 @@ extension MessageListViewController {
                 }
                 switch result {
                 case .success(value: let messageResults):
-                    if let shouldRead = shouldRead, shouldRead {
+                    if isFirst {
                         self.conversation.read()
                         if messageResults.isEmpty {
                             self.send(message: IMTextMessage(text: "Hello."))
@@ -430,6 +522,40 @@ extension MessageListViewController {
         } catch {
             UIAlertController.show(error: error, controller: self)
             completion(.failure(error))
+        }
+    }
+    
+    func refreshMessageList() {
+        do {
+            self.activityToggle()
+            try self.conversation.queryMessage(policy: .onlyNetwork) { [weak self] (result) in
+                Client.specificAssertion
+                guard let self = self else {
+                    return
+                }
+                self.activityToggle()
+                switch result {
+                case .success(value: let messages):
+                    guard !messages.isEmpty else {
+                        return
+                    }
+                    self.conversation.read()
+                    mainQueueExecuting {
+                        self.messages = messages
+                        self.tableView.reloadData()
+                        self.tableView.scrollToRow(
+                            at: IndexPath(row: self.messages.count - 1, section: 0),
+                            at: .bottom,
+                            animated: true
+                        )
+                    }
+                case .failure(error: let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+        } catch {
+            self.activityToggle()
+            UIAlertController.show(error: error, controller: self)
         }
     }
     

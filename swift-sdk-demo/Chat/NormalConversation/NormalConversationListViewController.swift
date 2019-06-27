@@ -8,22 +8,22 @@
 
 import Foundation
 import UIKit
-import LeanCloud
 import CoreLocation
 import UserNotifications
+import LeanCloud
 
 class NormalConversationListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    let clientEventObserverKey = UUID().uuidString
+    let uuid = UUID().uuidString
     
     var underlyingConversations: [IMConversation] = []
     var conversations: [IMConversation] = []
     
     deinit {
-        Client.removeObserver(key: self.clientEventObserverKey)
+        Client.removeEventObserver(key: self.uuid)
     }
     
     override func viewDidLoad() {
@@ -228,7 +228,7 @@ extension NormalConversationListViewController {
 extension NormalConversationListViewController {
     
     func addObserverForClient() {
-        Client.addObserver(key: self.clientEventObserverKey) { [weak self] (client, conversation, event) in
+        Client.addEventObserver(key: self.uuid) { [weak self] (client, conversation, event) in
             Client.specificAssertion
             guard let self = self, type(of: conversation) == IMConversation.self else {
                 return
@@ -393,7 +393,6 @@ extension NormalConversationListViewController {
             let transientNotExistQuery = Client.current.conversationQuery
             try transientNotExistQuery.where(transientKey, .notExisted)
             
-            
             let systemKey: String = "sys"
             let systemFalseQuery = Client.current.conversationQuery
             try systemFalseQuery.where(systemKey, .equalTo(false))
@@ -456,6 +455,10 @@ extension NormalConversationListViewController: UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.conversations.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "normal conversation"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

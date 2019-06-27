@@ -18,6 +18,7 @@ class TabBarController: UITabBarController {
         
         let viewControllers: [UIViewController] = [
             UINavigationController(rootViewController: NormalConversationListViewController()),
+            UINavigationController(rootViewController: ChatRoomListViewController()),
             UINavigationController(rootViewController: SettingsViewController())
         ]
         
@@ -25,8 +26,9 @@ class TabBarController: UITabBarController {
             viewControllers,
             animated: false
         )
-        self.tabBar.items?[0].title = "Conversation List"
-        self.tabBar.items?[1].title = "Settings"
+        self.tabBar.items?[0].title = "Conversation"
+        self.tabBar.items?[1].title = "ChatRoom"
+        self.tabBar.items?[2].title = "Settings"
     }
     
 }

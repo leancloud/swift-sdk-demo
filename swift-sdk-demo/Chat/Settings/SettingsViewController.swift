@@ -15,6 +15,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
+    let uuid = UUID().uuidString
+    
     let titleForHeaderInSection: [String] = [
         "current client",
         "session status",
@@ -22,20 +24,16 @@ class SettingsViewController: UIViewController {
     ]
     
     deinit {
-        Client.queue.async {
-            Client.sessionObserver = nil
-        }
+        Client.removeSessionObserver(key: self.uuid)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Settings"
         
-        Client.queue.async {
-            Client.sessionObserver = { [weak self] client, event in
-                mainQueueExecuting {
-                    self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-                }
+        Client.addSessionObserver(key: self.uuid) { [weak self] client, event in
+            mainQueueExecuting {
+                self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
             }
         }
     }

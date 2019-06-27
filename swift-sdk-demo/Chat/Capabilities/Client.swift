@@ -28,19 +28,31 @@ class Client {
     
     static var current: IMClient!
     
-    static var sessionObserver: ((IMClient, IMClientEvent) -> Void)?
+    static var sessionObserverMap: [String: (IMClient, IMClientEvent) -> Void] = [:]
     
-    static var observerMap: [String: (IMClient, IMConversation, IMConversationEvent) -> Void] = [:]
+    static var eventObserverMap: [String: (IMClient, IMConversation, IMConversationEvent) -> Void] = [:]
     
-    static func addObserver(key: String, closure: @escaping (IMClient, IMConversation, IMConversationEvent) -> Void) {
+    static func addEventObserver(key: String, closure: @escaping (IMClient, IMConversation, IMConversationEvent) -> Void) {
         self.queue.async {
-            self.observerMap[key] = closure
+            self.eventObserverMap[key] = closure
         }
     }
     
-    static func removeObserver(key: String) {
+    static func removeEventObserver(key: String) {
         self.queue.async {
-            self.observerMap.removeValue(forKey: key)
+            self.eventObserverMap.removeValue(forKey: key)
+        }
+    }
+    
+    static func addSessionObserver(key: String, closure: @escaping (IMClient, IMClientEvent) -> Void) {
+        self.queue.async {
+            self.sessionObserverMap[key] = closure
+        }
+    }
+    
+    static func removeSessionObserver(key: String) {
+        self.queue.async {
+            self.sessionObserverMap.removeValue(forKey: key)
         }
     }
     
@@ -93,13 +105,15 @@ extension Client: IMClientDelegate {
                 showSessionClose("code: \(error.code), reason: \(error.reason ?? "")")
             }
         default:
-            Client.sessionObserver?(client, event)
+            for ob in Client.sessionObserverMap.values {
+                ob(client, event)
+            }
         }
     }
     
     func client(_ client: IMClient, conversation: IMConversation, event: IMConversationEvent) {
         Client.specificAssertion
-        for item in Client.observerMap.values {
+        for item in Client.eventObserverMap.values {
             item(client, conversation, event)
         }
     }

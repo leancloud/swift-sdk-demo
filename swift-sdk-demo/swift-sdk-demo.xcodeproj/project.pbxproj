@@ -25,6 +25,8 @@
 		D34A1FD9228DC2DA006746BF /* FileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FD8228DC2DA006746BF /* FileView.xib */; };
 		D34A1FDB228DCB1C006746BF /* RecalledMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */; };
 		D34A1FDD228DCB9B006746BF /* RecalledMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */; };
+		D34A620D22C1E01E00550E00 /* ChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A620C22C1E01E00550E00 /* ChatRoomListViewController.swift */; };
+		D34A620F22C1E09000550E00 /* ChatRoomListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34A620E22C1E09000550E00 /* ChatRoomListView.xib */; };
 		D35F84B1228A99860030821C /* MediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B0228A99860030821C /* MediaMessageCell.swift */; };
 		D35F84B3228A9BA80030821C /* MediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35F84B2228A9BA80030821C /* MediaMessageCell.xib */; };
 		D35F84B6228AB0DA0030821C /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F84B5228AB0DA0030821C /* AudioViewController.swift */; };
@@ -69,6 +71,8 @@
 		D34A1FD8228DC2DA006746BF /* FileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileView.xib; sourceTree = "<group>"; };
 		D34A1FDA228DCB1C006746BF /* RecalledMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecalledMessageCell.swift; sourceTree = "<group>"; };
 		D34A1FDC228DCB9B006746BF /* RecalledMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecalledMessageCell.xib; sourceTree = "<group>"; };
+		D34A620C22C1E01E00550E00 /* ChatRoomListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewController.swift; sourceTree = "<group>"; };
+		D34A620E22C1E09000550E00 /* ChatRoomListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomListView.xib; sourceTree = "<group>"; };
 		D35F84B0228A99860030821C /* MediaMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMessageCell.swift; sourceTree = "<group>"; };
 		D35F84B2228A9BA80030821C /* MediaMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaMessageCell.xib; sourceTree = "<group>"; };
 		D35F84B5228AB0DA0030821C /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				D3100771224B56BE00297DC4 /* TabBarController.swift */,
 				D386653322A8F56800BAFE40 /* Capabilities */,
 				D3453842227EE0FD00A7A6C2 /* NormalConversation */,
+				D34A620B22C1DFE200550E00 /* ChatRoom */,
 				D399BF3E22BA3A0D00D54050 /* Message */,
 				D3453843227EE17E00A7A6C2 /* Settings */,
 				D35F84B4228AB0870030821C /* Others */,
@@ -176,6 +181,15 @@
 				D345383A227EDD5200A7A6C2 /* SettingsView.xib */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		D34A620B22C1DFE200550E00 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				D34A620C22C1E01E00550E00 /* ChatRoomListViewController.swift */,
+				D34A620E22C1E09000550E00 /* ChatRoomListView.xib */,
+			);
+			path = ChatRoom;
 			sourceTree = "<group>";
 		};
 		D35F84B4228AB0870030821C /* Others */ = {
@@ -290,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */,
+				D34A620F22C1E09000550E00 /* ChatRoomListView.xib in Resources */,
 				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
 				D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
@@ -376,6 +391,7 @@
 				D389649F22B7473200952125 /* Configuration.swift in Sources */,
 				D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */,
 				D390A20822BFB0FC003F31F7 /* ConversationDetailsViewController.swift in Sources */,
+				D34A620D22C1E01E00550E00 /* ChatRoomListViewController.swift in Sources */,
 				D3E5CD37224E004D00F7EF85 /* NormalConversationListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
