@@ -335,6 +335,13 @@ extension NormalConversationListViewController {
             let vc = ContactListViewController()
             vc.titleForSection = "choose a set of id for conversation"
             vc.isMultipleSelectionEnabled = true
+            vc.commonNames = {
+                var names = vc.commonNames
+                if let index = names.firstIndex(of: Client.current.ID) {
+                    names.remove(at: index)
+                }
+                return names
+            }()
             vc.clientIDSelectedClosure = { [weak self] IDSet in
                 self?.createNormalConversation(with: IDSet)
             }

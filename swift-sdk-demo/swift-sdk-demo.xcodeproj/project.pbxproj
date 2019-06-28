@@ -48,6 +48,8 @@
 		D3E5CD33224DFE3C00F7EF85 /* NormalConversationListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5CD32224DFE3C00F7EF85 /* NormalConversationListView.xib */; };
 		D3E5CD37224E004D00F7EF85 /* NormalConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E5CD36224E004D00F7EF85 /* NormalConversationListCell.swift */; };
 		D3E5CD39224E01B600F7EF85 /* NormalConversationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5CD38224E01B600F7EF85 /* NormalConversationListCell.xib */; };
+		D3EE955D22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE955C22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift */; };
+		D3EE955F22C5EE6500FEFF8C /* TemporaryConversationListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3EE955E22C5EE6500FEFF8C /* TemporaryConversationListView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +99,8 @@
 		D3E5CD32224DFE3C00F7EF85 /* NormalConversationListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalConversationListView.xib; sourceTree = "<group>"; };
 		D3E5CD36224E004D00F7EF85 /* NormalConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalConversationListCell.swift; sourceTree = "<group>"; };
 		D3E5CD38224E01B600F7EF85 /* NormalConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalConversationListCell.xib; sourceTree = "<group>"; };
+		D3EE955C22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryConversationListViewController.swift; sourceTree = "<group>"; };
+		D3EE955E22C5EE6500FEFF8C /* TemporaryConversationListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemporaryConversationListView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,7 @@
 				D3453842227EE0FD00A7A6C2 /* NormalConversation */,
 				D34A620B22C1DFE200550E00 /* ChatRoom */,
 				D386170F22C4BFB400CF3AB6 /* ServiceConversation */,
+				D3EE955B22C5EE0300FEFF8C /* TemporaryConversation */,
 				D399BF3E22BA3A0D00D54050 /* Message */,
 				D3453843227EE17E00A7A6C2 /* Settings */,
 				D35F84B4228AB0870030821C /* Others */,
@@ -251,6 +256,15 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		D3EE955B22C5EE0300FEFF8C /* TemporaryConversation */ = {
+			isa = PBXGroup;
+			children = (
+				D3EE955C22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift */,
+				D3EE955E22C5EE6500FEFF8C /* TemporaryConversationListView.xib */,
+			);
+			path = TemporaryConversation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -321,6 +335,7 @@
 				D34A620F22C1E09000550E00 /* ChatRoomListView.xib in Resources */,
 				D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */,
 				D39EF22322894D5400CA340A /* ImageMessageCell.xib in Resources */,
+				D3EE955F22C5EE6500FEFF8C /* TemporaryConversationListView.xib in Resources */,
 				D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */,
 				D35F84B8228AB10D0030821C /* AudioView.xib in Resources */,
 				D3E5CD33224DFE3C00F7EF85 /* NormalConversationListView.xib in Resources */,
@@ -399,6 +414,7 @@
 				D39EF22122894CEA00CA340A /* ImageMessageCell.swift in Sources */,
 				D34A1FCD228DAE9C006746BF /* LocationManager.swift in Sources */,
 				D386171122C4BFE800CF3AB6 /* ServiceConversationListViewController.swift in Sources */,
+				D3EE955D22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift in Sources */,
 				D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */,
 				D390A20222BFA870003F31F7 /* TextEditViewController.swift in Sources */,
 				D386653222A8F53300BAFE40 /* LaunchViewController.swift in Sources */,

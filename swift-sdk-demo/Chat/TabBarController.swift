@@ -21,11 +21,13 @@ class TabBarController: UITabBarController {
         let vc2 = UINavigationController(rootViewController: ChatRoomListViewController())
         vc2.tabBarItem.title = "ChatRoom"
         let vc3 = UINavigationController(rootViewController: ServiceConversationListViewController())
-        vc3.tabBarItem.title = "Service-Conversation"
-        let vc4 = UINavigationController(rootViewController: SettingsViewController())
-        vc4.tabBarItem.title = "Settings"
+        vc3.tabBarItem.title = "Service"
+        let vc4 = UINavigationController(rootViewController: TemporaryConversationListViewController())
+        vc4.tabBarItem.title = "Temporary"
+        let vc5 = UINavigationController(rootViewController: SettingsViewController())
+        vc5.tabBarItem.title = "Settings"
         
-        self.setViewControllers([vc1, vc2, vc3, vc4], animated: false)
+        self.setViewControllers([vc1, vc2, vc3, vc4, vc5], animated: false)
     }
     
 }

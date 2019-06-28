@@ -23,6 +23,7 @@ class MessageListViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     let refreshControl = UIRefreshControl()
+    var maskView: UIView?
     
     let uuid = UUID().uuidString
     var keyboardDidShowObserver: NSObjectProtocol!
@@ -32,6 +33,9 @@ class MessageListViewController: UIViewController {
     var conversation: IMConversation!
     var isChatRoom: Bool {
         return type(of: self.conversation!) == IMChatRoom.self
+    }
+    var isTemporaryConversation: Bool {
+        return type(of: self.conversation!) == IMTemporaryConversation.self
     }
     var timerForGetOnlineMembersCount: Timer?
     var messages: [IMMessage] = []
@@ -54,6 +58,8 @@ class MessageListViewController: UIViewController {
                 action: #selector(type(of: self).leave)
             )
             self.setupTimerForGetOnlineMembersCount()
+        } else if self.isTemporaryConversation {
+            self.navigationItem.title = "Temporary"
         } else {
             self.navigationItem.title = self.conversation.name
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -71,6 +77,10 @@ class MessageListViewController: UIViewController {
         
         self.refreshControl.beginRefreshing()
         self.pullToRefresh(NSNumber(value: true))
+        
+        if self.conversation.isOutdated {
+            self.refreshConversationData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,8 +142,15 @@ class MessageListViewController: UIViewController {
         mainQueueExecuting {
             if self.activityIndicatorView.isAnimating {
                 self.activityIndicatorView.stopAnimating()
+                self.maskView?.removeFromSuperview()
+                self.maskView = nil
             } else {
                 self.activityIndicatorView.startAnimating()
+                let maskView = UIView(frame: self.view.bounds)
+                maskView.isUserInteractionEnabled = false
+                maskView.backgroundColor = .clear
+                self.view.addSubview(maskView)
+                self.maskView = maskView
             }
         }
     }
@@ -208,6 +225,9 @@ extension MessageListViewController {
                 }
             default:
                 break
+            }
+            if conversation.isOutdated {
+                self.refreshConversationData()
             }
         }
         
@@ -284,6 +304,22 @@ extension MessageListViewController {
         } catch {
             self.activityToggle()
             UIAlertController.show(error: error, controller: self)
+        }
+    }
+    
+    func refreshConversationData() {
+        do {
+            try conversation.refresh(completion: { (result) in
+                Client.specificAssertion
+                switch result {
+                case .success:
+                    break
+                case .failure(error: let error):
+                    print(error)
+                }
+            })
+        } catch {
+            print(error)
         }
     }
     

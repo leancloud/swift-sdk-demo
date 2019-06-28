@@ -160,11 +160,17 @@ extension ConversationDetailsViewController {
     
     func addMember()  {
         let vc = ContactListViewController()
-        var set = Set(vc.commonNames)
-        set.subtract(self.conversation.members ?? [])
-        vc.commonNames = Array(set)
-        vc.isMultipleSelectionEnabled = true
         vc.titleForSection = "add members"
+        vc.isMultipleSelectionEnabled = true
+        vc.commonNames = {
+            var names = vc.commonNames
+            for item in (self.conversation.members ?? []) {
+                if let index = names.firstIndex(of: item) {
+                    names.remove(at: index)
+                }
+            }
+            return names
+        }()
         vc.clientIDSelectedClosure = { [weak self] IDSet in
             guard let self = self, !IDSet.isEmpty else {
                 return
@@ -193,13 +199,15 @@ extension ConversationDetailsViewController {
     
     func removeMember() {
         let vc = ContactListViewController()
-        var members = self.conversation.members ?? []
-        if let index = members.firstIndex(of: Client.current.ID) {
-            members.remove(at: index)
-        }
-        vc.commonNames = members
-        vc.isMultipleSelectionEnabled = true
         vc.titleForSection = "remove members"
+        vc.isMultipleSelectionEnabled = true
+        vc.commonNames = {
+            var members = self.conversation.members ?? []
+            if let index = members.firstIndex(of: Client.current.ID) {
+                members.remove(at: index)
+            }
+            return members
+        }()
         vc.clientIDSelectedClosure = { [weak self] IDSet in
             guard let self = self, !IDSet.isEmpty else {
                 return
