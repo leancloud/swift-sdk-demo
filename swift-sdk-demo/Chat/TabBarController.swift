@@ -16,19 +16,16 @@ class TabBarController: UITabBarController {
         
         self.view.backgroundColor = .white
         
-        let viewControllers: [UIViewController] = [
-            UINavigationController(rootViewController: NormalConversationListViewController()),
-            UINavigationController(rootViewController: ChatRoomListViewController()),
-            UINavigationController(rootViewController: SettingsViewController())
-        ]
+        let vc1 = UINavigationController(rootViewController: NormalConversationListViewController())
+        vc1.tabBarItem.title = "Conversation"
+        let vc2 = UINavigationController(rootViewController: ChatRoomListViewController())
+        vc2.tabBarItem.title = "ChatRoom"
+        let vc3 = UINavigationController(rootViewController: ServiceConversationListViewController())
+        vc3.tabBarItem.title = "Service-Conversation"
+        let vc4 = UINavigationController(rootViewController: SettingsViewController())
+        vc4.tabBarItem.title = "Settings"
         
-        self.setViewControllers(
-            viewControllers,
-            animated: false
-        )
-        self.tabBar.items?[0].title = "Conversation"
-        self.tabBar.items?[1].title = "ChatRoom"
-        self.tabBar.items?[2].title = "Settings"
+        self.setViewControllers([vc1, vc2, vc3, vc4], animated: false)
     }
     
 }

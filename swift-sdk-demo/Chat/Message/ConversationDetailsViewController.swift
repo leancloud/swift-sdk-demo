@@ -16,20 +16,40 @@ class ConversationDetailsViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var conversation: IMConversation!
+    var isServiceConversation: Bool {
+        return type(of: self.conversation!) == IMServiceConversation.self
+    }
+    var isSubscribed: Bool?
     
-    let titleForHeaderInSection: [String] = [
-        "conversation member",
-        "conversation mute"
-    ]
+    lazy var titleForHeaderInSection: [String] = {
+        if self.isServiceConversation {
+            return ["conversation subscription", "conversation mute"]
+        } else {
+            return ["conversation member", "conversation mute"]
+        }
+    }()
     
-    let textForRowInSection: [[String]] = [
-        ["Member List", "Add member", "Remove member", "Leaving"],
-        ["Muted"]
-    ]
+    lazy var textForRowInSection: [[String]] = {
+        if self.isServiceConversation {
+            return [
+                ["Subscribed"],
+                ["Muted"]
+            ]
+        } else {
+            return [
+                ["Member List", "Add member", "Remove member", "Leaving"],
+                ["Muted"]
+            ]
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Details"
+        
+        if self.isServiceConversation {
+            self.getServiceConversationSubscription()
+        }
     }
     
     func activityToggle() {
@@ -40,6 +60,26 @@ class ConversationDetailsViewController: UIViewController {
             } else {
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+    func getServiceConversationSubscription() {
+        guard let serviceConversation = self.conversation as? IMServiceConversation else {
+            return
+        }
+        self.activityToggle()
+        serviceConversation.checkSubscription { [weak self] (result) in
+            Client.specificAssertion
+            self?.activityToggle()
+            switch result {
+            case .success(value: let isSubscribed):
+                mainQueueExecuting {
+                    self?.isSubscribed = isSubscribed
+                    self?.tableView.reloadData()
+                }
+            case .failure(error: let error):
+                UIAlertController.show(error: error, controller: self)
             }
         }
     }
@@ -66,7 +106,11 @@ extension ConversationDetailsViewController: UITableViewDelegate, UITableViewDat
         cell.textLabel?.text = self.textForRowInSection[indexPath.section][indexPath.row]
         switch indexPath.section {
         case 0:
-            cell.detailTextLabel?.text = ""
+            if self.isServiceConversation {
+                cell.detailTextLabel?.text = (self.isSubscribed != nil) ? (self.isSubscribed! ? "ON" : "OFF") : "-"
+            } else {
+                cell.detailTextLabel?.text = ""
+            }
         case 1:
             cell.detailTextLabel?.text = self.conversation.isMuted ? "ON" : "OFF"
         default:
@@ -81,17 +125,21 @@ extension ConversationDetailsViewController: UITableViewDelegate, UITableViewDat
         }
         switch indexPath.section {
         case 0:
-            switch indexPath.row {
-            case 0:
-                self.showMemberList()
-            case 1:
-                self.addMember()
-            case 2:
-                self.removeMember()
-            case 3:
-                self.leaving()
-            default:
-                fatalError()
+            if self.isServiceConversation {
+                self.showSubscriptionOption(indexPath: indexPath)
+            } else {
+                switch indexPath.row {
+                case 0:
+                    self.showMemberList()
+                case 1:
+                    self.addMember()
+                case 2:
+                    self.removeMember()
+                case 3:
+                    self.leaving()
+                default:
+                    fatalError()
+                }
             }
         case 1:
             self.showMuteOption(indexPath: indexPath)
@@ -232,6 +280,44 @@ extension ConversationDetailsViewController {
                 self.conversation.mute(completion: completion)
             } else {
                 self.conversation.unmute(completion: completion)
+            }
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showSubscriptionOption(indexPath: IndexPath) {
+        let vc = ConversationOptionTableViewController(style: .grouped)
+        vc.navigationTitle = "Subscribe"
+        vc.titleForHeader = "if subscribed then can receive subscribing message"
+        vc.selectedRow = (self.isSubscribed != nil) ? (self.isSubscribed! ? 1 : 0) : -1
+        vc.didSelectRowAtClosure = { [weak self] isSubscribing in
+            guard
+                let self = self,
+                let serviceConversation = self.conversation as? IMServiceConversation,
+                self.isSubscribed != isSubscribing else
+            {
+                return
+            }
+            let completion: (LCBooleanResult) -> Void = { [weak self] result in
+                Client.specificAssertion
+                switch result {
+                case .success:
+                    mainQueueExecuting {
+                        self?.isSubscribed = isSubscribing
+                        self?.tableView.reloadData()
+                    }
+                case .failure(error: let error):
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+            do {
+                if isSubscribing {
+                    try serviceConversation.subscribe(completion: completion)
+                } else {
+                    try serviceConversation.unsubscribe(completion: completion)
+                }
+            } catch {
+                UIAlertController.show(error: error, controller: self)
             }
         }
         self.navigationController?.pushViewController(vc, animated: true)
