@@ -13,6 +13,7 @@ import LeanCloud
 class LaunchViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     let tupleForSections: [(Int, String)] = [
         (3, "options"),
@@ -30,19 +31,21 @@ class LaunchViewController: UIViewController {
         self.navigationItem.title = "Launch View"
         
         if Configuration.UserOption.isAutoOpenEnabled.boolValue {
-            self.clientOpen()
+            self.clientInitializing(isReopen: true)
         }
     }
     
-    func clientOpen() {
+    func clientInitializing(isReopen: Bool) {
         do {
+            self.activityToggle()
+            
             let clientID: String = Configuration.UserOption.clientID.stringValue ?? ""
             let tag: String? = (Configuration.UserOption.isTagEnabled.boolValue ? "mobile" : nil)
             let options: IMClient.Options = Configuration.UserOption.isLocalStorageEnabled.boolValue
                 ? .default
                 : { var dOptions = IMClient.Options.default; dOptions.remove(.usingLocalStorage); return dOptions }()
             
-            Client.current = try IMClient(
+            let client = try IMClient(
                 ID: clientID,
                 tag: tag,
                 options: options,
@@ -50,9 +53,96 @@ class LaunchViewController: UIViewController {
                 eventQueue: Client.queue
             )
             
-            UIApplication.shared.keyWindow?.rootViewController = TabBarController()
+            if options.contains(.usingLocalStorage) {
+                try client.prepareLocalStorage { (result) in
+                    Client.specificAssertion
+                    switch result {
+                    case .success:
+                        do {
+                            try client.getAndLoadStoredConversations(completion: { (result) in
+                                Client.specificAssertion
+                                switch result {
+                                case .success(value: let storedConversations):
+                                    var conversations: [IMConversation] = []
+                                    var serviceConversations: [IMServiceConversation] = []
+                                    for item in storedConversations {
+                                        if type(of: item) == IMConversation.self {
+                                            conversations.append(item)
+                                        } else if let serviceItem = item as? IMServiceConversation {
+                                            serviceConversations.append(serviceItem)
+                                        }
+                                    }
+                                    self.open(
+                                        client: client,
+                                        isReopen: isReopen,
+                                        storedConversations: (conversations.isEmpty ? nil : conversations),
+                                        storedServiceConversations: (serviceConversations.isEmpty ? nil : serviceConversations)
+                                    )
+                                case .failure(error: let error):
+                                    self.activityToggle()
+                                    UIAlertController.show(error: error, controller: self)
+                                }
+                            })
+                        } catch {
+                            self.activityToggle()
+                            UIAlertController.show(error: error, controller: self)
+                        }
+                    case .failure(error: let error):
+                        self.activityToggle()
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                }
+            } else {
+                self.open(client: client, isReopen: isReopen)
+            }
         } catch {
+            self.activityToggle()
             UIAlertController.show(error: error, controller: self)
+        }
+    }
+    
+    func open(
+        client: IMClient,
+        isReopen: Bool,
+        storedConversations: [IMConversation]? = nil,
+        storedServiceConversations: [IMServiceConversation]? = nil)
+    {
+        let options: IMClient.SessionOpenOptions
+        if let _ = client.tag {
+            options = Configuration.UserOption.isAutoOpenEnabled.boolValue ? [] : [.forced]
+        } else {
+            options = .default
+        }
+        client.open(options: options, completion: { (result) in
+            Client.specificAssertion
+            self.activityToggle()
+            switch result {
+            case .success:
+                mainQueueExecuting {
+                    Client.current = client
+                    Client.storedConversations = storedConversations
+                    Client.storedServiceConversations = storedServiceConversations
+                    UIApplication.shared.keyWindow?.rootViewController = TabBarController()
+                }
+            case .failure(error: let error):
+                if error.code == 4111 {
+                    Client.delegator.client(client, event: .sessionDidClose(error: error))
+                } else {
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+        })
+    }
+    
+    func activityToggle() {
+        mainQueueExecuting {
+            if self.view.isUserInteractionEnabled {
+                self.activityIndicatorView.startAnimating()
+                self.view.isUserInteractionEnabled = false
+            } else {
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+            }
         }
     }
     
@@ -116,7 +206,7 @@ extension LaunchViewController: UITableViewDelegate, UITableViewDataSource {
             }
             self.navigationController?.pushViewController(vc, animated: true)
         case 2:
-            self.clientOpen()
+            self.clientInitializing(isReopen: false)
         default:
             fatalError()
         }

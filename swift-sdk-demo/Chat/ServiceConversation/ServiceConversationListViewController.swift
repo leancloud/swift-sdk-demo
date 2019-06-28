@@ -27,7 +27,9 @@ class ServiceConversationListViewController: UIViewController {
             action: #selector(type(of: self).navigationRightButtonAction)
         )
         
-        if self.serviceConversations.isEmpty {
+        if let serviceConversations = Client.storedServiceConversations {
+            self.serviceConversations = serviceConversations
+        } else {
             self.queryRecentServiceConversations()
         }
     }

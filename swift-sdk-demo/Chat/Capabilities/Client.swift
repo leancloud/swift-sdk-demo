@@ -22,6 +22,9 @@ class Client {
         #endif
     }
     
+    static var storedConversations: [IMConversation]?
+    static var storedServiceConversations: [IMServiceConversation]?
+    
     static let queue = DispatchQueue(label: "\(Client.self).queue")
     
     static let installationOperatingQueue = DispatchQueue(label: "\(Client.self).installationOperatingQueue", qos: .background)

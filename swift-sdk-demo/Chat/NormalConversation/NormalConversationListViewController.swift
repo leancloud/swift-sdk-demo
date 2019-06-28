@@ -44,7 +44,14 @@ class NormalConversationListViewController: UIViewController {
         
         self.addObserverForClient()
         
-        self.open()
+        if let conversations = Client.storedConversations {
+            self.conversations = conversations
+            Client.storedConversations = nil
+        }
+        
+        self.addClientIDToInstallationChannels()
+        self.requestPushNotificationAuthorization()
+        LocationManager.current.requestWhenInUseAuthorization()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,99 +73,9 @@ class NormalConversationListViewController: UIViewController {
     
 }
 
-// MARK: Open
+// MARK: Authorization
 
 extension NormalConversationListViewController {
-    
-    func open() {
-        if Client.current.options.contains(.usingLocalStorage) {
-            self.activityToggle()
-            self.loadLocalStorage { (result) in
-                self.activityToggle()
-                switch result {
-                case .success:
-                    self.clientOpen()
-                case .failure(let error):
-                    UIAlertController.show(error: error, controller: self)
-                }
-            }
-        } else {
-            self.clientOpen()
-        }
-    }
-    
-    func loadLocalStorage(completion: @escaping (Result<Bool, Error>) -> Void) {
-        do {
-            try Client.current.prepareLocalStorage { (result) in
-                Client.specificAssertion
-                switch result {
-                case .success:
-                    do {
-                        try Client.current.getAndLoadStoredConversations(completion: { (result) in
-                            Client.specificAssertion
-                            switch result {
-                            case .success(value: let conversations):
-                                self.underlyingConversations = conversations
-                                mainQueueExecuting {
-                                    self.conversations = conversations
-                                    self.tableView.reloadData()
-                                }
-                                completion(.success(true))
-                            case .failure(error: let error):
-                                completion(.failure(error))
-                            }
-                        })
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(error: let error):
-                    completion(.failure(error))
-                }
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    }
-    
-    func clientOpen() {
-        self.activityToggle()
-        let options: IMClient.SessionOpenOptions
-        if let _ = Client.current.tag {
-            options = Configuration.UserOption.isAutoOpenEnabled.boolValue ? [] : [.forced]
-        } else {
-            options = .default
-        }
-        Client.current.open(options: options, completion: { [weak self] (result) in
-            Client.specificAssertion
-            guard let self = self else {
-                return
-            }
-            self.activityToggle()
-            var event: IMClientEvent
-            switch result {
-            case .success:
-                event = .sessionDidOpen
-                
-                self.addClientIDToInstallationChannels()
-                self.requestPushNotificationAuthorization()
-                LocationManager.current.requestWhenInUseAuthorization()
-                
-                mainQueueExecuting {
-                    if self.conversations.isEmpty {
-                        self.queryRecentNormalConversations()
-                    }
-                }
-            case .failure(error: let error):
-                event = .sessionDidClose(error: error)
-                if error.code != 4111 {
-                    self.showClientOpenFailedAlert(error: error)
-                }
-            }
-            if let client = Client.current {
-                Client.delegator.client(client, event: event)
-            }
-        })
-    }
     
     func addClientIDToInstallationChannels() {
         let clientID: String = Client.current.ID
@@ -199,27 +116,6 @@ extension NormalConversationListViewController {
             }
         }
     }
-    
-    func showClientOpenFailedAlert(error: LCError) {
-        mainQueueExecuting {
-            let alert = UIAlertController(
-                title: "Open failed, Rollback or Reopen ?",
-                message: "Error: \(error)",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "Rollback", style: .destructive, handler: { (_) in
-                Client.current = nil
-                UIApplication.shared.keyWindow?.rootViewController = UINavigationController(
-                    rootViewController: LaunchViewController()
-                )
-            }))
-            alert.addAction(UIAlertAction(title: "Reopen", style: .default, handler: { (_) in
-                self.clientOpen()
-            }))
-            self.present(alert, animated: true)
-        }
-    }
-
     
 }
 

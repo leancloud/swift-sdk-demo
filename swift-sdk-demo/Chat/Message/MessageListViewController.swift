@@ -40,11 +40,18 @@ class MessageListViewController: UIViewController {
     var timerForGetOnlineMembersCount: Timer?
     var messages: [IMMessage] = []
     
+    #if DEBUG
+    var messageSendingTimer: Timer?
+    #endif
+    
     deinit {
         Client.removeEventObserver(key: self.uuid)
         Client.removeSessionObserver(key: self.uuid)
         NotificationCenter.default.removeObserver(self.keyboardDidShowObserver!)
         NotificationCenter.default.removeObserver(self.keyboardWillHideObserver!)
+        #if DEBUG
+        self.messageSendingTimer?.invalidate()
+        #endif
     }
     
     override func viewDidLoad() {
@@ -439,6 +446,9 @@ extension MessageListViewController {
         alert.addAction(self.sendAudioAlertAction)
         alert.addAction(self.sendLocationAlertAction)
         alert.addAction(self.sendFileAlertAction)
+        #if DEBUG
+//        alert.addAction(self.continuousSendingTextMessage)
+        #endif
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         self.present(alert, animated: true)
     }
@@ -492,6 +502,21 @@ extension MessageListViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }
+    
+    #if DEBUG
+    var continuousSendingTextMessage: UIAlertAction {
+        return UIAlertAction(title: "Continuous Sending Toggle", style: .default, handler: { (_) in
+            if let _ = self.messageSendingTimer {
+                self.messageSendingTimer?.invalidate()
+                self.messageSendingTimer = nil
+            } else {
+                self.messageSendingTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                    self?.send(message: IMTextMessage(text: UUID().uuidString))
+                }
+            }
+        })
+    }
+    #endif
     
 }
 
