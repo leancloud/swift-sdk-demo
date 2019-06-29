@@ -191,8 +191,6 @@ extension TemporaryConversationListViewController: UITableViewDelegate, UITableV
         return "temporary conversation"
     }
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = self.temporaryConversations[indexPath.row].members?.joined(separator: " & ")

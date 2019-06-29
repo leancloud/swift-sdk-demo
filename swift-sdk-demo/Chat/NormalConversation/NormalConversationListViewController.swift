@@ -125,7 +125,7 @@ extension NormalConversationListViewController {
     func addObserverForClient() {
         Client.addEventObserver(key: self.uuid) { [weak self] (client, conversation, event) in
             Client.specificAssertion
-            guard let self = self, type(of: conversation) == IMConversation.self else {
+            guard type(of: conversation) == IMConversation.self, let self = self else {
                 return
             }
             switch event {
