@@ -139,8 +139,9 @@ class MessageListViewController: UIViewController {
         self.tableView.refreshControl = self.refreshControl
     }
     
-    @objc func pullToRefresh(_ isFirst: NSNumber?) {
-        self.queryMessageHistory(isFirst: (isFirst != nil)) { (_) in
+    @objc func pullToRefresh(_ sender: Any?) {
+        let isFirst: Bool = (sender is NSNumber) ? true : false
+        self.queryMessageHistory(isFirst: isFirst) { (_) in
             mainQueueExecuting {
                 self.refreshControl.endRefreshing()
             }
