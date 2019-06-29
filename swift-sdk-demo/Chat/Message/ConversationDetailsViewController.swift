@@ -16,13 +16,18 @@ class ConversationDetailsViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var conversation: IMConversation!
+    var isChatRoom: Bool {
+        return type(of: self.conversation!) == IMChatRoom.self
+    }
     var isServiceConversation: Bool {
         return type(of: self.conversation!) == IMServiceConversation.self
     }
     var isSubscribed: Bool?
     
     lazy var titleForHeaderInSection: [String] = {
-        if self.isServiceConversation {
+        if self.isChatRoom {
+            return ["conversation modify"]
+        } else if self.isServiceConversation {
             return ["conversation subscription", "conversation mute"]
         } else {
             return ["conversation member", "conversation mute"]
@@ -30,16 +35,12 @@ class ConversationDetailsViewController: UIViewController {
     }()
     
     lazy var textForRowInSection: [[String]] = {
-        if self.isServiceConversation {
-            return [
-                ["Subscribed"],
-                ["Muted"]
-            ]
+        if self.isChatRoom {
+            return [["Name Updating"]]
+        } else if self.isServiceConversation {
+            return [["Subscribed"], ["Muted"]]
         } else {
-            return [
-                ["Member List", "Add member", "Remove member", "Leaving"],
-                ["Muted"]
-            ]
+            return [["Member List", "Add member", "Remove member", "Leaving"], ["Muted"]]
         }
     }()
     
@@ -91,7 +92,7 @@ class ConversationDetailsViewController: UIViewController {
 extension ConversationDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.titleForHeaderInSection.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -108,7 +109,9 @@ extension ConversationDetailsViewController: UITableViewDelegate, UITableViewDat
         cell.textLabel?.text = self.textForRowInSection[indexPath.section][indexPath.row]
         switch indexPath.section {
         case 0:
-            if self.isServiceConversation {
+            if self.isChatRoom {
+                cell.detailTextLabel?.text = self.conversation.name ?? ""
+            } else if self.isServiceConversation {
                 cell.detailTextLabel?.text = (self.isSubscribed != nil) ? (self.isSubscribed! ? "ON" : "OFF") : "-"
             } else {
                 cell.detailTextLabel?.text = ""
@@ -127,7 +130,9 @@ extension ConversationDetailsViewController: UITableViewDelegate, UITableViewDat
         }
         switch indexPath.section {
         case 0:
-            if self.isServiceConversation {
+            if self.isChatRoom {
+                self.showUpdatingNameAlert(indexPath: indexPath)
+            } else if self.isServiceConversation {
                 self.showSubscriptionOption(indexPath: indexPath)
             } else {
                 switch indexPath.row {
@@ -293,6 +298,36 @@ extension ConversationDetailsViewController {
             }
         }
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showUpdatingNameAlert(indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Input a New Name", message: "for the Chat-Room", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { $0.placeholder = "Name" })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Change", style: .default, handler: { (_) in
+            guard let name = alert.textFields?.first?.text else {
+                return
+            }
+            do {
+                self.activityToggle()
+                try self.conversation.update(attribution: ["name": name], completion: { [weak self] (result) in
+                    self?.activityToggle()
+                    switch result {
+                    case .success:
+                        mainQueueExecuting {
+                            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                            self?.updatedCallback?()
+                        }
+                    case .failure(error: let error):
+                        UIAlertController.show(error: error, controller: self)
+                    }
+                })
+            } catch {
+                self.activityToggle()
+                UIAlertController.show(error: error, controller: self)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func showSubscriptionOption(indexPath: IndexPath) {
