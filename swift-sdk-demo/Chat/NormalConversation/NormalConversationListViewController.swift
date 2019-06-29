@@ -19,7 +19,6 @@ class NormalConversationListViewController: UIViewController {
     
     let uuid = UUID().uuidString
     
-    var underlyingConversations: [IMConversation] = []
     var conversations: [IMConversation] = []
     
     deinit {
@@ -160,12 +159,10 @@ extension NormalConversationListViewController {
                 UIAlertController.show(error: error, controller: self)
             }
         }
-        if let index = self.underlyingConversations.firstIndex(where: { return $0.ID == conversation.ID }) {
-            self.underlyingConversations.remove(at: index)
-            let underlyingConversationsCopy = self.underlyingConversations
-            mainQueueExecuting {
-                self.conversations = underlyingConversationsCopy
-                self.tableView.reloadData()
+        mainQueueExecuting {
+            if let index = self.conversations.firstIndex(where: { $0.ID == conversation.ID }) {
+                self.conversations.remove(at: index)
+                self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         }
     }
@@ -180,42 +177,33 @@ extension NormalConversationListViewController {
     
     func tryUpsertCell(conversation: IMConversation, hasNewMessage: Bool = false) {
         Client.specificAssertion
-        
-        let resort: (Int64) -> Void = { sentTimestamp in
-            var index: Int = 0
-            for (i, conv) in self.underlyingConversations.enumerated() {
-                index = i
-                if let st = conv.lastMessage?.sentTimestamp {
-                    if sentTimestamp >= st {
-                        break
-                    } else {
-                        continue
-                    }
+        mainQueueExecuting {
+            if let index = self.conversations.firstIndex(where: { $0.ID == conversation.ID }) {
+                if hasNewMessage, index != 0 {
+                    self.conversations.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.conversations.insert(conversation, at: 0)
+                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 } else {
-                    break
-                }
-            }
-            self.underlyingConversations.insert(conversation, at: index)
-            let underlyingConversationsCopy = self.underlyingConversations
-            mainQueueExecuting {
-                self.conversations = underlyingConversationsCopy
-                self.tableView.reloadData()
-            }
-        }
-        
-        if let index = self.underlyingConversations.firstIndex(where: { $0.ID == conversation.ID }) {
-            if hasNewMessage {
-                if let sentTimestamp = conversation.lastMessage?.sentTimestamp {
-                    self.underlyingConversations.remove(at: index)
-                    resort(sentTimestamp)
-                }
-            } else {
-                mainQueueExecuting {
                     self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                 }
+            } else if let sentTimestamp = conversation.lastMessage?.sentTimestamp {
+                var index: Int = 0
+                for (i, conv) in self.conversations.enumerated() {
+                    index = i
+                    if let st = conv.lastMessage?.sentTimestamp {
+                        if sentTimestamp >= st {
+                            break
+                        } else {
+                            continue
+                        }
+                    } else {
+                        break
+                    }
+                }
+                self.conversations.insert(conversation, at: index)
+                self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
-        } else if let sentTimestamp = conversation.lastMessage?.sentTimestamp {
-            resort(sentTimestamp)
         }
     }
     
@@ -288,8 +276,9 @@ extension NormalConversationListViewController {
     }
     
     func queryRecentNormalConversations() {
-        self.activityToggle()
         do {
+            self.activityToggle()
+            
             let transientKey: String = "tr"
             let transientFalseQuery = Client.current.conversationQuery
             try transientFalseQuery.where(transientKey, .equalTo(false))
@@ -319,22 +308,11 @@ extension NormalConversationListViewController {
                 guard let self = self else {
                     return
                 }
+                self.activityToggle()
                 switch result {
                 case .success(value: let conversations):
-                    var conversationMap: [String: IMConversation] = [:]
-                    self.underlyingConversations.forEach({ (item) in
-                        conversationMap[item.ID] = item
-                    })
-                    conversations.forEach({ (item) in
-                        conversationMap[item.ID] = item
-                    })
-                    let sortedConversations = conversationMap.values.sorted(by: {
-                        ($0.lastMessage?.sentTimestamp ?? 0) > ($1.lastMessage?.sentTimestamp ?? 0)
-                    })
-                    self.underlyingConversations = sortedConversations
                     mainQueueExecuting {
-                        self.activityToggle()
-                        self.conversations = sortedConversations
+                        self.conversations = conversations
                         self.tableView.reloadData()
                     }
                 case .failure(error: let error):
