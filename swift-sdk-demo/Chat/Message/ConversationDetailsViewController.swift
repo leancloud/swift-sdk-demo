@@ -43,6 +43,8 @@ class ConversationDetailsViewController: UIViewController {
         }
     }()
     
+    var updatedCallback: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Details"

@@ -168,6 +168,11 @@ extension ChatRoomListViewController: UITableViewDelegate, UITableViewDataSource
                     mainQueueExecuting {
                         let vc = MessageListViewController()
                         vc.conversation = chatRoom
+                        vc.updatedCallback = { [weak self] in
+                            mainQueueExecuting {
+                                self?.tableView.reloadData()
+                            }
+                        }
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 case .failure(error: let error):

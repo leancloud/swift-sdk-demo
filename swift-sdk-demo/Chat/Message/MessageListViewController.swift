@@ -40,6 +40,8 @@ class MessageListViewController: UIViewController {
     var timerForGetOnlineMembersCount: Timer?
     var messages: [IMMessage] = []
     
+    var updatedCallback: (() -> Void)?
+    
     #if DEBUG
     var messageSendingTimer: Timer?
     #endif
@@ -191,6 +193,12 @@ class MessageListViewController: UIViewController {
     @objc func moreInfo() {
         let vc = ConversationDetailsViewController()
         vc.conversation = self.conversation
+        vc.updatedCallback = { [weak self] in
+            mainQueueExecuting {
+                self?.updateNavigationTitle()
+                self?.updatedCallback?()
+            }
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
