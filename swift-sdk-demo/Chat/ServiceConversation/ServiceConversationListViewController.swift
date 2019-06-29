@@ -86,9 +86,7 @@ extension ServiceConversationListViewController {
                         self.tableView.reloadData()
                     }
                 case .failure(error: let error):
-                    if error.code != 9100 {
-                        UIAlertController.show(error: error, controller: self)
-                    }
+                    UIAlertController.show(error: error, controller: self)
                 }
             }
         } catch {
