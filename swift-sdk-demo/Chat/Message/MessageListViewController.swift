@@ -58,8 +58,8 @@ class MessageListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.updateNavigationTitle()
         if self.isChatRoom {
-            self.navigationItem.title = "\(self.conversation.name ?? "")(0)"
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(
                 title: "Leaving",
                 style: .plain,
@@ -67,10 +67,8 @@ class MessageListViewController: UIViewController {
                 action: #selector(type(of: self).leave)
             )
             self.setupTimerForGetOnlineMembersCount()
-        } else if self.isTemporaryConversation {
-            self.navigationItem.title = "Temporary"
-        } else {
-            self.navigationItem.title = self.conversation.name
+        }
+        if !self.isTemporaryConversation {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(
                 title: "∙∙∙",
                 style: .plain,
@@ -215,6 +213,16 @@ class MessageListViewController: UIViewController {
             })
         })
         self.timerForGetOnlineMembersCount?.fire()
+    }
+    
+    func updateNavigationTitle() {
+        if self.isTemporaryConversation {
+            self.navigationItem.title = "Temporary"
+        } else if self.isChatRoom {
+            self.navigationItem.title = "\(self.conversation.name ?? "")(0)"
+        } else {
+            self.navigationItem.title = self.conversation.name
+        }
     }
     
 }
