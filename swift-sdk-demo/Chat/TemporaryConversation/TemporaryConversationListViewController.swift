@@ -123,7 +123,7 @@ extension TemporaryConversationListViewController {
     
 }
 
-// MARK: Navigation Right Action Sheet
+// MARK: Navigation Action
 
 extension TemporaryConversationListViewController {
     
@@ -178,6 +178,8 @@ extension TemporaryConversationListViewController {
     }
     
 }
+
+// MARK: Table View
 
 extension TemporaryConversationListViewController: UITableViewDelegate, UITableViewDataSource {
     

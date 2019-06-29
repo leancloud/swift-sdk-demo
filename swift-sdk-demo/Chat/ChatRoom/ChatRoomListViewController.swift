@@ -51,7 +51,7 @@ class ChatRoomListViewController: UIViewController {
     
 }
 
-// MARK: Navigation Right Action Sheet
+// MARK: Navigation Action
 
 extension ChatRoomListViewController {
     
@@ -131,6 +131,8 @@ extension ChatRoomListViewController {
     }
     
 }
+
+// MARK: Table View
 
 extension ChatRoomListViewController: UITableViewDelegate, UITableViewDataSource {
     

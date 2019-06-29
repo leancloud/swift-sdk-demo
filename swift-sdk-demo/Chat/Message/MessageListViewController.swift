@@ -622,7 +622,7 @@ extension MessageListViewController {
     
 }
 
-// MARK: Table View Delegate
+// MARK: Table View
 
 extension MessageListViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -759,7 +759,7 @@ extension MessageListViewController: UITableViewDelegate, UITableViewDataSource 
     
 }
 
-// MARK: Text Field Delegate
+// MARK: Text Field
 
 extension MessageListViewController: UITextFieldDelegate {
     
@@ -784,7 +784,7 @@ extension MessageListViewController: UITextFieldDelegate {
     
 }
 
-// MARK: Image Picker Controller Delegate
+// MARK: Image Picker Controller
 
 extension MessageListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

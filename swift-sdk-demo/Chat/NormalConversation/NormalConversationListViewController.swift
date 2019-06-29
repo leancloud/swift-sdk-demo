@@ -209,7 +209,7 @@ extension NormalConversationListViewController {
     
 }
 
-// MARK: Navigation Right Action Sheet
+// MARK: Navigation Action
 
 extension NormalConversationListViewController {
     
@@ -327,7 +327,7 @@ extension NormalConversationListViewController {
     
 }
 
-// MARK: Table View Delegate
+// MARK: Table View
 
 extension NormalConversationListViewController: UITableViewDelegate, UITableViewDataSource {
     

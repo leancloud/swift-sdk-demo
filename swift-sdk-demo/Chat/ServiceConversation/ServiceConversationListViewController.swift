@@ -53,6 +53,8 @@ class ServiceConversationListViewController: UIViewController {
     
 }
 
+// MARK: Navigation Action
+
 extension ServiceConversationListViewController {
     
     @objc func navigationRightButtonAction() {
@@ -96,6 +98,8 @@ extension ServiceConversationListViewController {
     }
     
 }
+
+// MARK: Table View
 
 extension ServiceConversationListViewController: UITableViewDelegate, UITableViewDataSource {
     
