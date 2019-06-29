@@ -15,7 +15,13 @@ class TemporaryConversationListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
+    let uuid = UUID().uuidString
+    
     var temporaryConversations: [IMTemporaryConversation] = []
+    
+    deinit {
+        Client.removeEventObserver(key: self.uuid)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,8 @@ class TemporaryConversationListViewController: UIViewController {
             target: self,
             action: #selector(type(of: self).navigationRightButtonAction)
         )
+        
+        self.addObserverForClient()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,6 +49,74 @@ class TemporaryConversationListViewController: UIViewController {
             } else {
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+}
+
+// MARK: IM Event
+
+extension TemporaryConversationListViewController {
+    
+    func addObserverForClient() {
+        Client.addEventObserver(key: self.uuid) { [weak self] (client, conversation, event) in
+            Client.specificAssertion
+            guard let temporaryConversation = conversation as? IMTemporaryConversation, let self = self else {
+                return
+            }
+            switch event {
+            case .lastMessageUpdated(newMessage: let isNewMessage):
+                self.handleConversationEventLastMessageUpdated(
+                    temporaryConversation: temporaryConversation,
+                    isNewMessage: isNewMessage
+                )
+            case .unreadMessageCountUpdated:
+                self.handleConversationEventUnreadMessageCountUpdated(
+                    temporaryConversation: temporaryConversation
+                )
+            default:
+                break
+            }
+        }
+    }
+    
+    func handleConversationEventLastMessageUpdated(temporaryConversation: IMTemporaryConversation, isNewMessage: Bool) {
+        self.tryUpsertCell(temporaryConversation: temporaryConversation, hasNewMessage: isNewMessage)
+    }
+    
+    func handleConversationEventUnreadMessageCountUpdated(temporaryConversation: IMTemporaryConversation) {
+        self.tryUpsertCell(temporaryConversation: temporaryConversation)
+    }
+    
+    func tryUpsertCell(temporaryConversation: IMTemporaryConversation, hasNewMessage: Bool = false) {
+        Client.specificAssertion
+        mainQueueExecuting {
+            if let index = self.temporaryConversations.firstIndex(where: { $0.ID == temporaryConversation.ID }) {
+                if hasNewMessage, index != 0 {
+                    self.temporaryConversations.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.temporaryConversations.insert(temporaryConversation, at: 0)
+                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                } else {
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
+            } else if let sentTimestamp = temporaryConversation.lastMessage?.sentTimestamp {
+                var index: Int = 0
+                for (i, conv) in self.temporaryConversations.enumerated() {
+                    index = i
+                    if let st = conv.lastMessage?.sentTimestamp {
+                        if sentTimestamp >= st {
+                            break
+                        } else {
+                            continue
+                        }
+                    } else {
+                        break
+                    }
+                }
+                self.temporaryConversations.insert(temporaryConversation, at: index)
+                self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         }
     }
