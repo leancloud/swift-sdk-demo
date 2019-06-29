@@ -20,7 +20,7 @@ class ServiceConversationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Service-Conversation List"
+        self.navigationItem.title = "Service Conversation List"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,

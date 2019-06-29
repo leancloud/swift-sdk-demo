@@ -26,7 +26,7 @@ class TemporaryConversationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Temporary Conversation"
+        self.navigationItem.title = "Temporary Conversation List"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
