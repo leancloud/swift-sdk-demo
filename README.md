@@ -13,6 +13,3 @@ Chat is a [LeanCloud](https://leancloud.cn)-Based instant messaging application 
 	* `$ pod update`
 	* `$ open swift-sdk-demo.xcworkspace/`
 	* Xcode run Chat target
-
-
-
