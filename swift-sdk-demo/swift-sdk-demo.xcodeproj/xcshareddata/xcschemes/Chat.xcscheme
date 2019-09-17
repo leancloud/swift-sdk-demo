@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D30FB5792248D8E900F233EF"
-               BuildableName = "Chat.app"
+               BuildableName = "Chat-Agora.app"
                BlueprintName = "Chat"
                ReferencedContainer = "container:swift-sdk-demo.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D30FB5792248D8E900F233EF"
-            BuildableName = "Chat.app"
+            BuildableName = "Chat-Agora.app"
             BlueprintName = "Chat"
             ReferencedContainer = "container:swift-sdk-demo.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D30FB5792248D8E900F233EF"
-            BuildableName = "Chat.app"
+            BuildableName = "LeanCloud-Agora.app"
             BlueprintName = "Chat"
             ReferencedContainer = "container:swift-sdk-demo.xcodeproj">
          </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D30FB5792248D8E900F233EF"
-            BuildableName = "Chat.app"
+            BuildableName = "LeanCloud-Agora.app"
             BlueprintName = "Chat"
             ReferencedContainer = "container:swift-sdk-demo.xcodeproj">
          </BuildableReference>

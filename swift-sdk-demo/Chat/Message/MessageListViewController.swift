@@ -466,6 +466,7 @@ extension MessageListViewController {
         #if DEBUG
 //        alert.addAction(self.continuousSendingTextMessage)
         #endif
+        alert.addAction(self.joinVideoChatAlertAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         self.present(alert, animated: true)
     }
@@ -534,6 +535,14 @@ extension MessageListViewController {
         })
     }
     #endif
+    
+    var joinVideoChatAlertAction: UIAlertAction {
+        return UIAlertAction(title: "Join Video Chat", style: .default) { (_) in
+            let vc = AgoraVideoChatViewController()
+            vc.channelID = self.conversation.ID
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
     
 }
 

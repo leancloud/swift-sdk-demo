@@ -7,4 +7,5 @@ target 'Chat' do
 
   pod 'LeanCloud', '~> 16.5'
   pod 'AlamofireImage', '~> 3.5'
+  pod 'AgoraRtcEngine_iOS', '~> 2.9'
 end

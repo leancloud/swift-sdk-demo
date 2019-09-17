@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AgoraVideoChatViewController" customModule="Chat_Agora" customModuleProvider="target">
+            <connections>
+                <outlet property="cameraSwitchButton" destination="APB-zw-I7s" id="z7z-kZ-aD8"/>
+                <outlet property="endVideoChatButton" destination="KqO-gh-MVN" id="lHE-YF-BQZ"/>
+                <outlet property="localVideoPlaceholderImageView" destination="54k-25-Cqm" id="2XK-hn-57b"/>
+                <outlet property="localVideoView" destination="zqG-gn-Dyc" id="qLy-UG-Aym"/>
+                <outlet property="microphoneToggleButton" destination="cjk-yW-ASM" id="uZ8-TR-fMi"/>
+                <outlet property="remoteVideoPlaceholderImageView" destination="abF-Fu-kJO" id="bnr-Q4-kUb"/>
+                <outlet property="remoteVideoView" destination="RJa-rj-HVi" id="H5J-EQ-O1J"/>
+                <outlet property="view" destination="iN0-l3-epB" id="ANH-6o-TJi"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJa-rj-HVi">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agora_logo" translatesAutoresizingMaskIntoConstraints="NO" id="abF-Fu-kJO">
+                            <rect key="frame" x="157" y="356" width="100" height="106"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="Geu-Wu-xiY"/>
+                                <constraint firstAttribute="height" constant="106" id="seH-ts-VTg"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.28235294117647058" green="0.25882352941176467" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="abF-Fu-kJO" firstAttribute="centerX" secondItem="RJa-rj-HVi" secondAttribute="centerX" id="EQk-ZK-rLh"/>
+                        <constraint firstItem="abF-Fu-kJO" firstAttribute="centerY" secondItem="RJa-rj-HVi" secondAttribute="centerY" id="pDA-rI-pdg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zqG-gn-Dyc">
+                    <rect key="frame" x="304" y="80" width="85" height="113.5"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agora_logo" translatesAutoresizingMaskIntoConstraints="NO" id="54k-25-Cqm">
+                            <rect key="frame" x="24.5" y="37.5" width="36" height="38"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="54k-25-Cqm" secondAttribute="height" multiplier="100:106" id="YGB-ZS-ABf"/>
+                                <constraint firstAttribute="width" constant="36" id="ak4-PW-hin"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.50980392156862742" green="0.4823529411764706" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="85" id="6wb-J7-28p"/>
+                        <constraint firstItem="54k-25-Cqm" firstAttribute="centerX" secondItem="zqG-gn-Dyc" secondAttribute="centerX" id="K6b-Wo-DgB"/>
+                        <constraint firstItem="54k-25-Cqm" firstAttribute="centerY" secondItem="zqG-gn-Dyc" secondAttribute="centerY" id="bNq-qc-pmY"/>
+                        <constraint firstAttribute="width" secondItem="zqG-gn-Dyc" secondAttribute="height" multiplier="3:4" id="fHX-lp-HK4"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KqO-gh-MVN">
+                    <rect key="frame" x="172" y="747" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="KnJ-ut-ABN"/>
+                        <constraint firstAttribute="width" secondItem="KqO-gh-MVN" secondAttribute="height" multiplier="1:1" id="YcI-Gl-IVJ"/>
+                    </constraints>
+                    <state key="normal" image="agora_end"/>
+                    <connections>
+                        <action selector="endVideoChat:" destination="-1" eventType="touchUpInside" id="4Np-La-iHQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjk-yW-ASM">
+                    <rect key="frame" x="76" y="754.5" width="55" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="Qhc-wZ-BaE"/>
+                        <constraint firstAttribute="width" secondItem="cjk-yW-ASM" secondAttribute="height" multiplier="1:1" id="qSG-4a-Yq8"/>
+                    </constraints>
+                    <state key="normal" image="agora_mic"/>
+                    <state key="selected" image="agora_mute"/>
+                    <connections>
+                        <action selector="microphoneToggle:" destination="-1" eventType="touchUpInside" id="gY3-gz-eRa"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APB-zw-I7s">
+                    <rect key="frame" x="283" y="754.5" width="55" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="2VJ-k8-o1R"/>
+                        <constraint firstAttribute="width" secondItem="APB-zw-I7s" secondAttribute="height" multiplier="1:1" id="2wc-63-Wyj"/>
+                    </constraints>
+                    <state key="normal" image="agora_switch"/>
+                    <connections>
+                        <action selector="cameraSwitch:" destination="-1" eventType="touchUpInside" id="MPB-I4-PRr"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zqG-gn-Dyc" secondAttribute="trailing" constant="25" id="5sE-gi-9a1"/>
+                <constraint firstItem="cjk-yW-ASM" firstAttribute="centerY" secondItem="KqO-gh-MVN" secondAttribute="centerY" id="8qF-Fy-YRd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RJa-rj-HVi" secondAttribute="bottom" id="GzM-mr-o8L"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RJa-rj-HVi" secondAttribute="trailing" id="TZT-4U-cgi"/>
+                <constraint firstItem="KqO-gh-MVN" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Y32-kP-OtP"/>
+                <constraint firstItem="APB-zw-I7s" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" multiplier="3/2" id="aVg-8c-OqC"/>
+                <constraint firstItem="RJa-rj-HVi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gBA-ua-aKU"/>
+                <constraint firstItem="cjk-yW-ASM" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" multiplier="1/2" id="gvY-Fm-2Cr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="KqO-gh-MVN" secondAttribute="bottom" constant="45" id="jB0-UG-S0B"/>
+                <constraint firstItem="zqG-gn-Dyc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="36" id="nMa-Cb-ghh"/>
+                <constraint firstItem="RJa-rj-HVi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="saa-zF-Zfo"/>
+                <constraint firstItem="APB-zw-I7s" firstAttribute="centerY" secondItem="KqO-gh-MVN" secondAttribute="centerY" id="zKe-b1-A81"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="139" y="142"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="agora_end" width="292" height="292"/>
+        <image name="agora_logo" width="100" height="106"/>
+        <image name="agora_mic" width="220" height="220"/>
+        <image name="agora_mute" width="204" height="204"/>
+        <image name="agora_switch" width="220" height="220"/>
+    </resources>
+</document>
