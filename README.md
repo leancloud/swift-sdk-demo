@@ -39,7 +39,7 @@ Chat is a [LeanCloud](https://leancloud.cn) & [Agora](https://www.agora.io/cn/) 
 * Open Chat Room
 * Channels and Bots
 * Temporary Conversation
-* **Video Chatting**
+* **Video Chatting** (Basing on [Agora](https://www.agora.io/cn/))
 
 ### How to Run
 
