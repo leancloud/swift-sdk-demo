@@ -1,7 +1,21 @@
 # Demonstrations for [LeanCloud Swift SDK](https://github.com/leancloud/swift-sdk)
 
 * [Chat](#Chat)
+	* Basic Chatting
+	* Group Chatting
+	* Rich Media Messaging
+	* Open Chat Room
+	* Channels and Bots
+	* Temporary Conversation
+	
 * [LeanCloud-Agora](#LeanCloud-Agora)
+ 	* Basic Chatting
+	* Group Chatting
+	* Rich Media Messaging
+	* Open Chat Room
+	* Channels and Bots
+	* Temporary Conversation
+	* Video Chatting
 
 ## Chat
 
