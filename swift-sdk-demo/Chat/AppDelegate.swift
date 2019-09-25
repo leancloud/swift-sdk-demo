@@ -20,16 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             LCApplication.logLevel = .all
             try LCApplication.default.set(
                 id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
-                key: "lNSjPPPDohJjYMJcQSxi9qAm"
-            )
+                key: "lNSjPPPDohJjYMJcQSxi9qAm",
+                serverURL: "https://heqfq0sw.lc-cn-n1-shared.com")
         } catch {
             fatalError("\(error)")
         }
         
+        // init
+        _ = LCApplication.default.currentInstallation
         _ = Client.delegator
         _ = LocationManager.delegator
-        
-        LCObject.register()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = UINavigationController(rootViewController: LaunchViewController())

@@ -5,6 +5,6 @@ target 'Chat' do
   use_frameworks!
   inhibit_all_warnings!
 
-  pod 'LeanCloud', '~> 16.5'
-  pod 'AlamofireImage', '~> 3.5'
+  pod 'LeanCloud', '~> 17.0.0-beta.3'
+  pod 'AlamofireImage', '~> 4.0.0-beta.5'
 end

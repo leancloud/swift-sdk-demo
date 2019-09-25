@@ -1,44 +1,44 @@
 PODS:
-  - Alamofire (4.8.2)
-  - AlamofireImage (3.5.2):
-    - Alamofire (~> 4.8)
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - LeanCloud (16.5.0):
-    - LeanCloud/IM (= 16.5.0)
-    - LeanCloud/Storage (= 16.5.0)
-  - LeanCloud/IM (16.5.0):
-    - FMDB (~> 2.7.0)
-    - LeanCloud/Storage
-    - Starscream (~> 3.1.0)
+  - Alamofire (5.0.0-rc.2)
+  - AlamofireImage (4.0.0-beta.5):
+    - Alamofire (~> 5.0.0-rc.2)
+  - GRDB.swift (4.4.0):
+    - GRDB.swift/standard (= 4.4.0)
+  - GRDB.swift/standard (4.4.0)
+  - LeanCloud (17.0.0-beta.3):
+    - LeanCloud/Foundation (= 17.0.0-beta.3)
+    - LeanCloud/RTM (= 17.0.0-beta.3)
+  - LeanCloud/Foundation (17.0.0-beta.3):
+    - Alamofire (= 5.0.0-rc.2)
+  - LeanCloud/RTM (17.0.0-beta.3):
+    - GRDB.swift (~> 4.4)
+    - LeanCloud/Foundation
+    - Starscream (~> 3.1)
     - SwiftProtobuf (~> 1.6.0)
-  - LeanCloud/Storage (16.5.0):
-    - Alamofire (~> 4.8.0)
   - Starscream (3.1.0)
   - SwiftProtobuf (1.6.0)
 
 DEPENDENCIES:
-  - AlamofireImage (~> 3.5)
-  - LeanCloud (~> 16.5)
+  - AlamofireImage (~> 4.0.0-beta.5)
+  - LeanCloud (~> 17.0.0-beta.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - FMDB
+    - GRDB.swift
     - LeanCloud
     - Starscream
     - SwiftProtobuf
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  LeanCloud: 08df0aa28a5242c8ac9850ac96c37163d153935d
+  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
+  AlamofireImage: f6dfe201f6d59cc6a045b5cb228b58962b8ef31d
+  GRDB.swift: 4f9b6e7efc9470426f6a6de10ec1fee798ff7e43
+  LeanCloud: 9cd086a51995b7c6b63b84eaf973a2b784da3d41
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftProtobuf: e905ca1366405696411aaf174411c4b19c0ef73d
 
-PODFILE CHECKSUM: 2d366cf59b6c507712a8d49a78eec47d7c957403
+PODFILE CHECKSUM: 64387cddda7b9473a9dae26e9572d3fedde91b87
 
 COCOAPODS: 1.7.5
