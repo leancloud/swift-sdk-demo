@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3DD69B0BE5E48AD44FC59A2B /* Pods_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50C165CC8D7C50B7D090BD /* Pods_Chat.framework */; };
+		A5738C4CCD937B81914521A4 /* Pods_VoIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864D64E579684EDF24F245C3 /* Pods_VoIP.framework */; };
+		C24FB4E84F140FFEBFDA0A06 /* Pods_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44122C72D849125B95FF3B8 /* Pods_Chat.framework */; };
 		D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30FB57D2248D8E900F233EF /* AppDelegate.swift */; };
 		D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5842248D8EA00F233EF /* Assets.xcassets */; };
 		D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */; };
@@ -52,13 +53,21 @@
 		D3E5CD39224E01B600F7EF85 /* NormalConversationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5CD38224E01B600F7EF85 /* NormalConversationListCell.xib */; };
 		D3EE955D22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE955C22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift */; };
 		D3EE955F22C5EE6500FEFF8C /* TemporaryConversationListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3EE955E22C5EE6500FEFF8C /* TemporaryConversationListView.xib */; };
+		D3F939E2238D12FE00BE4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F939E1238D12FE00BE4702 /* AppDelegate.swift */; };
+		D3F939E4238D12FE00BE4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F939E3238D12FE00BE4702 /* SceneDelegate.swift */; };
+		D3F939E6238D12FE00BE4702 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F939E5238D12FE00BE4702 /* ViewController.swift */; };
+		D3F939E9238D12FE00BE4702 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F939E7238D12FE00BE4702 /* Main.storyboard */; };
+		D3F939EB238D130100BE4702 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F939EA238D130100BE4702 /* Assets.xcassets */; };
+		D3F939EE238D130100BE4702 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F939EC238D130100BE4702 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7F50C165CC8D7C50B7D090BD /* Pods_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0743E4E62C0183CE15345A28 /* Pods-VoIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoIP.release.xcconfig"; path = "Target Support Files/Pods-VoIP/Pods-VoIP.release.xcconfig"; sourceTree = "<group>"; };
+		864D64E579684EDF24F245C3 /* Pods_VoIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2A84456CE05BE80CCBDD1B /* Pods-Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat.debug.xcconfig"; path = "Target Support Files/Pods-Chat/Pods-Chat.debug.xcconfig"; sourceTree = "<group>"; };
 		B1463FB2FCE482D99309F21B /* Pods-Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat.release.xcconfig"; path = "Target Support Files/Pods-Chat/Pods-Chat.release.xcconfig"; sourceTree = "<group>"; };
 		D30FB57A2248D8E900F233EF /* LeanCloud-Agora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LeanCloud-Agora.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44122C72D849125B95FF3B8 /* Pods_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30FB57D2248D8E900F233EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D30FB5842248D8EA00F233EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D30FB5872248D8EA00F233EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -105,6 +114,16 @@
 		D3E5CD38224E01B600F7EF85 /* NormalConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalConversationListCell.xib; sourceTree = "<group>"; };
 		D3EE955C22C5EE4500FEFF8C /* TemporaryConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryConversationListViewController.swift; sourceTree = "<group>"; };
 		D3EE955E22C5EE6500FEFF8C /* TemporaryConversationListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemporaryConversationListView.xib; sourceTree = "<group>"; };
+		D3F939DF238D12FE00BE4702 /* VoIP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoIP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F939E1238D12FE00BE4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D3F939E3238D12FE00BE4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D3F939E5238D12FE00BE4702 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3F939E8238D12FE00BE4702 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D3F939EA238D130100BE4702 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3F939ED238D130100BE4702 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D3F939EF238D130100BE4702 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3F939F3238D137600BE4702 /* VoIP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoIP.entitlements; sourceTree = "<group>"; };
+		D7D08CDE43CC6FABB3AC36D0 /* Pods-VoIP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoIP.debug.xcconfig"; path = "Target Support Files/Pods-VoIP/Pods-VoIP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +131,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DD69B0BE5E48AD44FC59A2B /* Pods_Chat.framework in Frameworks */,
+				C24FB4E84F140FFEBFDA0A06 /* Pods_Chat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3F939DC238D12FE00BE4702 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5738C4CCD937B81914521A4 /* Pods_VoIP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +151,8 @@
 			children = (
 				9B2A84456CE05BE80CCBDD1B /* Pods-Chat.debug.xcconfig */,
 				B1463FB2FCE482D99309F21B /* Pods-Chat.release.xcconfig */,
+				D7D08CDE43CC6FABB3AC36D0 /* Pods-VoIP.debug.xcconfig */,
+				0743E4E62C0183CE15345A28 /* Pods-VoIP.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -131,7 +160,8 @@
 		8D0BFBF55F34F5D09AF96CFF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F50C165CC8D7C50B7D090BD /* Pods_Chat.framework */,
+				B44122C72D849125B95FF3B8 /* Pods_Chat.framework */,
+				864D64E579684EDF24F245C3 /* Pods_VoIP.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -140,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				D30FB57C2248D8E900F233EF /* Chat */,
+				D3F939E0238D12FE00BE4702 /* VoIP */,
 				D30FB57B2248D8E900F233EF /* Products */,
 				7F1BDB506A969EBF168F911A /* Pods */,
 				8D0BFBF55F34F5D09AF96CFF /* Frameworks */,
@@ -150,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				D30FB57A2248D8E900F233EF /* LeanCloud-Agora.app */,
+				D3F939DF238D12FE00BE4702 /* VoIP.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,6 +311,21 @@
 			path = TemporaryConversation;
 			sourceTree = "<group>";
 		};
+		D3F939E0238D12FE00BE4702 /* VoIP */ = {
+			isa = PBXGroup;
+			children = (
+				D3F939F3238D137600BE4702 /* VoIP.entitlements */,
+				D3F939E1238D12FE00BE4702 /* AppDelegate.swift */,
+				D3F939E3238D12FE00BE4702 /* SceneDelegate.swift */,
+				D3F939E5238D12FE00BE4702 /* ViewController.swift */,
+				D3F939E7238D12FE00BE4702 /* Main.storyboard */,
+				D3F939EA238D130100BE4702 /* Assets.xcassets */,
+				D3F939EC238D130100BE4702 /* LaunchScreen.storyboard */,
+				D3F939EF238D130100BE4702 /* Info.plist */,
+			);
+			path = VoIP;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -290,7 +337,7 @@
 				D30FB5762248D8E900F233EF /* Sources */,
 				D30FB5772248D8E900F233EF /* Frameworks */,
 				D30FB5782248D8E900F233EF /* Resources */,
-				EF60F25E0E492C063B76FBAC /* [CP] Embed Pods Frameworks */,
+				D93A97FEF793DB63BA819A20 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -301,13 +348,32 @@
 			productReference = D30FB57A2248D8E900F233EF /* LeanCloud-Agora.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D3F939DE238D12FE00BE4702 /* VoIP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3F939F2238D130100BE4702 /* Build configuration list for PBXNativeTarget "VoIP" */;
+			buildPhases = (
+				1D958970DAD203EF70DC6822 /* [CP] Check Pods Manifest.lock */,
+				D3F939DB238D12FE00BE4702 /* Sources */,
+				D3F939DC238D12FE00BE4702 /* Frameworks */,
+				D3F939DD238D12FE00BE4702 /* Resources */,
+				FE5FBF5D770C2B88D2419271 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoIP;
+			productName = VoIP;
+			productReference = D3F939DF238D12FE00BE4702 /* VoIP.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D30FB5722248D8E900F233EF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = LeanCloud;
 				TargetAttributes = {
@@ -319,6 +385,9 @@
 								enabled = 1;
 							};
 						};
+					};
+					D3F939DE238D12FE00BE4702 = {
+						CreatedOnToolsVersion = 11.2.1;
 					};
 				};
 			};
@@ -336,6 +405,7 @@
 			projectRoot = "";
 			targets = (
 				D30FB5792248D8E900F233EF /* Chat */,
+				D3F939DE238D12FE00BE4702 /* VoIP */,
 			);
 		};
 /* End PBXProject section */
@@ -368,9 +438,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3F939DD238D12FE00BE4702 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F939EE238D130100BE4702 /* LaunchScreen.storyboard in Resources */,
+				D3F939EB238D130100BE4702 /* Assets.xcassets in Resources */,
+				D3F939E9238D12FE00BE4702 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D958970DAD203EF70DC6822 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoIP-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		60C291C0F6DBDCB564F8AB16 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -393,7 +495,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EF60F25E0E492C063B76FBAC /* [CP] Embed Pods Frameworks */ = {
+		D93A97FEF793DB63BA819A20 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -408,6 +510,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Chat/Pods-Chat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE5FBF5D770C2B88D2419271 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -444,6 +563,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3F939DB238D12FE00BE4702 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F939E6238D12FE00BE4702 /* ViewController.swift in Sources */,
+				D3F939E2238D12FE00BE4702 /* AppDelegate.swift in Sources */,
+				D3F939E4238D12FE00BE4702 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -451,6 +580,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				D30FB5872248D8EA00F233EF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D3F939E7238D12FE00BE4702 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3F939E8238D12FE00BE4702 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D3F939EC238D130100BE4702 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3F939ED238D130100BE4702 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -616,6 +761,52 @@
 			};
 			name = Release;
 		};
+		D3F939F0238D130100BE4702 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7D08CDE43CC6FABB3AC36D0 /* Pods-VoIP.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VoIP/VoIP.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7J5XFNL99Q;
+				INFOPLIST_FILE = VoIP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.voiptest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3F939F1238D130100BE4702 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0743E4E62C0183CE15345A28 /* Pods-VoIP.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VoIP/VoIP.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7J5XFNL99Q;
+				INFOPLIST_FILE = VoIP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.voiptest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -633,6 +824,15 @@
 			buildConfigurations = (
 				D30FB58D2248D8EA00F233EF /* Debug */,
 				D30FB58E2248D8EA00F233EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3F939F2238D130100BE4702 /* Build configuration list for PBXNativeTarget "VoIP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F939F0238D130100BE4702 /* Debug */,
+				D3F939F1238D130100BE4702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
