@@ -44,7 +44,7 @@ class ImageMessageCell: UITableViewCell {
         let imageSize = CGSize(width: imageWidth, height: imageHeight)
         let placeholderImage = UIImage.whiteImage(size: imageSize)
         if let url = message.url {
-            self.messageImageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
+            self.messageImageView.af.setImage(withURL: url, placeholderImage: placeholderImage)
         } else {
             self.messageImageView.image = placeholderImage
         }

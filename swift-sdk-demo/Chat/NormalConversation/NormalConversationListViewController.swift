@@ -356,4 +356,37 @@ extension NormalConversationListViewController: UITableViewDelegate, UITableView
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let client: IMClient = Client.current
+            let conversation = self.conversations[indexPath.row]
+            client.removeCachedConversation(IDs: [conversation.ID]) { (result) in
+                if let error = result.error {
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+            if client.options.contains(.usingLocalStorage) {
+                do {
+                    try client.deleteStoredConversationAndMessages(IDs: [conversation.ID]) { (result) in
+                        if let error = result.error {
+                            UIAlertController.show(error: error, controller: self)
+                        }
+                    }
+                } catch {
+                    UIAlertController.show(error: error, controller: self)
+                }
+            }
+            mainQueueExecuting {
+                if let index = self.conversations.firstIndex(where: { $0.ID == conversation.ID }) {
+                    self.conversations.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
+            }
+        }
+        return [delete]
+    }
 }
