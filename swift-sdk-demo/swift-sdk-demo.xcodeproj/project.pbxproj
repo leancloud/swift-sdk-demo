@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A5738C4CCD937B81914521A4 /* Pods_VoIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864D64E579684EDF24F245C3 /* Pods_VoIP.framework */; };
-		C24FB4E84F140FFEBFDA0A06 /* Pods_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44122C72D849125B95FF3B8 /* Pods_Chat.framework */; };
+		70E99B1FE6D4EBF75FC47711 /* libPods-VoIP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A897C1A555147F11E1E483C3 /* libPods-VoIP.a */; };
+		778F6E85D5E71E2151A335C5 /* libPods-Chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C39CAE5124D21008AE7D1C /* libPods-Chat.a */; };
 		D30FB57E2248D8E900F233EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30FB57D2248D8E900F233EF /* AppDelegate.swift */; };
 		D30FB5852248D8EA00F233EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5842248D8EA00F233EF /* Assets.xcassets */; };
 		D30FB5882248D8EA00F233EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */; };
@@ -61,10 +61,10 @@
 
 /* Begin PBXFileReference section */
 		0743E4E62C0183CE15345A28 /* Pods-VoIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoIP.release.xcconfig"; path = "Target Support Files/Pods-VoIP/Pods-VoIP.release.xcconfig"; sourceTree = "<group>"; };
-		864D64E579684EDF24F245C3 /* Pods_VoIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17C39CAE5124D21008AE7D1C /* libPods-Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2A84456CE05BE80CCBDD1B /* Pods-Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat.debug.xcconfig"; path = "Target Support Files/Pods-Chat/Pods-Chat.debug.xcconfig"; sourceTree = "<group>"; };
+		A897C1A555147F11E1E483C3 /* libPods-VoIP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoIP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1463FB2FCE482D99309F21B /* Pods-Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat.release.xcconfig"; path = "Target Support Files/Pods-Chat/Pods-Chat.release.xcconfig"; sourceTree = "<group>"; };
-		B44122C72D849125B95FF3B8 /* Pods_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30FB57A2248D8E900F233EF /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30FB57D2248D8E900F233EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D30FB5842248D8EA00F233EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C24FB4E84F140FFEBFDA0A06 /* Pods_Chat.framework in Frameworks */,
+				778F6E85D5E71E2151A335C5 /* libPods-Chat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5738C4CCD937B81914521A4 /* Pods_VoIP.framework in Frameworks */,
+				70E99B1FE6D4EBF75FC47711 /* libPods-VoIP.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,8 +156,8 @@
 		8D0BFBF55F34F5D09AF96CFF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B44122C72D849125B95FF3B8 /* Pods_Chat.framework */,
-				864D64E579684EDF24F245C3 /* Pods_VoIP.framework */,
+				17C39CAE5124D21008AE7D1C /* libPods-Chat.a */,
+				A897C1A555147F11E1E483C3 /* libPods-VoIP.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,7 +323,6 @@
 				D30FB5762248D8E900F233EF /* Sources */,
 				D30FB5772248D8E900F233EF /* Frameworks */,
 				D30FB5782248D8E900F233EF /* Resources */,
-				D93A97FEF793DB63BA819A20 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -342,7 +341,6 @@
 				D3F939DB238D12FE00BE4702 /* Sources */,
 				D3F939DC238D12FE00BE4702 /* Frameworks */,
 				D3F939DD238D12FE00BE4702 /* Resources */,
-				FE5FBF5D770C2B88D2419271 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -478,40 +476,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D93A97FEF793DB63BA819A20 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Chat/Pods-Chat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Chat/Pods-Chat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Chat/Pods-Chat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FE5FBF5D770C2B88D2419271 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoIP/Pods-VoIP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
