@@ -5,13 +5,13 @@ target 'Chat' do
   use_frameworks!
   inhibit_all_warnings!
 
-  pod 'LeanCloud', '~> 17.3'
-  pod 'AlamofireImage', '~> 4.0.0-beta.6'
+  pod 'LeanCloud', '~> 17.5'
+  pod 'AlamofireImage', '~> 4.0'
 end
 
 target 'VoIP' do
   use_frameworks!
   inhibit_all_warnings!
   
-  pod 'LeanCloud', '~> 17.3'
+  pod 'LeanCloud', '~> 17.5'
 end
