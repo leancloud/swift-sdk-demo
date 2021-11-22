@@ -1,12 +1,12 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 inhibit_all_warnings!
 
 target 'Chat' do
-  pod 'LeanCloud', '~> 17.6'
-  pod 'AlamofireImage', '~> 4.0'
+  pod 'LeanCloud', '~> 17.10'
+  pod 'AlamofireImage', '~> 4.2'
 end
 
 target 'VoIP' do
-  pod 'LeanCloud', '~> 17.6'
+  pod 'LeanCloud', '~> 17.10'
 end

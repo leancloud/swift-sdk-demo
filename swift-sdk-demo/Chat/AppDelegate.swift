@@ -18,10 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             LCApplication.logLevel = .all
+            var config = LCApplication.Configuration()
+            config.isObjectRawDataAtomic = true
             try LCApplication.default.set(
                 id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
                 key: "lNSjPPPDohJjYMJcQSxi9qAm",
-                serverURL: "https://heqfq0sw.lc-cn-n1-shared.com")
+                serverURL: "https://heqfq0sw.lc-cn-n1-shared.com",
+                configuration: config)
         } catch {
             fatalError("\(error)")
         }
