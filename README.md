@@ -6,7 +6,6 @@ Demonstrations based on [LeanCloud Swift SDK](https://github.com/leancloud/swift
 | ------ | ------ |
 | [Chat](#Chat) | Instant Messaging App |
 | [VoIP](#VoIP) | Sample for receiving APNs message and VoIP notification |
-| [LeanCloud-Agora](#LeanCloud-Agora) | Instant Messaging App |
 
 ## Chat
 
@@ -44,30 +43,5 @@ VoIP is is a [LeanCloud](https://leancloud.cn) based Sample Project for receivin
 	* `$ pod update`
 * `$ open swift-sdk-demo.xcworkspace/`
 * [Xcode](https://developer.apple.com/xcode/) run **VoIP** target
-
-> **Note**: Before running the target, maybe you should change the **Bundle identifier** and setup your own **Apple Developer Account**.
-
-## LeanCloud-Agora
-
-Chat is a [LeanCloud](https://leancloud.cn) & [Agora](https://www.agora.io/cn/) based instant messaging application on iOS.
-
-### Features
-
-* Basic Chatting
-* Group Chatting
-* Rich Media Messaging
-* Open Chat Room
-* Channels and Bots
-* Temporary Conversation
-* **Video Chatting** (Basing on [Agora](https://www.agora.io/cn/))
-
-### How to Run
-
-* `$ git checkout agora`
-* [CocoaPods](https://cocoapods.org) adding Package Dependencies
-	* `$ cd swift-sdk-demo/`
-	* `$ pod update`
-* `$ open swift-sdk-demo.xcworkspace/`
-* [Xcode](https://developer.apple.com/xcode/) run **Chat** target
 
 > **Note**: Before running the target, maybe you should change the **Bundle identifier** and setup your own **Apple Developer Account**.
