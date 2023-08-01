@@ -16,6 +16,8 @@
 		D3100774224B668A00297DC4 /* NormalConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100773224B668A00297DC4 /* NormalConversationListViewController.swift */; };
 		D3100776224B66CD00297DC4 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100775224B66CD00297DC4 /* MessageListViewController.swift */; };
 		D3100778224B6BDB00297DC4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100777224B6BDB00297DC4 /* Client.swift */; };
+		D31064BD2A7268470015C737 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D31064BC2A7268470015C737 /* NotificationService.m */; };
+		D31064C12A7268470015C737 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D31064B92A7268470015C737 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D3453837227ED33C00A7A6C2 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453836227ED33C00A7A6C2 /* Extension.swift */; };
 		D3453839227EDC8D00A7A6C2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */; };
 		D345383B227EDD5200A7A6C2 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D345383A227EDD5200A7A6C2 /* SettingsView.xib */; };
@@ -59,6 +61,30 @@
 		D3F939EE238D130100BE4702 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F939EC238D130100BE4702 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D31064BF2A7268470015C737 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D30FB5722248D8E900F233EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D31064B82A7268470015C737;
+			remoteInfo = NotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D31064C52A7268470015C737 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D31064C12A7268470015C737 /* NotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0743E4E62C0183CE15345A28 /* Pods-VoIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoIP.release.xcconfig"; path = "Target Support Files/Pods-VoIP/Pods-VoIP.release.xcconfig"; sourceTree = "<group>"; };
 		17C39CAE5124D21008AE7D1C /* libPods-Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +100,10 @@
 		D3100773224B668A00297DC4 /* NormalConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalConversationListViewController.swift; sourceTree = "<group>"; };
 		D3100775224B66CD00297DC4 /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		D3100777224B6BDB00297DC4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		D31064B92A7268470015C737 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31064BB2A7268470015C737 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		D31064BC2A7268470015C737 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		D31064BE2A7268470015C737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3453836227ED33C00A7A6C2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D3453838227EDC8D00A7A6C2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D345383A227EDD5200A7A6C2 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
@@ -131,6 +161,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D31064B62A7268470015C737 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3F939DC238D12FE00BE4702 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -167,6 +204,7 @@
 			children = (
 				D30FB57C2248D8E900F233EF /* Chat */,
 				D3F939E0238D12FE00BE4702 /* VoIP */,
+				D31064BA2A7268470015C737 /* NotificationService */,
 				D30FB57B2248D8E900F233EF /* Products */,
 				7F1BDB506A969EBF168F911A /* Pods */,
 				8D0BFBF55F34F5D09AF96CFF /* Frameworks */,
@@ -178,6 +216,7 @@
 			children = (
 				D30FB57A2248D8E900F233EF /* Chat.app */,
 				D3F939DF238D12FE00BE4702 /* VoIP.app */,
+				D31064B92A7268470015C737 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,6 +242,16 @@
 				D30FB5892248D8EA00F233EF /* Info.plist */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		D31064BA2A7268470015C737 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				D31064BB2A7268470015C737 /* NotificationService.h */,
+				D31064BC2A7268470015C737 /* NotificationService.m */,
+				D31064BE2A7268470015C737 /* Info.plist */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		D3453842227EE0FD00A7A6C2 /* NormalConversation */ = {
@@ -323,15 +372,34 @@
 				D30FB5762248D8E900F233EF /* Sources */,
 				D30FB5772248D8E900F233EF /* Frameworks */,
 				D30FB5782248D8E900F233EF /* Resources */,
+				D31064C52A7268470015C737 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D31064C02A7268470015C737 /* PBXTargetDependency */,
 			);
 			name = Chat;
 			productName = "swift-sdk-demo";
 			productReference = D30FB57A2248D8E900F233EF /* Chat.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D31064B82A7268470015C737 /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31064C22A7268470015C737 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				D31064B52A7268470015C737 /* Sources */,
+				D31064B62A7268470015C737 /* Frameworks */,
+				D31064B72A7268470015C737 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = D31064B92A7268470015C737 /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		D3F939DE238D12FE00BE4702 /* VoIP */ = {
 			isa = PBXNativeTarget;
@@ -370,6 +438,9 @@
 							};
 						};
 					};
+					D31064B82A7268470015C737 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					D3F939DE238D12FE00BE4702 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -390,6 +461,7 @@
 			targets = (
 				D30FB5792248D8E900F233EF /* Chat */,
 				D3F939DE238D12FE00BE4702 /* VoIP */,
+				D31064B82A7268470015C737 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -418,6 +490,13 @@
 				D345D0CC22828B0D00A86D94 /* TextMessageCell.xib in Resources */,
 				D386653522A8F59800BAFE40 /* LaunchView.xib in Resources */,
 				D386171322C4C00D00CF3AB6 /* ServiceConversationListView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31064B72A7268470015C737 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +590,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D31064B52A7268470015C737 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31064BD2A7268470015C737 /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3F939DB238D12FE00BE4702 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -522,6 +609,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D31064C02A7268470015C737 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D31064B82A7268470015C737 /* NotificationService */;
+			targetProxy = D31064BF2A7268470015C737 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D30FB5862248D8EA00F233EF /* LaunchScreen.storyboard */ = {
@@ -676,14 +771,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Chat/Chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7J5XFNL99Q;
+				DEVELOPMENT_TEAM = Y6X8P44TM5;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat";
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat.1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -697,16 +792,68 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Chat/Chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7J5XFNL99Q;
+				DEVELOPMENT_TEAM = Y6X8P44TM5;
 				INFOPLIST_FILE = "$(SRCROOT)/Chat/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat";
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat.1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D31064C32A7268470015C737 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y6X8P44TM5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 LeanCloud. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat.1.NotificationService";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D31064C42A7268470015C737 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y6X8P44TM5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 LeanCloud. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "leancloud.swift-sdk-demo.chat.1.NotificationService";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -774,6 +921,15 @@
 			buildConfigurations = (
 				D30FB58D2248D8EA00F233EF /* Debug */,
 				D30FB58E2248D8EA00F233EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D31064C22A7268470015C737 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31064C32A7268470015C737 /* Debug */,
+				D31064C42A7268470015C737 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

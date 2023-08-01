@@ -3,10 +3,10 @@ platform :ios, '11.0'
 inhibit_all_warnings!
 
 target 'Chat' do
-  pod 'LeanCloud', '~> 17.10'
+  pod 'LeanCloud', '~> 17.11'
   pod 'AlamofireImage', '~> 4.2'
 end
 
 target 'VoIP' do
-  pod 'LeanCloud', '~> 17.10'
+  pod 'LeanCloud', '~> 17.11'
 end
