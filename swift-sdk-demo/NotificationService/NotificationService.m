@@ -32,6 +32,7 @@
                         serverURL:(NSString *)serverURL
                 completionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = notificationRequest.content.userInfo;
+    NSLog(@"LCNS UserInfo: %@", userInfo);
     NSString *token = userInfo[@"__token"];
     NSString *notificationId = userInfo[@"__nid"];
     if (![token isKindOfClass:[NSString class]] ||
@@ -48,7 +49,7 @@
     
     [request setValue:appId forHTTPHeaderField:@"X-LC-Id"];
     [request setValue:[self signatureFromKey:appKey timestamp:timestamp] forHTTPHeaderField:@"X-LC-Sign"];
-    [request setValue:@"LCNotificationService/1.0" forHTTPHeaderField:@"User-Agent"];
+    [request setValue:@"LCNS/1.0" forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *object = [NSMutableDictionary dictionary];
@@ -67,15 +68,15 @@
     [request setHTTPBody:data];
     
     NSLog(@"LCNS Request: %@", request);
-    [[NSURLSession sharedSession] dataTaskWithRequest:request
-                                    completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"LCNS ERROR: %@", error);
         } else if (response) {
-            NSLog(@"LCNS Response: %@", response);
+            NSLog(@"LCNS Response: %@, Data: %@", response, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         }
         completionHandler();
-    }];
+    }] resume];
 }
 
 - (NSString *)signatureFromKey:(NSString *)key timestamp:(int64_t)timestamp {
