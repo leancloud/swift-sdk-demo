@@ -18,9 +18,9 @@
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     [self handleNotificationRequest:request
-                              appId:@"{{app_id}}"
-                             appKey:@"{{app_key}}"
-                          serverURL:@"{{server_url}}"
+                              appId:@"6HKynQEeIYeWpHmF9e7ocY5R-TeStHjQi"
+                             appKey:@"FLx5kVKBU04k6SxmuIVndMNy"
+                          serverURL:@"https://api.uc-test1.leancloud.cn"
                   completionHandler:^{
         contentHandler(request.content);
     }];
@@ -32,7 +32,7 @@
                         serverURL:(NSString *)serverURL
                 completionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = notificationRequest.content.userInfo;
-    NSLog(@"LCNS UserInfo: %@", userInfo);
+    [self log:@"LCNS UserInfo: %@", userInfo];
     NSString *token = userInfo[@"__token"];
     NSString *notificationId = userInfo[@"__nid"];
     if (![token isKindOfClass:[NSString class]] ||
@@ -53,13 +53,11 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *object = [NSMutableDictionary dictionary];
-    object[@"appId"] = appId;
-    object[@"clientId"] = appId;
-    object[@"deviceId"] = token;
+    object[@"deviceToken"] = token;
     object[@"notificationId"] = notificationId;
     object[@"receivedAt"] = @(timestamp);
     NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:@[object] options:0 error:&error];
     if (error) {
         NSLog(@"LCNS ERROR: %@", error);
         completionHandler();
@@ -67,7 +65,10 @@
     }
     [request setHTTPBody:data];
     
-    NSLog(@"LCNS Request: %@", request);
+    [self log:@"LCNS Request URL: %@, Header: %@, Body: %@",
+     request.URL,
+     request.allHTTPHeaderFields,
+     [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -98,6 +99,15 @@
             result[4], result[5], result[6], result[7],
             result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]];
+}
+
+- (void)log:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2) {
+#if DEBUG
+    va_list args;
+    va_start(args, format);
+    NSLog(format, args);
+    va_end(args);
+#endif
 }
 
 @end

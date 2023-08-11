@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var config = LCApplication.Configuration()
             config.isObjectRawDataAtomic = true
             try LCApplication.default.set(
-                id: "heQFQ0SwoQqiI3gEAcvKXjeR-gzGzoHsz",
-                key: "lNSjPPPDohJjYMJcQSxi9qAm",
-                serverURL: "https://heqfq0sw.lc-cn-n1-shared.com",
+                id: "6HKynQEeIYeWpHmF9e7ocY5R-TeStHjQi",
+                key: "FLx5kVKBU04k6SxmuIVndMNy",
+                serverURL: "https://api.uc-test1.leancloud.cn",
                 configuration: config)
         } catch {
             fatalError("\(error)")
