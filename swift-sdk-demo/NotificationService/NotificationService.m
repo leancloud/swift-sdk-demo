@@ -32,7 +32,9 @@
                         serverURL:(NSString *)serverURL
                 completionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = notificationRequest.content.userInfo;
-    [self log:@"LCNS UserInfo: %@", userInfo];
+#if DEBUG
+    NSLog(@"LCNS UserInfo: %@", userInfo);
+#endif
     NSString *token = userInfo[@"__token"];
     NSString *notificationId = userInfo[@"__nid"];
     if (![token isKindOfClass:[NSString class]] ||
@@ -65,10 +67,12 @@
     }
     [request setHTTPBody:data];
     
-    [self log:@"LCNS Request URL: %@, Header: %@, Body: %@",
-     request.URL,
-     request.allHTTPHeaderFields,
-     [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]];
+#if DEBUG
+    NSLog(@"LCNS Request URL: %@, Header: %@, Body: %@",
+          request.URL,
+          request.allHTTPHeaderFields,
+          [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+#endif
     [[[NSURLSession sharedSession] dataTaskWithRequest:request
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -99,15 +103,6 @@
             result[4], result[5], result[6], result[7],
             result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]];
-}
-
-- (void)log:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2) {
-#if DEBUG
-    va_list args;
-    va_start(args, format);
-    NSLog(format, args);
-    va_end(args);
-#endif
 }
 
 @end
